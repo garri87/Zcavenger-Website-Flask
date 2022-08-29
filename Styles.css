@@ -1,0 +1,90 @@
+
+body{
+	background-color: black;
+}
+
+.navbar{
+	
+	height: fit-content;
+	width: fit-content;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 100%;
+ }
+
+.navButton {
+	text-align: left;
+	font-family: fantasy;
+	font-size: 20px;
+  	color: #f2f2f2;
+	padding: 16px 16px;
+}
+
+.downloadButton{
+	
+	text-align: right;
+	padding: 5px;
+	padding-left: 50px;
+	padding-right: 50px;
+	color: black;
+	background-color: white;
+	font-size: 20px;
+	font-family: fantasy;
+}
+
+.downloadButton:hover {
+
+	background-color: yellow;
+	color: black;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 100px;
+  height: 1500px;
+}
+
+nav {
+	background-image: url(Img/1.png);
+	background-size: auto;
+	background-repeat: no-repeat;
+	font-family: fantasy;
+	font-size: 7px;
+
+}
+
+#mainTitleImg {
+	width: 20%;
+	height: 20%;
+	padding-left: 10px;
+	padding-right: 50px;
+	padding-top: 10px;
+	}
+
+p{
+	color: white;
+}
+
+h1,h3,h5{
+	color:  white;
+	font-family: fantasy;
+}
+
+#broadcast{
+
+text-shadow: 2px 2px black;
+background: rgba(295,195,0,0.7);
+padding-left: 10px;
+
+}
+
+#broadcastBody{
+
+background: rgba(180,180,180,0.1);
+
+}
+
+#itchioframe{
+
+}
