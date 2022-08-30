@@ -5,20 +5,18 @@ body{
 
 .navbar{
 	
-	height: fit-content;
-	width: fit-content;
-	overflow: hidden;
 	position: fixed;
 	top: 0;
 	width: 100%;
  }
 
 .navButton {
-	text-align: left;
+	text-align: right;
 	font-family: fantasy;
 	font-size: 20px;
-  	color: #f2f2f2;
+  color: #f2f2f2;
 	padding: 16px 16px;
+	text-decoration: none;
 }
 
 .downloadButton{
@@ -31,30 +29,29 @@ body{
 	background-color: white;
 	font-size: 20px;
 	font-family: fantasy;
+		text-decoration: none;
+
 }
 
 .downloadButton:hover {
 
-	background-color: yellow;
+	background-color: rgba(295,195,0,1);
 	color: black;
 }
 
 .main {
+
   padding: 16px;
   margin-top: 100px;
   height: 1500px;
 }
 
 nav {
-	background-image: url(Img/1.png);
-	background-size: auto;
-	background-repeat: no-repeat;
-	font-family: fantasy;
-	font-size: 7px;
-
+	background-color: black;
 }
 
 #mainTitleImg {
+
 	width: 20%;
 	height: 20%;
 	padding-left: 10px;
@@ -81,7 +78,9 @@ padding-left: 10px;
 
 #broadcastBody{
 
-background: rgba(180,180,180,0.1);
+background-image: url(Img/banner.png);
+background-size: cover;
+padding: 60px;
 
 }
 
