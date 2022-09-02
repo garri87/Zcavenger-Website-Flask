@@ -3,34 +3,62 @@ body{
 	background-color: black;
 }
 
-.navbar{
-	
-	position: fixed;
-	top: 0;
-	width: 100%;
+
+nav {
+	background-color: black;
+}
+p{
+	color: white;
+}
+
+h1,h3,h5{
+	color:  white;
+	font-family: fantasy;
+	text-shadow: 2px 2px black;
+
+	animation-name: fadeIncomeFromRight;
+  animation-duration: 2s;
+}
+.main {
+
+  padding: 16px;
+  margin: 16px;
+
+  background-color: rgba(117, 117, 117, 0.1);
+  border-radius: 5px;
+}
+
+.navigation{
+	display: inline;
+	position: sticky;
+	top:0px;
+	text-align: left;
  }
 
-.navButton {
-	text-align: right;
+.navigationButton {
+
 	font-family: fantasy;
-	font-size: 20px;
   color: #f2f2f2;
-	padding: 16px 16px;
 	text-decoration: none;
+	padding: 10px;
+	text-align: right;
+	margin-top: auto;
+	margin-bottom: auto;
+
+}
+
+.navigationButton:hover {
+color: #D10000;
 }
 
 .downloadButton{
-	
-	text-align: right;
 	padding: 5px;
-	padding-left: 50px;
-	padding-right: 50px;
+	text-align: center;
 	color: black;
 	background-color: white;
-	font-size: 20px;
 	font-family: fantasy;
-		text-decoration: none;
-
+	text-decoration: none;
+	border-radius: 5px;
 }
 
 .downloadButton:hover {
@@ -39,51 +67,102 @@ body{
 	color: black;
 }
 
-.main {
 
-  padding: 16px;
-  margin-top: 100px;
-  height: 1500px;
-}
-
-nav {
-	background-color: black;
-}
 
 #mainTitleImg {
 
-	width: 20%;
-	height: 20%;
-	padding-left: 10px;
-	padding-right: 50px;
+  width: 200;
+	height: 50px	;
+	padding-left: 20px;
+	padding-right: 10px;
 	padding-top: 10px;
-	}
 
-p{
-	color: white;
+	animation-name: fadeIncomeFromRight; 
+  animation-duration: 2s;
 }
 
-h1,h3,h5{
-	color:  white;
-	font-family: fantasy;
+#logo{
+	width: 200;
+	height: 50px;
+	padding-left: 20px;
+	padding-right: 10px;
+	
 }
 
-#broadcast{
+.broadcastBox{
 
-text-shadow: 2px 2px black;
-background: rgba(295,195,0,0.7);
-padding-left: 10px;
+background-image: url(Img/banner.png) ;
 
-}
-
-#broadcastBody{
-
-background-image: url(Img/banner.png);
+background-position: top;
 background-size: cover;
-padding: 60px;
+height: auto;
+	animation-name: fadeIn;
+  animation-duration: 2s;
 
 }
 
-#itchioframe{
 
+.boxMainTitle{
+	text-shadow: 2px 2px black;
+	padding-left: 10px;
+	animation-name: fadeIn;
+  animation-duration: 3s;
+}
+
+.broadcastMainText{
+
+background: rgb(146,0,0);
+background: linear-gradient(90deg, rgba(146,0,0,1) 0%, rgba(146,0,0,0.8) 80%, rgba(146,0,0,0) 100%);
+animation-name: fadeIncomeFromRight;
+  animation-duration: 2s;
+
+}
+
+.boxMainText{
+	padding-left: 5px;
+	background: rgba(97, 0, 0,0.7);
+	background: linear-gradient(90deg, rgba(146,0,0,1) 0%, rgba(146,0,0,0.8) 80%, rgba(146,0,0,0) 100%);
+
+	animation-name: fadeIncomeFromRight; 
+  animation-duration: 2s;
+}
+
+.defaultBox{
+
+display: inline-block;
+background-color: rgba(48, 48, 48, 0.5);
+margin-left: 5%;
+}
+.broadcastLinks{
+
+	width: auto;
+	margin: 20px;
+	margin-left: 0px;
+	animation-name: fadeIncomeFromRight;
+  animation-duration: 2s;
+}
+
+.disclaimer{
+
+	font-family: sans-serif;
+	border-top-style: solid;
+	border-color: darkred;
+	border-top-width: 25px;
+	background-color: rgba(38, 38, 38, 0.1);
+
+	
+	margin: 50px;
+	padding: 20px;
+	text-align: justify;
+	display: block;
+}
+
+@keyframes fadeIn{
+  0%   {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeIncomeFromRight{
+  0%   {opacity: 0; margin-left: 100px;}
+  100% {opacity: 1;}
 }
