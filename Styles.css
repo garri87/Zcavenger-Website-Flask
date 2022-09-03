@@ -5,7 +5,7 @@ body{
 
 
 nav {
-	background-color: black;
+	background-color: white;
 }
 p{
 	color: white;
@@ -16,9 +16,14 @@ h1,h3,h5{
 	font-family: fantasy;
 	text-shadow: 2px 2px black;
 
-	animation-name: fadeIncomeFromRight;
-  animation-duration: 2s;
+	
 }
+
+footer{
+	opacity: 0.5;
+	text-align: center;
+}
+
 .main {
 
   padding: 16px;
@@ -29,10 +34,11 @@ h1,h3,h5{
 }
 
 .navigation{
-	display: inline;
+		display: inline-flex;
 	position: sticky;
 	top:0px;
-	text-align: left;
+
+	
  }
 
 .navigationButton {
@@ -40,10 +46,12 @@ h1,h3,h5{
 	font-family: fantasy;
   color: #f2f2f2;
 	text-decoration: none;
-	padding: 10px;
+	padding: 20px;
 	text-align: right;
 	margin-top: auto;
 	margin-bottom: auto;
+	font-size: 25px;
+
 
 }
 
@@ -53,6 +61,7 @@ color: #D10000;
 
 .downloadButton{
 	padding: 5px;
+
 	text-align: center;
 	color: black;
 	background-color: white;
@@ -92,12 +101,16 @@ color: #D10000;
 .broadcastBox{
 
 background-image: url(Img/banner.png) ;
-
 background-position: top;
 background-size: cover;
-height: auto;
+height: 30rem;
+width: 97%;
 	animation-name: fadeIn;
   animation-duration: 2s;
+
+}
+
+.boxBody{
 
 }
 
