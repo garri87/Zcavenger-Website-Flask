@@ -7,11 +7,11 @@ body{
 nav {
 	display: inline-flex;
 	background-color: black;
+	text-align: center;
+	padding-left: 10vw;
+	padding-right: 10vw;
 	width: 100vw;
-	height: 10vh;
-	padding: 3px;
-	padding-left: 110px;
-	padding-right: 110px;
+	height: 10vh;	
 }
 p{
 	color: white;
@@ -42,13 +42,16 @@ footer{
 	font-family: 'Anton', sans-serif;
   color: white;
 	text-decoration: none;
-	padding: 1%;
 	margin: auto;
+	padding-left: 1vh;
+	padding-right: 1vh	;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
 	text-align: center;
 	text-shadow: 2px 2px black;
-	font-size: 20px;
+	font-size: 3vh;
 	background-color: #3D0000;
-	border-radius: 5px;
+	border-radius: 5%;
 }
 
 .navigationButton:hover {
@@ -67,16 +70,20 @@ footer{
 	color: black;
 }
 
-#logo{
+.logo{
+background-color: rgba(0, 0, 0, 0.0);
+border-radius: 0px;
+max-width: 90%;
+height: 90%;
+overflow: hidden;
 
-	width: 100%;
-	height: 100%;
-	padding-left: 20px;
-	padding-right: 10px;
+}
+
+.logo:hover{
+	background-color: black;
 }
 
 .broadcastBox{
-
 	margin-top: 0px;
 	padding-left: 2%;
 	background-image: url(Img/banner.png);
@@ -86,6 +93,8 @@ footer{
 	width: 100vw;
 	animation-name: fadeIn;
 	animation-duration: 2s;
+	overflow: hidden;
+
 }
 
 .boxBody{
@@ -97,15 +106,14 @@ footer{
 .boxMainTitle{
 	text-shadow: 2px 2px black;
 	padding-left: 10px;
-
+	font-size: 5vh;
 	animation-name: fadeIn;
   animation-duration: 2s;
 }
 
-.broadcastMainText{
+#broadCastMainText{
 	background: rgb(146,0,0);
 	background: linear-gradient(90deg, rgba(146,0,0,1) 0%, rgba(146,0,0,0.8) 80%, rgba(146,0,0,0) 100%);
-
 	animation-name: fadeIncomeFromRight;
 	animation-duration: 2s;
 
@@ -118,6 +126,11 @@ footer{
 
 	animation-name: fadeIncomeFromRight; 
   animation-duration: 2s;
+}
+
+.boxBodyText{
+	font-size: 3vh;
+
 }
 
 .defaultBox{
