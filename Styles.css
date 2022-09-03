@@ -45,23 +45,25 @@ footer{
 	padding: 1%;
 	margin: auto;
 	text-align: center;
+	text-shadow: 2px 2px black;
 	font-size: 20px;
-	background-color: #212121;
+	background-color: #3D0000;
 	border-radius: 5px;
 }
 
 .navigationButton:hover {
-	color: #D10000;
-	background-color: #343434;
+	color: white;
+	background-color: #950101;
 }
 
 .downloadButton{
+	text-shadow: none;
 	color: black;
 	background-color: white;
 }
 
 .downloadButton:hover {
-	background-color: rgba(295,195,0,1);
+	background-color: #C16F01;
 	color: black;
 }
 
@@ -76,7 +78,7 @@ footer{
 .broadcastBox{
 
 	margin-top: 0px;
-	padding-left: 1%;
+	padding-left: 2%;
 	background-image: url(Img/banner.png);
 	background-position: top;
 	background-size: cover;
@@ -121,7 +123,7 @@ footer{
 .defaultBox{
 	padding: 1%;
 	display: inline-block;
-	background-color: rgba(48, 48, 48, 0.5);
+	background-color: rgba(43, 46, 74,0.5);
 	margin-left: 5%;
 }
 .broadcastLinks{
@@ -135,9 +137,11 @@ footer{
 .disclaimer{
 	font-family: sans-serif;
 	border-top-style: solid;
-	border-color: darkred;
+	border-bottom-style: solid ;
+	border-color: #950101;
 	border-top-width: 25px;
-	background-color: rgba(38, 38, 38, 0.1);
+	border-bottom-width: 2px;
+	background-color: rgba(43, 46, 74,0.5);
 	margin: 50px;
 	padding: 20px;
 	text-align: justify;
