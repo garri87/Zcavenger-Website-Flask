@@ -1,11 +1,17 @@
 
 body{
-	background-color: black;
+	background-color: #181818;
 }
 
 
 nav {
-	background-color: white;
+	display: inline-flex;
+	background-color: black;
+	width: 100vw;
+	height: 10vh;
+	padding: 3px;
+	padding-left: 110px;
+	padding-right: 110px;
 }
 p{
 	color: white;
@@ -13,121 +19,93 @@ p{
 
 h1,h3,h5{
 	color:  white;
-	font-family: fantasy;
+	font-family: 'Anton', sans-serif;
 	text-shadow: 2px 2px black;
-
-	
 }
 
 footer{
-	opacity: 0.5;
+	opacity: 0.3;
 	text-align: center;
 }
 
 .main {
-
-  padding: 16px;
-  margin: 16px;
-
   background-color: rgba(117, 117, 117, 0.1);
   border-radius: 5px;
 }
 
 .navigation{
-		display: inline-flex;
 	position: sticky;
 	top:0px;
-
-	
  }
 
 .navigationButton {
-
-	font-family: fantasy;
-  color: #f2f2f2;
+	font-family: 'Anton', sans-serif;
+  color: white;
 	text-decoration: none;
-	padding: 20px;
-	text-align: right;
-	margin-top: auto;
-	margin-bottom: auto;
-	font-size: 25px;
-
-
-}
-
-.navigationButton:hover {
-color: #D10000;
-}
-
-.downloadButton{
-	padding: 5px;
-
+	padding: 1%;
+	margin: auto;
 	text-align: center;
-	color: black;
-	background-color: white;
-	font-family: fantasy;
-	text-decoration: none;
+	font-size: 20px;
+	background-color: #212121;
 	border-radius: 5px;
 }
 
-.downloadButton:hover {
+.navigationButton:hover {
+	color: #D10000;
+	background-color: #343434;
+}
 
+.downloadButton{
+	color: black;
+	background-color: white;
+}
+
+.downloadButton:hover {
 	background-color: rgba(295,195,0,1);
 	color: black;
 }
 
-
-
-#mainTitleImg {
-
-  width: 200;
-	height: 50px	;
-	padding-left: 20px;
-	padding-right: 10px;
-	padding-top: 10px;
-
-	animation-name: fadeIncomeFromRight; 
-  animation-duration: 2s;
-}
-
 #logo{
-	width: 200;
-	height: 50px;
+
+	width: 100%;
+	height: 100%;
 	padding-left: 20px;
 	padding-right: 10px;
-	
 }
 
 .broadcastBox{
 
-background-image: url(Img/banner.png) ;
-background-position: top;
-background-size: cover;
-height: 30rem;
-width: 97%;
+	margin-top: 0px;
+	padding-left: 1%;
+	background-image: url(Img/banner.png);
+	background-position: top;
+	background-size: cover;
+	height: 85vh;
+	width: 100vw;
 	animation-name: fadeIn;
-  animation-duration: 2s;
-
+	animation-duration: 2s;
 }
 
 .boxBody{
-
+	animation-name: fadeIncomeFromRight;
+	animation-duration: 2s;
 }
 
 
 .boxMainTitle{
 	text-shadow: 2px 2px black;
 	padding-left: 10px;
+
 	animation-name: fadeIn;
-  animation-duration: 3s;
+  animation-duration: 2s;
 }
 
 .broadcastMainText{
+	background: rgb(146,0,0);
+	background: linear-gradient(90deg, rgba(146,0,0,1) 0%, rgba(146,0,0,0.8) 80%, rgba(146,0,0,0) 100%);
 
-background: rgb(146,0,0);
-background: linear-gradient(90deg, rgba(146,0,0,1) 0%, rgba(146,0,0,0.8) 80%, rgba(146,0,0,0) 100%);
-animation-name: fadeIncomeFromRight;
-  animation-duration: 2s;
+	animation-name: fadeIncomeFromRight;
+	animation-duration: 2s;
 
 }
 
@@ -141,13 +119,12 @@ animation-name: fadeIncomeFromRight;
 }
 
 .defaultBox{
-
-display: inline-block;
-background-color: rgba(48, 48, 48, 0.5);
-margin-left: 5%;
+	padding: 1%;
+	display: inline-block;
+	background-color: rgba(48, 48, 48, 0.5);
+	margin-left: 5%;
 }
 .broadcastLinks{
-
 	width: auto;
 	margin: 20px;
 	margin-left: 0px;
@@ -156,14 +133,11 @@ margin-left: 5%;
 }
 
 .disclaimer{
-
 	font-family: sans-serif;
 	border-top-style: solid;
 	border-color: darkred;
 	border-top-width: 25px;
 	background-color: rgba(38, 38, 38, 0.1);
-
-	
 	margin: 50px;
 	padding: 20px;
 	text-align: justify;
