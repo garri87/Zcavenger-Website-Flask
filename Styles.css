@@ -68,15 +68,11 @@ footer{
 }
 
 .logo{
-margin: 1%;
-padding: 1%;
 background-color: rgba(0, 0, 0, 0.0);
 border-radius: 0px;
-max-width: 20%;
+max-width: 10%;
 height: 50%;
-
 overflow: hidden;
-
 }
 
 
