@@ -92,6 +92,7 @@ overflow: hidden;
 }
 
 .boxBody{
+	text-align: left;
 	animation-name: fadeIncomeFromRight;
 	animation-duration: 2s;
 }
@@ -99,7 +100,6 @@ overflow: hidden;
 
 .boxMainTitle{
 	text-shadow: 2px 2px black;
-	padding-left: 10px;
 	font-size: 5vh;
 	animation-name: fadeIn;
   animation-duration: 2s;
