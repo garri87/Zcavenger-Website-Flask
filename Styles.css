@@ -5,13 +5,13 @@ body{
 
 
 nav {
-	display: inline-flex;
-	background-color: black;
+	background: rgb(39,39,39);
+background: linear-gradient(180deg, rgba(39,39,39,1) 0%, rgba(39,39,39,0.6) 79%, rgba(39,39,39,0) 100%);
+	background-size: cover;
 	text-align: center;
-	padding-left: 10vw;
-	padding-right: 10vw;
 	width: 100vw;
-	height: 10vh;	
+	padding-bottom: 1%;
+	padding-top: 1%;
 }
 p{
 	color: white;
@@ -42,16 +42,13 @@ footer{
 	font-family: 'Anton', sans-serif;
   color: white;
 	text-decoration: none;
-	margin: auto;
-	padding-left: 1vh;
-	padding-right: 1vh	;
-	padding-top: 1vw;
-	padding-bottom: 1vw;
+	margin: 2%;
+	padding: 1%;
 	text-align: center;
-	text-shadow: 2px 2px black;
+	text-shadow: 20% 20% black;
 	font-size: 3vh;
 	background-color: #3D0000;
-	border-radius: 5%;
+	border-radius: 10%;
 }
 
 .navigationButton:hover {
@@ -71,17 +68,18 @@ footer{
 }
 
 .logo{
+margin: 1%;
+padding: 1%;
 background-color: rgba(0, 0, 0, 0.0);
 border-radius: 0px;
-max-width: 90%;
-height: 90%;
+max-width: 20%;
+height: 50%;
+
 overflow: hidden;
 
 }
 
-.logo:hover{
-	background-color: black;
-}
+
 
 .broadcastBox{
 	margin-top: 0px;
