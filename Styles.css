@@ -136,6 +136,7 @@ h1,h2,h3,h5{
 	display: inline-grid;
 	background-color: rgba(86, 86, 86, 0.2);
 	grid-template-columns: 100%;
+	align-items: baseline;
 	padding: 1%;
 	width: 100%;
 	margin: 1%;
@@ -148,7 +149,7 @@ h1,h2,h3,h5{
 	color: orange;
 	background-color:darkred;
 	background: linear-gradient(180deg, darkred 0%, rgba(139,0,0,0.5) 80%, transparent 100%);
-	padding: 2%
+	padding: 1%;
 }
 
 #defaultBoxText{
@@ -163,9 +164,11 @@ h1,h2,h3,h5{
 	align-content: center;
 	border-top: 10px;
 	border-top-style: solid;
+
 	border-color: darkred;
 	text-align: justify;
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(86, 86, 86, 0.2);
+
 	color: white;
 	padding: 3%;
 }
