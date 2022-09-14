@@ -135,6 +135,7 @@ h1,h2,h3,h5{
 .defaultBox{
 	display: inline-grid;
 	background-color: rgba(86, 86, 86, 0.2);
+	grid-template-columns: 100%;
 	padding: 1%;
 	width: 100%;
 	margin: 1%;
