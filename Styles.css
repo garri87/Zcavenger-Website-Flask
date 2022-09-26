@@ -25,7 +25,7 @@ nav {
 
 .navigation {
 	background: linear-gradient(180deg,
-	rgb(160, 0, 0) 0%,
+	rgb(70, 0, 0) 0%,
 	rgba(63, 0, 0, 0.5) 80%, 
 	transparent 100%);	
 
@@ -62,11 +62,11 @@ nav {
 
 #navigationButton:hover {
 	background: linear-gradient(0deg,
-	 rgb(107, 107, 107) 0%, 
-	 rgb(240, 240, 240) 10%, 
-	 rgb(240, 240, 240) 90%, 
-	 rgb(107, 107, 107) 100%);	
-	 color: black;
+	 rgb(63, 0,0) 0%, 
+	 rgb(150, 0, 0) 10%, 
+	 rgb(150, 0, 0) 90%, 
+	 rgb(63, 0, 0) 100%);	
+	 color: white;
 	animation-name: paddingOut;
 	animation-duration: 0.2s;
 	animation-fill-mode: forwards;
@@ -162,7 +162,7 @@ p {
 	padding-left: 1%;
 	color: orange;
 	background: rgb(139, 0, 0);
-	background: linear-gradient(90deg, rgb(94 0 0) 0%, rgb(255 0 0 / 83%) 10%, rgb(255 0 0 / 11%) 100%);
+	background: linear-gradient(90deg, rgb(94 0 0) 0%, rgb(150 0 0 / 83%) 10%, rgb(255 0 0 / 11%) 100%);
 	font-size: 140%;
 }
 .broadcastBox 
@@ -170,6 +170,7 @@ h1,
 h2,
 h5 
 {
+	color: rgb(243, 243, 243);
 	margin-left: 1%;
 	text-align: left;
 }
