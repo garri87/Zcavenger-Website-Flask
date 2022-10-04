@@ -17,27 +17,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="Styles.css">
-
+	<script src="ContactForm.js"></script>
 </head>
 
 <body>
 
-	<div class="navigation">
-		<div> <a href="Index.html"> <img src="Img/TitleTransparent.png" id="logo" alt="Zcavenger"></a>
-		</div>
-		<nav>
-			<a href="Index.html" id="navigationButton">Home</a>
-			<a href="Development.html" id="navigationButton">Development</a>	
-			<a href="" id="navigationButton">Contact</a>
-			<a href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d"
-				class="downloadButton" target="_blank">DOWNLOAD</a>
-		</nav>
-	</div>
+	<script src="Nav.js"></script>
 
 	<div class="main">
 		<div class="broadcastBox">
 			<h3>Emergency Broadcast</h3>
-
 			<div>
 				<h1>ZCAVENGER ALPHA V0.3 IS OUT NOW!</h1>
 				<h5> How long can you survive?</h5>
@@ -52,17 +41,18 @@
 		</div>
 
 		<div class="disclaimer">
-
+			<h2>ABOUT THE GAME</h2>
 			<p>Welcome to the official page of Zcavenger, a zombie survival game with roguelike, shooter and platform
-				elements. The game is in alpha stage of development with many features to add and that I will be reporting
+				elements. The game is in alpha stage of development with many features to add and that I will be
+				reporting
 				through the <a href="Development.html">development</a> section.
 				I hope you enjoy my first game!</p>
 			<br>
 			<p>Sincerely</p>
 			<p><b><i>Pablo Flores</i></b></p>
 		</div>
+
 		<div class="defaultBox">
-			<h3 id="defaultBoxTitle">Latest DevLog</h3>
 			<div>
 				<iframe src="https://www.youtube.com/embed/ButFzvM5TiQ"
 					title="ZCAVENGER DevLog - Weapons Showcase: Molotov Cocktail" frameborder="0"
@@ -71,13 +61,51 @@
 				</iframe>
 			</div>
 		</div>
-		<footer class="card-footer">
 
+		<footer class="FormBox" id="form">
+			<div class="Social">
+				<a href=""><img src="Img/facebookLogo.png" alt="">Facebook</a>
+
+				<a href=""><img src="Img/instagramLogo.png" alt="">Instagram</a>
+			</div>
+
+			<div class="Logos">
+				<p>Only on <img src="Img/PClogoWhite.png" alt=""></p> for the moment...
+			</div>
+
+			<div class="Formulario">
+				<h1>Contact</h1>
+				<form action="https://formsubmit.co/9bedb1a7be873e90d0eeaefce8b98917" method="POST">
+
+					<input type="text" name="_honey" style="display:none;">
+
+					<input type="hidden" name="_captcha" value="false">
+
+					<input type="hidden" name="_next" value="">
+
+					<label for="FormNombre"><b>Name:</b></label>
+					<input type="text" name="name" id="formName" required>
+
+					<label for="FormCorreo"><b>E-Mail:</b></label>
+					<input type="email" name="email" id="formMail" required>
+					<br>
+					<label for="formMensaje"><b>Message:</b></label>
+					<textarea name="formMensaje" id="formMessage" cols="30" rows="10"></textarea required>
+					<br>
+					<button type="submit" id="submit" onclick="submitForm()">Submit</button>
+				  </form>
+		  
+				</div>
+			</div>
+	
 			<br>
-			<p>Site made by Pablo Flores. Contact: <a href="mailto:garri87games@gmail.com">Garri87games@gmail.com</a>
-			</p>
 		</footer>
+
 	</div>
+	<br>
+	
+	<p style="text-align:center">Site made by Pablo Flores. Contact: <a href="mailto:garri87games@gmail.com">Garri87games@gmail.com</a>
+	</p>
 </body>
 
 </html>
