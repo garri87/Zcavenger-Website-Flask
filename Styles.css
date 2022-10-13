@@ -63,6 +63,7 @@ body {
 		justify-content: start;
 		align-content: center;
 		justify-items: start;
+		flex-wrap: wrap;
 	}
 	.disclaimer{
 		margin-top: 2%;
