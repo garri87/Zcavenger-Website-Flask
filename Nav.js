@@ -1,7 +1,7 @@
 
     const header = document.createElement("header");
    
-    header.setAttribute("class", "navigation");
+    header.setAttribute("class", "NavigationBox");
     
     const logo = document.createElement("img");
     logo.setAttribute("src","Img/TitleTransparent.png");
