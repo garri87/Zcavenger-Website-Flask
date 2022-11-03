@@ -1,0 +1,22 @@
+{
+  "name": "zcavenger-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garri87/Zcavenger-Website.git"
+  },
+  "author": "Pablo Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garri87/Zcavenger-Website/issues"
+  },
+  "homepage": "https://github.com/garri87/Zcavenger-Website#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
