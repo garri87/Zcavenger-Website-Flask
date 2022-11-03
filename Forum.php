@@ -28,7 +28,7 @@
 
 
 <?php
-$conexion = mysqli_connect("zcavengerdb.ctla8z4b9mhj.sa-east-1.rds.amazonaws.com","garri87","Garris877!","Zcavenger_Page")or
+$conexion = mysqli_connect("zcavengerdb.ctla8z4b9mhj.sa-east-1.rds.amazonaws.com","","","Zcavenger_Page")or
 die("Problemas con la conexión");
 
 if($conexion){
