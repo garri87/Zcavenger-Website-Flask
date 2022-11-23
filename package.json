@@ -2,9 +2,9 @@
   "name": "zcavenger-website",
   "version": "1.0.0",
   "description": "",
-  "main": "ContactForm.js",
+  "main": "Index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/Index.js --exec babel-node"
   },
   "repository": {
     "type": "git",
