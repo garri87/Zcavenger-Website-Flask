@@ -2,6 +2,12 @@ import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
   {
+    userID: { 
+      type: Integer,
+      required: true,
+      autoIndex: true,
+    }, 
+
     userName: {
         type: String,
         required: true,
@@ -14,7 +20,7 @@ const userSchema = new Schema(
     },
     mail: {
         type: String,
-        required: true,
+       // required: true,
     },
   },
   {
