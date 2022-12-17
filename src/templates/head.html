@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Zcavenger</title>
+
+    <meta charset="utf-8">
+    <meta name="description" content="Zcavenger Official Page">
+    <meta name="keywords" content="Zcavenger, Zombie, Shooter, Games">
+    <meta name="author" content="Pablo Flores">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/Img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Styles.css')}}">
+
+
+    <script src="https://kit.fontawesome.com/f97f302caa.js" crossorigin="anonymous"></script>
+    <script src="../static/scripts/login.js"></script>
+</head>
+
+<body>
+
+    <header class="NavigationBox">
+        <img src="../static/Img/TitleTransparent.png" id="logo">
+        <nav>
+            <a href="{{ url_for('index') }}" id="navigationButton">Home</a>
+
+            <a href="{{ url_for('development') }}" id="navigationButton">Development</a>
+
+            <a href="#contactForm" id="navigationButton">Contact</a>
+
+            <a href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d"
+                id="navigationButton">DOWNLOAD</a>
+            <div class="dropdown">
+                <i class="dropbtn fa-solid fa-circle-user fa-2xl" onclick="toggleLoginBox()"></i>
+                <div id="myDropdown" class="dropdown-content">
+                    <form id="form" action="/login" method="POST">
+
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <input type="text" name="username" id="username" placeholder="username">
+                        <br>
+                        <input type="password" name="pass" id="pass" placeholder="password">
+                        <br>
+                        <button type="submit" name="login" id="login" value="login">LOG IN</button>
+                    </form>
+                    {% with messages = get_flashed_messages() %}
+
+                    {% if messages %}
+                    <br />
+                    {% for message in messages %}
+                    <div role="alert">
+                        <button type="button"><strong>{{ message }}</strong></button>
+                        <script> alert("{{message}}");</script>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% endwith %}
+                    <br>
+
+                    {% if current_user.is_authenticated%}
+                    <a class="" href="{{ url_for('logout') }}">Logout</a>
+                    {% else %}
+                    <p> Don't have an account? <a href="{{url_for('register')}}"> Sign In</a> </p>
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+
+        </nav>
+    </header>
