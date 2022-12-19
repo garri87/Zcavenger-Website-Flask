@@ -63,7 +63,7 @@
                     {% endwith %}
                     <br>
 
-                    {% if current_user.is_authenticated%}
+                    {% if authenticated %}
                     <a class="" href="{{ url_for('logout') }}">Logout</a>
                     {% else %}
                     <p> Don't have an account? <a href="{{url_for('register')}}"> Sign In</a> </p>

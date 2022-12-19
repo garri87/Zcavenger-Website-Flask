@@ -1,8 +1,8 @@
 {%include 'head.html'%}
 
-{% block body %}    
-<h1>Bienvenido, {{ current_user.username }}</h1>
-<a class="" href="{{ url_for('logout') }}">Logout</a>
-{% endblock %}
+<div class="defaultBox">
+<p align="left">Welcome, {{ current_user.user }}</p>
+<a id="navigationButton" href="{{ url_for('logout') }}">Logout</a>
+</div>
 
 {%include 'footer.html'%}

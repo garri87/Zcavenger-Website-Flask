@@ -23,21 +23,13 @@ db = MySQL(app)
 
 login_manager_app = LoginManager(app)
 
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-
-app.config['MYSQL_DATABASE_USER'] = 'root'
-
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-
-app.config['MYSQL_DATABASE_BD'] = 'zcavengerdb'
-
 @login_manager_app.user_loader
 def load_user(id):
     return ModelUser.get_by_id(db, id)
 
 @app.route('/')
 def index():
-
+   
     return render_template('index.html')
 
 @app.route('/development')
