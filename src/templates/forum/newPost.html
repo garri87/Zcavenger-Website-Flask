@@ -1,0 +1,25 @@
+{%include 'head.html'%}
+
+<div class="defaultBox">
+
+    <form class="Formulario" action="/createPost/{{ topic }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <p>Creating new post for: {{topic}}</p>
+        <br>
+        <label for="txtTitle">Title</label>
+        <input type="text" name="txtTitle" required>
+        <br>
+        <textarea name="txtText" id="" cols="30" rows="10"  maxlength="1000" placeholder="Insert your text here"></textarea>
+        <br>
+        <label for="media">Media:</label>
+        <input type="file" name="media" onchange="previewFile()">>
+        <br>
+        <input type="submit" name="submit" value="Submit Post">
+
+    </form>
+
+
+</div>
+
+
+{%include 'footer.html'%}

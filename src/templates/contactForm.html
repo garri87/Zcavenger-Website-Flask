@@ -1,24 +1,25 @@
 <div class="FormBox" id="contactForm">
-			<div class="Formulario">
-				<h1>Contact</h1>
+	<div class="Formulario">
+		<script src="../static/scripts/ContactForm.js"></script>
+		<h1>Contact</h1>
 
-				<!-- https://formsubmit.co/garri87games@gmail.com -->
-				<form action="https://formsubmit.co/garri87games@gmail.com" method="POST" enctype="multipart/form-data"></form>>
+		<!-- https://formsubmit.co/garri87games@gmail.com -->
+		<form action="https://formsubmit.co/garri87games@gmail.com" method="POST" enctype="multipart/form-data"></form>
 
-					<input type="text" name="_honey" style="display:none;">
+		<input type="text" name="_honey" style="display:none;">
 
-					<input type="hidden" name="_captcha" value="false">
+		<input type="hidden" name="_captcha" value="false">
 
-					<label for="FormNombre"><b>Name:</b></label>
-					<input type="text" name="name" id="formName" required>
+		<label for="FormNombre"><b>Name:</b></label>
+		<input type="text" name="name" id="formName" required>
 
-					<label for="FormCorreo"><b>E-Mail:</b></label>
-					<input type="email" name="email" id="formMail" required>
+		<label for="FormCorreo"><b>E-Mail:</b></label>
+		<input type="email" name="email" id="formMail" required>
+		<br>
+		<label for="formMensaje"><b>Message:</b></label>
+		<textarea name="formMensaje" id="formMessage" cols="30" rows="5"></textarea required>
 					<br>
-					<label for="formMensaje"><b>Message:</b></label>
-					<textarea name="formMensaje" id="formMessage" cols="30" rows="10"></textarea required>
-					<br>
-					<button type="submit" id="submit" onclick="submitForm()"> <b>Submit</b>  </button>
+					<input type="submit" id="submit" value="Submit" onclick="submitForm()">
 				  </form>
 		  
 				</div>

@@ -25,54 +25,21 @@
 <body>
 
     <header class="NavigationBox">
-        <img src="../static/Img/TitleTransparent.png" id="logo">
+        <a href="{{url_for('index')}}"> <img src="../static/Img/TitleTransparent.png" id="logo"></a>
+       
         <nav>
-            <a href="{{ url_for('index') }}" id="navigationButton">Home</a>
+            <a href="{{ url_for('index') }}" class="NavigationButton">Home</a>
 
-            <a href="{{ url_for('development') }}" id="navigationButton">Development</a>
+            <a href="{{ url_for('development') }}" class="NavigationButton">Development</a>
 
-            <a href="#contactForm" id="navigationButton">Contact</a>
+            <a href="{{ url_for('index') }}#contactForm" class="NavigationButton">Contact</a>
+
+            <a href="{{ url_for('forum.forumIndex')}}" class="NavigationButton">Forums</a>
 
             <a href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d"
-                id="navigationButton">DOWNLOAD</a>
-            <div class="dropdown">
-                <i class="dropbtn fa-solid fa-circle-user fa-2xl" onclick="toggleLoginBox()"></i>
-                <div id="myDropdown" class="dropdown-content">
-                    <form id="form" action="/login" method="POST">
-
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-                        <input type="text" name="username" id="username" placeholder="username">
-                        <br>
-                        <input type="password" name="pass" id="pass" placeholder="password">
-                        <br>
-                        <button type="submit" name="login" id="login" value="login">LOG IN</button>
-                    </form>
-                    {% with messages = get_flashed_messages() %}
-
-                    {% if messages %}
-                    <br />
-                    {% for message in messages %}
-                    <div role="alert">
-                        <button type="button"><strong>{{ message }}</strong></button>
-                        <script> alert("{{message}}");</script>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-
-                    {% endwith %}
-                    <br>
-
-                    {% if authenticated %}
-                    <a class="" href="{{ url_for('logout') }}">Logout</a>
-                    {% else %}
-                    <p> Don't have an account? <a href="{{url_for('register')}}"> Sign In</a> </p>
-                    {% endif %}
-
-                </div>
-            </div>
-
-
+                class="DownloadButton">DOWNLOAD</a>
+            
+            {%include 'auth/login.html' %}  
 
         </nav>
     </header>

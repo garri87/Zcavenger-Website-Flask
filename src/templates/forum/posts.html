@@ -1,0 +1,47 @@
+{%include 'head.html'%}
+
+<br>
+<a class="defaultButton" href="/createPost/{{selectedTopic}}">New Post</a>
+<br>
+<br>
+<div class="PostTable">
+    {% if postslist|count > 0 %}
+    {%for post in postslist%}
+    <div>
+        <table>
+            <tr>
+                <td style="text-align:right;">
+                    Created By: {{post[2]}}
+                    <br>
+                    Created at: {{post[3]}}
+                    <br>
+                    Replies: XX
+                </td>
+                <th>
+                    <a href="/showPost/{{post[0]}}">
+                        Title: {{post[1]}}
+                    </a>
+                </th>
+
+
+            </tr>
+        </table>
+    </div>
+
+
+    {% endfor %}
+    {% else %}
+
+    <div class="defaultBox" style="text-align:left">
+        <h4>No posts found in this topic but you can start a new post by clicking the create post button</h4>
+    </div>
+
+    {% endif %}
+
+    <br>
+
+
+</div>
+
+
+{%include 'footer.html'%}

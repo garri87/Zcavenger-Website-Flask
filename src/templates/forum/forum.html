@@ -1,0 +1,95 @@
+{%include 'head.html'%}
+
+<br>
+<div class="defaultBox">
+    <h1 align="center"> Zcavenger Forums</h1>
+</div>
+<br>
+<div class="defaultBox">
+    <p align="left">Welcome to the Zcavenger official forum, in this section you can find announcements, bug reports and
+        general discussion and more created by the community. </p>
+</div>
+
+<br>
+{% if current_user.is_authenticated == false %}
+
+<div class="AlertBox">
+
+    <p> Sign in your account to participate in the forum and create new posts </p>
+
+</div>
+
+{% endif %}
+
+<div class="Main">
+    <div class="defaultBox PostTable">
+        <h2 id="defaultBoxTitle">Main Topics</h2>
+
+        <table class="">
+            <tr>
+                <td>
+                    <a href="posts/announcements">
+                        Announcements
+                    </a>
+                </td>
+                <td>
+                    {{announcementsCount}} posts
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <a href="posts/bugreports">
+                        Bug reports
+                    </a>
+                </td>
+                <td>
+                    {{bugReportCount}} posts
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <a href="posts/generaldiscussion">
+                        General discussion
+                    </a>
+                </td>
+                <td>
+                    {{generalDiscussionCount}} posts
+                </td>
+            </tr>
+
+            <tr>
+                <td> <a href="posts/media">
+                        Media
+                    </a> </td>
+                <td>{{mediaCount}} posts</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="defaultBox PostTable">
+        <h2 id="defaultBoxTitle">Recent Posts</h2>
+        <table class="">
+            <tr>
+                <td>postName</td>
+                <td>
+                    Created By:
+                    Image
+                    Name
+                    <br>
+                    Date:
+                </td>
+            </tr>
+
+
+
+        </table>
+    </div>
+
+</div>
+<br>
+
+
+{%include 'footer.html'%}

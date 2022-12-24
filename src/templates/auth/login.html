@@ -1,33 +1,62 @@
+<div class="dropdown">
 
-<div class="loginDrpDwn">
-    <form action="/login" method="POST">
+    <i class="dropbtn fa-solid fa-circle-user fa-2xl" onclick="toggleLoginBox()">
+    </i>
 
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">    
+    <div id="myDropdown" class="dropdown-content">
 
-        <input type="text" name="username" id="username" placeholder="username">
-        <br>
-        <input type="password" name="pass" id="pass" placeholder="password">
-        <br>
-        <button type="submit" name="login" id="login" value="login">LOG IN</button>
-    </form>
-    {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages() %}
 
-    {% if messages %}
-    <br />
-    {% for message in messages %}
-    <div role="alert">
-        <button type="button"><strong>{{ message }}</strong></button>
+        {% if messages %}
+        <br />
+        {% for message in messages %}
+        <div role="alert">
+            <button type="button"><strong>{{ message }}</strong></button>
+
+            <script>toggleLoginBox()</script>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% endwith %}
+
+        {% if current_user.is_authenticated %}
+        <div class="userInfo">
+
+            <img src="../static/Img/{{current_user.profileimg}}" alt="profile image" id="profileImg">
+
+            <button>
+                <a style="color:black" href="{{ url_for('auth.logout')}}">LOGOUT</a>
+            </button>
+
+            <a href="{{url_for('home')}}">{{ current_user.username}}</a>
+
+        </div>
+
+        {% else %}
+        <form class="LoginForm" action="/login" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <label for="username"><i class="fa-solid fa-user" style="color: white"></i></label>
+            <input type="text" name="username" id="username" placeholder="Username">
+            <br>
+
+            <label for="contrasena"><i class="fa-solid fa-key" style="color: white"></i></label>
+            <input type="password" name="contrasena" id="contrasena" placeholder="Password">
+            
+            <br>
+            
+            <button type="submit" name="login" id="login" value="login">LOG IN</button>
+        </form>
+
+        <p> Don't have an account?
+            <button>
+                <a style="color: black;" href="{{url_for('auth.register')}}"> SIGN UP </a>
+            </button>
+
+        </p>
+        {% endif %}
+
     </div>
-    {% endfor %}
-    {% endif %}
-
-    {% endwith %}
-    <br>
-   
-    {% if current_user.is_authenticated%}
-    <a class="" href="{{ url_for('logout') }}">Logout</a>
-    {% else %}
-    <p> Don't have an account? <a href="{{url_for('register')}}"> Sign In</a> </p>
-    {% endif %}
-
 </div>

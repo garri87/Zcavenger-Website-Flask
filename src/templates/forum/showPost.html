@@ -1,0 +1,28 @@
+{%include 'head.html'%}
+
+
+<div class="defaultBox">
+
+    <div class="defaultBox">
+        <h2> {{postList[0][1]}} </h2> <!-- Title -->
+    </div>
+    <div class="defaultBox">
+        <p>Author: {{username}}</p>
+        <p>Date: {{postList[0][3]}}</p>
+    </div>
+    <div> <!-- Text -->
+
+        <p>
+    
+            {{postList[0][4]}}
+    
+        </p>
+    
+    </div>  
+</div>
+
+
+
+
+
+{%include 'footer.html'%}

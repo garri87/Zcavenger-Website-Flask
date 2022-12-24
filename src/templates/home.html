@@ -1,8 +1,66 @@
 {%include 'head.html'%}
 
 <div class="defaultBox">
-<p align="left">Welcome, {{ current_user.user }}</p>
-<a id="navigationButton" href="{{ url_for('logout') }}">Logout</a>
+
+
+    {% if current_user.is_authenticated == true %}
+
+    <h2 align="left">Welcome, {{ current_user.username }}</h2>
+
+ 
+    <br>
+
+    <div class="Main">
+
+        <div class="UserDashboard">
+            <table>
+                <h2>Profile Information:</h2>
+                <tr>
+                    <th>Username:</th>
+                    <td>{{ current_user.username }}</td>
+                    <td>Edit</td>
+                </tr>
+                <tr>
+                    <th>Password:</th>
+                    <td></td>
+                    <td>Edit</td>
+                </tr>
+                <tr>
+                    <th>Full Name:</th>
+                    <td>{{ current_user.realname }}</td>
+                    <td>Edit</td>
+                </tr>
+                <tr>
+                    <th>Country: </th>
+                    <td>{{ current_user.country}}</td>
+                    <td>Edit</td>
+                </tr>
+                <tr>
+                    <th>Member since: </th>
+                    <td>{{ current_user.createdate}}</td>
+                    <td>Edit</td>
+                </tr>
+                <tr>
+                    <th>Profile photo: </th>
+                    <td> <img height="150px" src="../static/Img/{{ current_user.profileimg }}" alt="" style="border: 1px solid black"> </td>
+                    <td>Edit</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    
+    
+    <br>
+
+
+    <a class="NavigationButton" href="{{ url_for('logout') }}">Logout</a>
+    <br>
+    <br>
+    {% else %}
+
+    {% endif %}
+    
 </div>
 
 {%include 'footer.html'%}
