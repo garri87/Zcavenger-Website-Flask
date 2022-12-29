@@ -42,11 +42,21 @@ class ModelUser():
                 newprofileimg = ""
             
             data = (user,hashed_password,realname,mail,country,now,newprofileimg)
-            sql = "INSERT INTO zcavengerdb.users (id, username, contrasena, realname, mail, country, createdate, profileimg) VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)"
+            sql = "INSERT INTO users (id, username, contrasena, realname, mail, country, createdate, profileimg) VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(sql,data)
+        
+            sql2 = "SELECT * FROM users ORDER BY id DESC LIMIT 1"
+            
+            cursor.execute(sql2)
+            
+            row = cursor.fetchone() 
+            
+            
             db.connection.commit()
-            
-            
+        
+            return User(row[0],row[1],User.check_password(row[2], password),row[3],row[4],row[5],row[6],row[7])
+        
+        
         except Exception as ex:
             raise Exception(ex)
     
@@ -68,16 +78,17 @@ class ModelUser():
         
     @classmethod
     def get_by_id(self, db, id):
+        """return a User() object by user id"""
+        
         try:
             cursor = db.connection.cursor()
             sql = "SELECT id, username, realname, mail, country, createdate, profileimg FROM users WHERE id = {}".format(id)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                return User(row[0], row[1], None, row[2], row[3], row[4], row[5], row[6])
+                return User(row[0], row[1], None, row[2], row[3], row[4], row[5],row[6])
             else:
+                print("No user found with id: " + id)
                 return None
         except Exception as ex:
             raise Exception(ex)
-        
-    

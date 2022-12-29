@@ -1,43 +1,58 @@
 {%include 'head.html'%}
 
 <br>
-<a class="defaultButton" href="/createPost/{{selectedTopic}}">New Post</a>
+
+{% if current_user.is_authenticated %}
+
+<a class="defaultButton" href="/createPost/{{topic}}">New Post</a>
+
+{% endif %}
+
+<a class="defaultButton" href="/forumIndex"> Back to Topics</a>
+
 <br>
 <br>
-<div class="PostTable">
-    {% if postslist|count > 0 %}
-    {%for post in postslist%}
-    <div>
-        <table>
-            <tr>
-                <td style="text-align:right;">
-                    Created By: {{post[2]}}
-                    <br>
-                    Created at: {{post[3]}}
-                    <br>
-                    Replies: XX
-                </td>
-                <th>
-                    <a href="/showPost/{{post[0]}}">
-                        Title: {{post[1]}}
-                    </a>
-                </th>
+<div class="defaultBox">
+
+    <div class="PostsTable">
+        {% if postsList|count != 0 %}
+        {%for post in postsList %}
+        <div class="PostItem">
+            <div class="PostTitle">
+                <a href="/showPost/{{post.id}}  ">
+                    {{post.title}}
+                </a>
+            </div>
+            <div class="PostUser">
+                <div class="">
+                    <img src="../static/Img/{{usersList[postsList.index(post)].profileimg}}" alt="">
+
+                </div>
+
+                <div class="">
+                    {{usersList[postsList.index(post)].username}}
+                    <div>
+                        Date: {{post.createdate}}
+                    </div>
+                    <div class="defaultBox">
+                        {{commentsList[postsList.index(post)]|length}} replies
+                    </div>
+                </div>
+
+            </div>
 
 
-            </tr>
-        </table>
+
+        </div>
+        {% endfor %}
+        {% else %}
+
+        <div class="defaultBox" style="text-align:left">
+            <h4>No posts found in this topic but you can start a new post by clicking the create post button</h4>
+        </div>
+
+        {% endif %}
     </div>
-
-
-    {% endfor %}
-    {% else %}
-
-    <div class="defaultBox" style="text-align:left">
-        <h4>No posts found in this topic but you can start a new post by clicking the create post button</h4>
-    </div>
-
-    {% endif %}
-
     <br>
 
 

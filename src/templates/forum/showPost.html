@@ -1,28 +1,110 @@
 {%include 'head.html'%}
 
-
 <div class="defaultBox">
+    <a class="defaultButton" href="/posts/{{post[0].topic}}">Back to posts</a>
+</div>
 
-    <div class="defaultBox">
-        <h2> {{postList[0][1]}} </h2> <!-- Title -->
-    </div>
-    <div class="defaultBox">
-        <p>Author: {{username}}</p>
-        <p>Date: {{postList[0][3]}}</p>
-    </div>
-    <div> <!-- Text -->
+<div class="PostBody">
 
-        <p>
-    
-            {{postList[0][4]}}
-    
-        </p>
-    
-    </div>  
+    <div class="PostUserSection">
+        <img src="../static/Img/{{user.profileimg}}" alt="">
+        <div class="defaultBox">
+            <p>Author: {{user.username}}</p>
+            <p>Date: {{post[0].createdate}}</p>
+        </div>
+
+    </div>
+
+    <div class="PostContent"> <!-- Text -->
+        <div>
+            <h2> {{post[0].title}} </h2> <!-- Title -->
+        </div>
+        <p> {{post[0].text}} </p>
+
+        {% if post[0].media != null %}
+        <div>
+            <h4>Media:</h4>
+
+            <img src="../static/Img/{{post[0].media}}" alt="" style="width:300px">
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="CommentSection">
+
+    <h3>Comments:</h3>
+
+    {% if comments|length > 0 %}
+    <div class="">
+        {% for comment in comments%}
+        <div class="Comment">
+            <div class= "CommentText">
+                {{comment.text}}
+
+                {% if comment.media != "" %}
+                <div>
+                    Media:
+                    <img src="..static/Img/{{comment.media}}" alt="">
+                </div>
+                {% endif %}
+            </div>
+            <div class="CommentUserSection">
+
+                <img src="../static/Img/{{commentsUsers[comments.index(comment)].profileimg}}" alt="">
+
+                <div>
+                    {{commentsUsers[comments.index(comment)].username}}
+                    <p>Date: {{comment.createdate}}</p>
+                </div>
+
+            </div>
+
+
+
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+
+    <p> There's no comments yet for this post </p>
+
+    {% endif %}
+
 </div>
 
 
+{% if current_user.is_authenticated %}
+
+<div class="defaultBox" style="width: 100%">
+
+    <h2>Post a comment </h2>
+    <div class="defaultBox">
+        <form action="/postComment/{{post[0].id}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <textarea name="commentText" id="" cols="30" rows="10">
+            </textarea>
+            <br>
+            <input type="file" name="commentMedia"><br>
+            <img src="../static/Img/NoProfile.png" alt="" id="imgPreview"><br>
+
+            <input type="submit" name="submit">
+
+        </form>
+    </div>
 
 
 
+</div>
+
+{% else %}
+<div class="AlertBox">
+
+    <h3>Sign In to comment in this post</h3>
+
+</div>
+{% endif %}
+
+<br>
 {%include 'footer.html'%}

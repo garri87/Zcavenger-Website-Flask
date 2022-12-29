@@ -1,13 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
+:root {
+
+	--white: rgb(228, 228, 228);
+	--lightred: rgb(208, 0, 0);
+	--darkRed: rgb(126, 0, 0);
+	--darkGray: rgb(22, 22, 22);
+	--mediumGray: rgb(70, 70, 70);
+	--lightGray: rgb(104, 104, 104);
+	--yellow: rgb(232, 182, 0);
+	--orange: rgb(255, 157, 0);
+	--black: black;
+	--darkBlue: rgb(0, 53, 114);
+	--lightBlue: rgb(0, 88, 187);
+}
+
+
 
 html {
 	scroll-behavior: smooth;
 }
 
 body {
-	background-color:rgb(0 14 28);
+	background-color: var(--black);
 	margin: 1px;
 }
 
@@ -26,8 +42,8 @@ h3,
 h4,
 h5 {
 	font-family: 'Anton', sans-serif;
-	color: white;
-	text-shadow: 1px 1px black;
+	color: var(--white);
+	text-shadow: 1px 1px var(--black);
 	font-weight: normal;
 	text-decoration: none;
 
@@ -35,14 +51,14 @@ h5 {
 
 p {
 	font-family: 'Lato', sans-serif;
-	color: white;
+	color: var(--white);
 }
 
 
 
 label {
 	font-family: 'Oswald', sans-serif;
-	text-shadow: 1px 1px black;
+	text-shadow: 1px 1px var(--black);
 
 }
 
@@ -51,7 +67,7 @@ i {
 }
 
 footer {
-	background-color: rgb(27, 27, 27);
+	background-color: var(--mediumGray);
 	max-width: 100%;
 	height: fit-content;
 	padding: 2%;
@@ -59,7 +75,7 @@ footer {
 
 footer * {
 	font-family: 'Lato', sans-serif;
-	color: rgb(196, 196, 196);
+	color: var(--white);
 	text-decoration: none;
 }
 
@@ -68,7 +84,7 @@ footer p {
 }
 
 footer a:hover {
-	color: gray;
+	color: var(--lightBlue);
 
 }
 
@@ -77,14 +93,14 @@ footer img {
 }
 
 .DownloadButton {
-	background: rgb(157, 87, 0);
+	background: var(--orange);
 	background: linear-gradient(0deg,
-			rgb(85, 47, 0) 0%,
-			rgb(225, 229, 0) 10%,
-			rgb(201, 147, 0) 90%,
-			rgb(85, 47, 0) 100%);
+			var(--orange) 0%,
+			var(--yellow) 40%,
+			var(--yellow) 60%,
+			var(--orange) 100%);
 
-	color: black;
+	color: var(--black);
 	font-family: 'Anton', sans-serif;
 	text-decoration: none;
 	padding: 0.5%;
@@ -93,13 +109,27 @@ footer img {
 
 }
 
+.AlertBox {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.AlertBox p {
+	display: block;
+	width: 50%;
+	background-color: var(--darkBlue);
+	color: var(--white);
+	text-align: center;
+	padding: 2%;
+	border: 2px solid var(--darkGray);
+	font-family: 'Oswald', sans-serif;
+	
+}
+
 .DownloadButton:hover {
 	color: black;
-	background: linear-gradient(0deg,
-			rgb(255, 140, 0) 0%,
-			rgb(255, 187, 0) 10%,
-			rgb(255, 187, 0) 90%,
-			rgb(255, 140, 0) 100%);
+	background-color: var(--yellow);
 	cursor: pointer;
 }
 
@@ -110,7 +140,7 @@ footer img {
 }
 
 .NavigationBox {
-	background-color: #242424;
+	background-color: var(--darkGray);
 	padding-bottom: 1%;
 	padding-top: 1%;
 
@@ -122,29 +152,20 @@ footer img {
 }
 
 .NavigationButton {
-	background-color: rgb(53, 53, 53);
+	background-color: var(--darkGray);
 	color: rgb(247, 247, 247);
 	font-family: 'Oswald', sans-serif;
 	text-decoration: none;
 	padding: 0.5%;
 	margin: 1%;
-	border: 1px solid rgb(75, 75, 75);
+	border: 1px solid var(--lightGray);
 
 }
 
 .NavigationButton:hover {
-	background: linear-gradient(0deg,
-			rgb(0, 0, 0) 0%,
-			rgb(255, 255, 255) 10%,
-			rgb(255, 255, 255) 90%,
-			rgb(0, 0, 0) 100%);
-	color: black;
-	font-weight: bold;
-	border: none;
-
+	background-color: var(--lightGray);
+	color: var(--white);
 }
-
-
 
 .broadcastBox {
 	text-align: left;
@@ -159,8 +180,8 @@ footer img {
 
 .broadcastBox h3 {
 	padding-left: 1%;
-	color: orange;
-	background: linear-gradient(90deg, darkred 0%, rgba(139, 0, 0, 0.5) 80%, transparent 100%);
+	color: var(--yellow);
+	background: linear-gradient(90deg, var(--lightred) 0%,var(--darkRed) 80%, transparent 100%);
 	padding: 0.5%;
 	font-size: 140%;
 	margin: 0px;
@@ -169,7 +190,7 @@ footer img {
 .broadcastBox h1,
 h2,
 h5 {
-	color: rgb(243, 243, 243);
+	color: var(white);
 	margin-left: 1%;
 	text-align: left;
 }
@@ -178,32 +199,77 @@ h5 {
 	margin-left: 1%;
 }
 
+.CommentSection {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.Comment {
+	display: grid;
+	grid-template-columns: 80% 20%;
+	align-items: center;
+
+
+	color: var(--white);
+
+	font-family: 'Oswald';
+
+}
+
+.Comment img {
+	width: 60px;
+	border: 1px solid var(--white);
+
+}
+
+.Comment:nth-child(even) {
+	background-color: var(--darkGray);
+}
+
+.Comment:nth-child(odd) {
+	background-color: var(--lightGray);
+}
+
+.CommentUserSection {
+	display: grid;
+	grid-template-columns: 100%;
+	justify-items: center;
+	font-size: 70%;
+	text-align: center;
+	border: 1px solid var(--darkGray);
+
+}
+
+.CommentText {
+	margin-left: 2%;
+	margin-top: 1%;
+	height: 100%;
+}
+
+
+
 .defaultBox {
 	display: flex;
 	flex-direction: column;
-	background-color: rgba(21, 21, 21, 0.765);
-	border-style: solid;
-	border-color: rgb(48, 48, 48);
-	border-width: 2px;
+	border: 1px solid var(--darkGray);
 	width: fit-content;
-	max-width: 100%;
 	width: 100%;
-	text-align: center;
 }
 
 
 
 #defaultBoxTitle {
-	color: rgb(255, 255, 255);
-	background-color: darkred;
-	background: linear-gradient(180deg, darkred 0%, rgba(139, 0, 0, 0.5) 80%, transparent 100%);
+	color: var(--white);
+	background-color: var(--darkRed);
+	background: linear-gradient(180deg, var(--lightred) 0%, var(--darkRed) 80%, transparent 100%);
 	font-size: 100%;
 }
 
 #defaultBoxText {
 	width: 90%;
 	margin: 5%;
-	color: white;
+	color: var(--white);
 	font-family: Calibri;
 	text-align: justify;
 	font-family: 'Oswald', sans-serif;
@@ -211,15 +277,24 @@ h5 {
 }
 
 .defaultButton {
-	background-color: rgb(44, 44, 255);
-	color: white;
-	font-family: 'Lato', sans-serif;
-	text-decoration: none;
+	background-color: var(--lightBlue);
+	width: 100px;
 	padding: 0.5%;
 	border-radius: 2px;
 	margin: 1%;
 	cursor: pointer;
+
+	text-align: center;
+	color: var(--white);
+	font-family: 'Oswald', sans-serif;
+
+	text-decoration: none;
 	font-weight: bold;
+
+}
+
+.defaultButton:hover {
+	background-color: var(--darkBlue);
 
 }
 
@@ -230,11 +305,11 @@ h5 {
 	align-content: center;
 	max-width: 100%;
 	height: fit-content;
-	border: 2px solid rgb(255, 255, 255);
+	border: 2px solid var(--lightGray);
 	text-align: justify;
-	background-color: rgba(86, 86, 86, 0.2);
+	background-color: var(--darkGray);
 
-	color: white;
+	color: var(--white);
 	padding: 3%;
 }
 
@@ -247,7 +322,7 @@ h5 {
 	width: 100%;
 	max-width: 100%;
 	background-color: rgb(15, 15, 15);
-	border-top: 1px solid black;
+	border-top: 1px solid var(--black);
 	animation-name: fadeIn;
 	animation-duration: 1s;
 
@@ -255,19 +330,20 @@ h5 {
 
 
 .Formulario {
-	background-color: rgba(0, 0, 0, 0.144);
+	background-color: var(--darkGray);
 	max-width: 100%;
 	padding: 2%;
-	color: white;
+	color: var(--white);
 	display: grid;
 	justify-content: center;
-	grid-template-columns: 90%;
+	grid-template-columns: 50%;
 }
 
-.Formulario input, select{
-	background-color: rgb(239 239 239);
+.Formulario input,
+select {
+	background-color: var(--white);
 	border-radius: 1px;
-	border: 1px solid rgb(156, 156, 156);
+	border: 1px solid var(--lightGray);
 	height: 25px;
 	text-align: left;
 
@@ -276,7 +352,7 @@ h5 {
 
 
 .Formulario textarea {
-	background-color: rgb(239 239 239);
+	background-color: var(--white);
 	font-family: 'Oswald', sans-serif;
 	font-size: 20px;
 
@@ -289,11 +365,11 @@ h5 {
 
 .Formulario h2 {
 	font-family: 'Lato', sans-serif;
-	color: #3b3b3b;
+	color: var(--darkGray);
 }
 
 #fileSelector .input-file {
-display: hidden;
+	display: hidden;
 }
 
 .ImgSelectBox {
@@ -304,11 +380,12 @@ display: hidden;
 
 
 
-input[type=file]{
-	background-color: rgb(112, 112, 112);
-	color: black;
-	padding: 2%;	
+input[type=file] {
+	background-color: var(--lightGray);
+	color: var(--black);
+	padding: 2%;
 }
+
 input[type=file]::file-selector-button {
 
 	border-radius: 0px;
@@ -317,31 +394,31 @@ input[type=file]::file-selector-button {
 
 }
 
-input[type=submit]{
-	background-color: rgb(216, 155, 0);
+input[type=submit] {
+	background-color: var(--orange);
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	font-size: fit;
 	text-align: center;
 	border: none;
 }
 
-input[type=submit]:hover{
-	background-color: rgb(134, 96, 0);
+input[type=submit]:hover {
+	background-color: var(--yellow);
 
 }
 
 #imgPreview {
 	height: 150px;
 	max-width: 150px;
-	border: 2px solid gray;
-	
+	border: 2px solid var(--lightGray);
+
 }
 
 #profileImg {
 	height: 90px;
 
 	border-radius: 50%;
-	border: 1px solid rgb(0, 0, 0);
+	border: 1px solid var(--black);
 }
 
 .Social {
@@ -350,7 +427,7 @@ input[type=submit]:hover{
 
 .dropbtn {
 	background-color: none;
-	color: white;
+	color: var(--white);
 	padding: 16px;
 	font-size: 16px;
 	border: none;
@@ -367,10 +444,95 @@ input[type=submit]:hover{
 	position: absolute;
 	min-width: 160px;
 	overflow: auto;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 1);
-	border: 1px solid rgb(104, 104, 104);
+	box-shadow: 0px 8px 16px 0px var(--black);
+	border: 1px solid var(--lightGray);
 	z-index: 1;
 }
+
+.PostsTable {
+	background-color: var(--darkGray);
+	width: auto;
+
+}
+
+.PostItem {
+	display: grid;
+	grid-template-columns: 80% 20%;
+	grid-row: 10%;
+	font-family: 'Oswald';
+	align-items: center;
+}
+
+.PostItem .defaultBox {
+	height: 100%;
+	justify-content: center;
+}
+
+.PostItem:nth-child(even) {
+	background-color: var(--lightGray)
+}
+
+.PostItem:nth-child(odd) {
+	background-color: var(--darkGray)
+}
+
+.PostUser {
+	display: grid;
+	grid-template-columns: 40% 60%;
+	gap: 2%;
+	align-items: center;
+	border: 1px solid var(--black);
+	color: var(--white);
+	padding: 2%;
+	font-size: 70%;
+}
+
+.PostUser img {
+	width: 100%;
+}
+
+.PostTitle * {
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	text-decoration: none;
+	color: var(--white)
+}
+
+.PostTitle {
+	display: flex;
+	border: 1px solid var(--black);
+	height: 100%;
+	align-items: center;
+}
+
+.PostBody {
+	display: grid;
+	grid-template-columns: 20% 80%;
+	background-color: rgb(55, 55, 55);
+	border: 1px solid var(--black);
+}
+
+.PostUserSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	color: var(--white);
+	background-color: var(--darkGray);
+	font-size: 70%;
+	border: 1px solid var(--black);
+}
+
+.PostContent {
+	margin-left: 2%;
+}
+
+.PostUserSection img {
+	border: 1px solid var(--lightGray);
+	width: 60px;
+	margin: 10px;
+}
+
+
 
 .show {
 	display: block;
@@ -385,7 +547,7 @@ input[type=submit]:hover{
 	text-align: center;
 	width: 70%;
 	margin: 2%;
-	border: 1px solid black;
+	border: 1px solid var(--black);
 
 }
 
@@ -396,12 +558,12 @@ input[type=submit]:hover{
 }
 
 .show button:hover {
-	background-color: rgb(190, 140, 2);
+	background-color: var(--yellow);
 
 }
 
 .userIcon {
-	color: gray;
+	color: var(--lightGray);
 }
 
 .userInfo {
@@ -412,80 +574,11 @@ input[type=submit]:hover{
 }
 
 .userInfo a {
-	color: white;
+	color: var(--white);
 	font-family: 'Oswald', sans;
 }
 
-.UserDashboard {
-	text-align: left;
-	color: white;
-	font-family: 'lato';
-	width: 100%;
-}
 
-.UserDashboard table {
-	background-color: rgb(36, 36, 36);
-	border-collapse: collapse;
-	width: 100%;
-	text-align: left;
-}
-
-tr:nth-child(even) {
-	background-color: #444444;
-}
-
-tr:nth-child(odd) {
-	background-color: #202020;
-}
-
-.PostTable{
-	text-align: left;
-	color: white;
-	font-family: 'Oswald';
-	font-size: 150%;
-	color: white;
-	width: 100%;
-	text-decoration: none;
-}
-
-.PostTable a{
-	color: white;
-	text-decoration: none;	
-}
-
-.PostTable h4:hover {
-	color: rgb(112, 112, 112);
-}
-
-td {
-	padding: 2%;
-	border-right: 2px solid black;
-	border-left: 2px solid black;
-}
-
-th {
-	padding-left: 2%;
-}
-
-.AlertBox {
-	display: flex;
-	width: 100%;
-	justify-content: center;
-
-
-}
-
-.AlertBox p {
-	display: block;
-	width: 50%;
-	background-color: rgb(177, 177, 177);
-	color: black;
-	text-align: center;
-	padding: 2%;
-	border: 2px solid rgb(21, 26, 46);
-	font-family: 'Oswald', sans-serif;
-	font-weight: bold;
-}
 
 
 

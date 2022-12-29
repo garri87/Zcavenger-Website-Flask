@@ -9,6 +9,17 @@ class DevelopmentConfig(Config):
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = ''
     MYSQL_DB = 'zcavengerdb'
+    
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USERNAME = 'garri87games@gmail.com'
+    MAIL_PASSWORD = 'tkhaftqwjpyotshj'
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    
+    
+    
+    
   
 class ProductionConfig(Config):
     DEBUG = False

@@ -6,6 +6,8 @@ from flask_wtf.csrf import CSRFProtect
 
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
+from flask_mail import Mail, Message
+
 from config import config
 
 from models.ModelUser import ModelUser
@@ -25,12 +27,25 @@ import os
 
 app = Flask(__name__)
 
-
 csrf = CSRFProtect()
 
 db = MySQL(app)
 
 login_manager_app = LoginManager(app)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'garri87games@gmail.com'
+app.config['MAIL_PASSWORD'] = 'tkhaftqwjpyotshj'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+
+mail = Mail(app)
+
+
+
+
 
 @login_manager_app.user_loader
 def load_user(id):
@@ -62,10 +77,11 @@ def contactForm():
    
 
 def status_401(error):
-    return redirect(url_for('login'))
+    
+    return redirect(url_for('auth.login'))
 
 def status_404(error):
-    return "<h1>Página no encontrada</h1>", 404
+    return "<h1>404: Page not found </h1>", 404
 
 if __name__ == '__main__':
     app.config.from_object(config['development'])

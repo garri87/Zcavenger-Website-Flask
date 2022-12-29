@@ -7,7 +7,7 @@
 
     <h2 align="left">Welcome, {{ current_user.username }}</h2>
 
- 
+
     <br>
 
     <div class="Main">
@@ -42,25 +42,28 @@
                 </tr>
                 <tr>
                     <th>Profile photo: </th>
-                    <td> <img height="150px" src="../static/Img/{{ current_user.profileimg }}" alt="" style="border: 1px solid black"> </td>
+                    <td> <img height="150px" src="../static/Img/{{ current_user.profileimg }}" alt=""
+                            style="border: 1px solid black"> </td>
                     <td>Edit</td>
                 </tr>
+            
             </table>
+            <a class="NavigationButton" href="{{ url_for('auth.logout') }}" style="display :flex; justify-content: center;">Logout</a>
         </div>
 
     </div>
-    
-    
+
+
     <br>
 
 
-    <a class="NavigationButton" href="{{ url_for('logout') }}">Logout</a>
+
     <br>
     <br>
     {% else %}
 
     {% endif %}
-    
+
 </div>
 
 {%include 'footer.html'%}

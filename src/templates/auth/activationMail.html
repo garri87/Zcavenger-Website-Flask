@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            color: white;
+            font-family: sans-serif;
+        }
+
+        a{
+            color: blue;
+        }
+
+        body{
+            background-color: rgb(33, 36, 44);
+            border: 1px solid gray;
+        }
+        img {
+            width: 10%;
+        }
+
+        .Main {
+            display: grid;
+            justify-items: center;
+            border: 1px solid rgb(42, 39, 51);
+        }
+
+        .Box{
+            width: 100%;
+            text-align: center;
+        }
+
+        .Box:nth-child(odd){
+            background-color: rgb(23, 23, 29);
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Main">
+        <div class="Box"> 
+            <img src="https://www.zcavenger.com/Img/TitleTransparent.png" alt="">
+        </div>
+        
+        <div class="Box">
+            <h1>Welcome {{_user}}</h1>
+        </div>
+
+        <div class="Box"> 
+
+            <p>Your account is successfully registered</p>
+
+            <p>For the final step, follow this <a href="">Link</a> to activate your account </p>
+        </div>
+    </div>
+
+</body>
+
+</html>

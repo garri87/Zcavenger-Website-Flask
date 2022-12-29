@@ -1,6 +1,16 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+
+from models.ModelUser import ModelUser
+
+from models.entities.User import User
+
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+
+from flask_mail import Mail, Message
 
 from utils.db import db
+from utils.mail import mail
+
 
 
 auth = Blueprint('auth',__name__)
@@ -15,7 +25,7 @@ def login():
         
         logged_user = ModelUser.login(db,user)
         if logged_user != None:
-            if logged_user.contrasena:
+            if logged_user.contrasena and logged_user.is_active:
                 login_user(logged_user)
                 return redirect(url_for('home'))
             else: 
@@ -33,7 +43,7 @@ def login():
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('auth.login'))
 
 @auth.route('/register', methods = ['GET','POST'])
 def register():
@@ -51,8 +61,16 @@ def register():
                         
             if ModelUser.checkAvailability(db,_user) == True:
                 
-                flash('Registration Complete, Please sign in with your credentials')               
-                ModelUser.registerUser(db, _user, _pass, _mail,_realname, _country, _profileimg)
+                msg = Message('Zcavenger.com | Please confirm your email address', sender = 'noreply@zcavenger.com', recipients= [_mail])
+                msg.body = ""
+                msg.html = render_template('auth/activationMail.html', _user = _user)
+                mail.send(msg)
+                
+                flash('Registration Complete, a confirmation Mail was sent')               
+                user = ModelUser.registerUser(db, _user, _pass, _mail,_realname, _country, _profileimg)
+                
+                current_user.is_active = False
+                
                 
                 return redirect(url_for('index'))
             else:

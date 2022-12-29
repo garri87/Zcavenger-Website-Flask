@@ -68,24 +68,30 @@
 
         </table>
     </div>
-
+    <br>
     <div class="defaultBox PostTable">
-        <h2 id="defaultBoxTitle">Recent Posts</h2>
+        <h2 id="defaultBoxTitle">Latest Posts</h2>
+        
+        {% for post in lastPosts %}
+        
         <table class="">
             <tr>
-                <td>postName</td>
+                <td>{{post.title}}</td>
                 <td>
-                    Created By:
-                    Image
-                    Name
+                    Created By: {{usersList[lastPosts.index(post)].username}}
+                    <img src="../static/Img/'{{usersList[lastPosts.index(post)].profileimg}}" alt="">
                     <br>
-                    Date:
+                    Date: {{post.createdate}}
                 </td>
             </tr>
 
 
 
         </table>
+
+        {% endfor %}
+       
+        
     </div>
 
 </div>

@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from utils.db import db
 
 from models.ModelPost import ModelPost
+from models.ModelUser import ModelUser
+from models.ModelComment import ModelComment
 
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
@@ -18,41 +20,59 @@ forum = Blueprint('forum',__name__, template_folder='templates')
 @forum.route('/forumIndex')
 def forumIndex():
     
+    
     announcementsCount = len(ModelPost.listPosts(db,'announcements')) 
     bugReportCount = len(ModelPost.listPosts(db,'bugreports'))
     generalDiscussionCount = len(ModelPost.listPosts(db,'generaldiscussion')) 
     mediaCount = len(ModelPost.listPosts(db,'media')) 
     
+    
+    #TODO: create func get latests posts
+    #################################################
+    latestPostsCount = 3
+
+    allposts = ModelPost.listPosts(db)
+        
+    lastPosts = list(allposts[-latestPostsCount:]) 
+    lastPosts.reverse()
+    usersList = list()
+    
+    for post in lastPosts:
+        
+        postUser = ModelUser.get_by_id(db,post.user_ID)
+        
+        usersList.append(postUser)
+    #################################################
+    
     return render_template('/forum/forum.html',
                            announcementsCount = announcementsCount,
                            bugReportCount = bugReportCount,
                            generalDiscussionCount = generalDiscussionCount,
-                           mediaCount = mediaCount)
+                           mediaCount = mediaCount,
+                           lastPosts = lastPosts,
+                           usersList = usersList)
 
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])
-def posts(topic):
-    selectedTopic = topic
-
-    postslist = ModelPost.listPosts(db,topic)
-
-    newPostlist = []
-    for post in postslist:
-        
-        username = ModelPost.getPostUsername(db,post,2)
-        
-        listPost = list(post)
-        
-        listPost[2] = username[0]
-        post = tuple(listPost)
-        post = post
-        print(post) 
-        
-        newPostlist.append(post)
+def showPosts(topic):
     
-    postslist = newPostlist    
+    postsList = ModelPost.listPosts(db,topic)
+
+    usersList = list()
+
+    commentsList = list()
+
+    for post in postsList:
+        
+        postUser = ModelUser.get_by_id(db,post.user_ID)
+        comments = ModelComment.getComments(db,post.id)        
+        usersList.append(postUser)
+        commentsList.append(comments)
+
     return render_template('/forum/posts.html',
-            postslist = postslist, 
-            selectedTopic = selectedTopic)
+            postsList = postsList, 
+            topic = topic,
+            usersList = usersList,
+            commentsList = commentsList)
    
    
    
@@ -73,14 +93,20 @@ def createPost(postTopic):
         if media.filename != '':
             mediaName = date + media.filename
             media.save("src/static/Img/"+mediaName)
+            
             modelPost = ModelPost.createPost(db,title,current_user.id,text,mediaName,topic)       
-            postUser = modelPost.id
+            
         else:
             modelPost = ModelPost.createPost(db,title,current_user.id,text,None,topic)
-            postUser = modelPost.id
-
-        return redirect(url_for('forum.showPost', username = postUser[0]))
-  
+        post = list()
+        post.append(modelPost)    
+        user = ModelUser.get_by_id(db,modelPost.user_ID)
+                    
+        return render_template('/forum/showPost.html',
+                               user = user, 
+                               post = post,
+                               comments = list())
+      
     else:
         
         topic = postTopic
@@ -90,12 +116,52 @@ def createPost(postTopic):
 @forum.route('/showPost/<int:id>')
 def showPost(id):
     
-    postList = ModelPost.listPosts(db,None,id)
+    post = ModelPost.listPosts(db,None,id)
+    if post != None:    
+        user = ModelUser.get_by_id(db,post[0].user_ID) 
+        
+        comments = ModelComment.getComments(db,post[0].id)
+        if comments != None:
+            commentsUsers = list()
+            for comment in comments:
+                   commentUser = ModelUser.get_by_id(db,post[0].user_ID) 
+                   commentsUsers.append(commentUser)
+                   
+            return render_template("/forum/showPost.html", 
+                                   post = post, 
+                                   user = user,
+                                   comments = comments,
+                                   commentsUsers = commentsUsers)
+        
+        
+        else:
+            return render_template("/forum/showPost.html",
+                               post = post, 
+                               user = user)     
+    else:
+        return render_template("/forum/posts.html")
+             
+@forum.route('/postComment/<int:postID>', methods = ['POST'])
+def postComment(postID):
     
-    for post in postList:
-        user = ModelPost.getPostUsername(db,post,2)
-        username = user[0]
+    _text = request.form['commentText']
+    _media = request.files['commentMedia']
     
     
-    return render_template("/forum/showPost.html" , postList = postList, username = username)
-
+    ModelComment.createComment(db,postID,current_user.id,_text,_media)
+    
+    post = ModelPost.listPosts(db,None,postID)
+    user = ModelUser.get_by_id(db,post[0].user_ID)
+    comments = ModelComment.getComments(db,postID)
+    commentsUsers = list()
+    for comment in comments:
+        commentUser = ModelUser.get_by_id(db,comment.user_ID)
+        commentsUsers.append(commentUser)
+     
+    return redirect(url_for('forum.showPost',id = postID))        
+    
+    #return render_template('/forum/showPost.html',
+    #                       post = post,
+    #                       user = user,
+    #                       comments = comments,
+    #                       commentsUsers = commentsUsers)
