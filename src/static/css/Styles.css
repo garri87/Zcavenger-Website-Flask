@@ -416,9 +416,10 @@ input[type=submit]:hover {
 
 #profileImg {
 	height: 90px;
-
+	width: 90px;
+	object-fit: cover;
 	border-radius: 50%;
-	border: 1px solid var(--black);
+	border: 1px solid var(--lightGray);
 }
 
 .Social {
@@ -452,7 +453,14 @@ input[type=submit]:hover {
 .PostsTable {
 	background-color: var(--darkGray);
 	width: auto;
+	font-family: 'Oswald';
+	border: 1px solid var(--darkBlue);
 
+}
+
+.PostsTable td{
+	font-size: 60%;
+	width: 20%;
 }
 
 .PostItem {
@@ -538,7 +546,7 @@ input[type=submit]:hover {
 	display: block;
 	justify-items: center;
 	right: 10px;
-	background-color: rgb(56, 56, 56);
+	background-color: var(--darkGray);
 	padding: 10%;
 }
 
@@ -562,6 +570,30 @@ input[type=submit]:hover {
 
 }
 
+
+.TopicDashboard {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	background-color: var(--darkGray);
+	border: 1px solid var(--mediumGray);
+	color: white;
+	font-family: 'Oswald';
+	font-size: 150%;
+	text-align: center;
+
+}
+
+.TopicDashboard a{
+	color: var(--white);
+	text-decoration: none;
+}
+
+.TopicDashboard a:hover{
+	color: var(--lightBlue);
+}
+
 .userIcon {
 	color: var(--lightGray);
 }
@@ -579,7 +611,41 @@ input[type=submit]:hover {
 }
 
 
+.UserDashboard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50%;
+	padding: 1%;
 
+	border: 1px solid var(--black);
+	background-color: var(--darkGray);
+
+	color: var(--white);
+	font-family: 'Oswald', sans;
+	font-size: 90%;
+
+}
+
+.UserDashboard td{
+ width: 100%;	
+ text-align: center;
+}
+
+.UserDashboard tr:nth-child(even){
+	background-color: var(--darkGray);
+}
+
+.UserDashboard th, tr:nth-child(odd){
+	background-color: var(--mediumGray);
+}
+
+.UserDashboard h2 {
+	background-color: var(--darkBlue);
+	width: 100%;
+	text-align: center;
+	border: 1px solid var(--lightBlue);
+}
 
 
 /*

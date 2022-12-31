@@ -2,11 +2,11 @@
 
 <br>
 <div class="defaultBox">
-    <h1 align="center"> Zcavenger Forums</h1>
+    <h1 style="text-align:center; margin: 0%"> Zcavenger Forums</h1>
 </div>
 <br>
-<div class="defaultBox">
-    <p align="left">Welcome to the Zcavenger official forum, in this section you can find announcements, bug reports and
+<div class="defaultBox PostsTable">
+    <p>Welcome to the Zcavenger official forum, in this section you can find announcements, bug reports and
         general discussion and more created by the community. </p>
 </div>
 
@@ -22,80 +22,90 @@
 {% endif %}
 
 <div class="Main">
-    <div class="defaultBox PostTable">
+    <div class="TopicDashboard">
         <h2 id="defaultBoxTitle">Main Topics</h2>
 
-        <table class="">
+        <table class="PostsTable">
             <tr>
-                <td>
+                <th>
                     <a href="posts/announcements">
                         Announcements
                     </a>
-                </td>
+                </th>
                 <td>
                     {{announcementsCount}} posts
                 </td>
             </tr>
 
             <tr>
-                <td>
+                <th>
                     <a href="posts/bugreports">
                         Bug reports
                     </a>
-                </td>
+                </th>
                 <td>
                     {{bugReportCount}} posts
                 </td>
             </tr>
 
             <tr>
-                <td>
+                <th>
                     <a href="posts/generaldiscussion">
                         General discussion
                     </a>
-                </td>
+                </th>
                 <td>
                     {{generalDiscussionCount}} posts
                 </td>
             </tr>
 
             <tr>
-                <td> <a href="posts/media">
+                <th> <a href="posts/media">
                         Media
-                    </a> </td>
+                    </a> </th>
                 <td>{{mediaCount}} posts</td>
             </tr>
 
         </table>
     </div>
-    <br>
-    <div class="defaultBox PostTable">
+    <div class="TopicDashboard">
         <h2 id="defaultBoxTitle">Latest Posts</h2>
-        
+        <table class="PostsTable">
         {% for post in lastPosts %}
+
         
-        <table class="">
             <tr>
-                <td>{{post.title}}</td>
-                <td>
-                    Created By: {{usersList[lastPosts.index(post)].username}}
-                    <img src="../static/Img/'{{usersList[lastPosts.index(post)].profileimg}}" alt="">
-                    <br>
-                    Date: {{post.createdate}}
+                <th> <a href="/showPost/{{post.id}}" style="font-size:80%">{{post.title}}</a>  </th>
+                <td> <img src="../static/Img/{{usersList[lastPosts.index(post)].profileimg}}" alt="" style="width: 30%">
+
+                    {{usersList[lastPosts.index(post)].username}}
+                    <td>
+
+                        Date: {{post.createdate}}
+    
+                    </td>
                 </td>
+                
             </tr>
-
-
-
-        </table>
-
-        {% endfor %}
-       
         
+        {% endfor %}
+    </table>
     </div>
 
+
+
+
+
+
+
+    </table>
+
+
+
+
 </div>
+
+</div>
+
 <br>
-
-
 {%include 'footer.html'%}

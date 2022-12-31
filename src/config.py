@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SECRET_KEY = 'b%"f555faaghwlhDS*3fdseES'
+    SECRET_KEY = 'bf555faaghwlhDS3fdseES'
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -16,6 +16,8 @@ class DevelopmentConfig(Config):
     MAIL_PASSWORD = 'tkhaftqwjpyotshj'
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
+    
+    SECRET_KEY = 'b%"f555faaghwlhDS*3fdseES'
     
     
     

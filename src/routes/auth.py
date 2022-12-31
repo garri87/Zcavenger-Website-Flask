@@ -10,7 +10,8 @@ from flask_mail import Mail, Message
 
 from utils.db import db
 from utils.mail import mail
-
+from utils.serializer import s, SignatureExpired 
+from itsdangerous import URLSafeTimedSerializer
 
 
 auth = Blueprint('auth',__name__)
@@ -25,9 +26,16 @@ def login():
         
         logged_user = ModelUser.login(db,user)
         if logged_user != None:
-            if logged_user.contrasena and logged_user.is_active:
+            if logged_user.contrasena:
                 login_user(logged_user)
-                return redirect(url_for('home'))
+                if current_user.is_active:
+                    return redirect(url_for('home'))
+                else:
+                    logout_user()
+                    flash("User is not activated, please check your email")
+                    return redirect(url_for('index'))
+
+
             else: 
                 flash('Invalid Credentials')
                 print('logged user: '+ str(logged_user) )
@@ -59,18 +67,14 @@ def register():
         
         if _pass == _pass2:
                         
-            if ModelUser.checkAvailability(db,_user) == True:
+            if ModelUser.checkAvailability(db,_user,_mail) == True:
                 
-                msg = Message('Zcavenger.com | Please confirm your email address', sender = 'noreply@zcavenger.com', recipients= [_mail])
-                msg.body = ""
-                msg.html = render_template('auth/activationMail.html', _user = _user)
-                mail.send(msg)
+                token  = s.dumps(_mail,salt='mail-confirm')
+
+                sendActivationMail(_mail,_user,token)              
+                ModelUser.registerUser(db, _user, _pass, _mail,_realname, _country, _profileimg,token,False)
                 
-                flash('Registration Complete, a confirmation Mail was sent')               
-                user = ModelUser.registerUser(db, _user, _pass, _mail,_realname, _country, _profileimg)
-                
-                current_user.is_active = False
-                
+                flash('Registration Complete, a confirmation Mail was sent to activate your account') 
                 
                 return redirect(url_for('index'))
             else:
@@ -80,3 +84,34 @@ def register():
 
     else:
         return render_template('register.html')
+
+@auth.route("/activate/<username>/<token>")
+def activate(username = None, token = None):
+    try:
+        email = s.loads(token, salt='mail-confirm')
+        
+        user = ModelUser.get_User(db,None,username,email)
+        print(email + " " + user.mail)
+        if user.mail == email:
+            ModelUser.activateUser(db,user.id,True)
+            flash('User successfully activated')
+            return redirect(url_for('index'))
+        else:
+            flash('Wrong activation token')
+            return redirect(url_for('index'))
+    except SignatureExpired:
+    
+        return
+    
+    
+def sendActivationMail(email,username,token):
+                    
+    msg = Message('Zcavenger.com | Activate your account', sender = 'noreply@zcavenger.com', recipients= [email])
+                
+    link = url_for('auth.activate', username = username, token = token, _external = True)
+    msg.body = ""
+    msg.html = render_template('auth/activationMail.html',username = username, email = email, token = token, link = link)
+                
+    mail.send(msg)
+    
+    return

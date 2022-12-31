@@ -20,37 +20,41 @@ forum = Blueprint('forum',__name__, template_folder='templates')
 @forum.route('/forumIndex')
 def forumIndex():
     
-    
-    announcementsCount = len(ModelPost.listPosts(db,'announcements')) 
-    bugReportCount = len(ModelPost.listPosts(db,'bugreports'))
-    generalDiscussionCount = len(ModelPost.listPosts(db,'generaldiscussion')) 
-    mediaCount = len(ModelPost.listPosts(db,'media')) 
-    
-    
-    #TODO: create func get latests posts
-    #################################################
-    latestPostsCount = 3
+    try:
+        announcementsCount = len(ModelPost.listPosts(db,'announcements')) 
+        bugReportCount = len(ModelPost.listPosts(db,'bugreports'))
+        generalDiscussionCount = len(ModelPost.listPosts(db,'generaldiscussion')) 
+        mediaCount = len(ModelPost.listPosts(db,'media')) 
+        
+        
+        #TODO: create func get latests posts
+        #################################################
+        latestPostsCount = 3
 
-    allposts = ModelPost.listPosts(db)
+        allposts = ModelPost.listPosts(db)
+            
+        lastPosts = list(allposts[-latestPostsCount:]) 
+        lastPosts.reverse()
+        usersList = list()
         
-    lastPosts = list(allposts[-latestPostsCount:]) 
-    lastPosts.reverse()
-    usersList = list()
-    
-    for post in lastPosts:
+        for post in lastPosts:
+            
+            postUser = ModelUser.get_User(db,post.user_ID)
+            
+            usersList.append(postUser)
+        #################################################
         
-        postUser = ModelUser.get_by_id(db,post.user_ID)
+        return render_template('/forum/forum.html',
+                            announcementsCount = announcementsCount,
+                            bugReportCount = bugReportCount,
+                            generalDiscussionCount = generalDiscussionCount,
+                            mediaCount = mediaCount,
+                            lastPosts = lastPosts,
+                            usersList = usersList)
+    except:
+        return redirect(url_for('index'))
         
-        usersList.append(postUser)
-    #################################################
-    
-    return render_template('/forum/forum.html',
-                           announcementsCount = announcementsCount,
-                           bugReportCount = bugReportCount,
-                           generalDiscussionCount = generalDiscussionCount,
-                           mediaCount = mediaCount,
-                           lastPosts = lastPosts,
-                           usersList = usersList)
+
 
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])
 def showPosts(topic):
@@ -63,7 +67,7 @@ def showPosts(topic):
 
     for post in postsList:
         
-        postUser = ModelUser.get_by_id(db,post.user_ID)
+        postUser = ModelUser.get_User(db,post.user_ID)
         comments = ModelComment.getComments(db,post.id)        
         usersList.append(postUser)
         commentsList.append(comments)
@@ -100,7 +104,7 @@ def createPost(postTopic):
             modelPost = ModelPost.createPost(db,title,current_user.id,text,None,topic)
         post = list()
         post.append(modelPost)    
-        user = ModelUser.get_by_id(db,modelPost.user_ID)
+        user = ModelUser.get_User(db,modelPost.user_ID)
                     
         return render_template('/forum/showPost.html',
                                user = user, 
@@ -118,13 +122,13 @@ def showPost(id):
     
     post = ModelPost.listPosts(db,None,id)
     if post != None:    
-        user = ModelUser.get_by_id(db,post[0].user_ID) 
+        user = ModelUser.get_User(db,post[0].user_ID) 
         
         comments = ModelComment.getComments(db,post[0].id)
         if comments != None:
             commentsUsers = list()
             for comment in comments:
-                   commentUser = ModelUser.get_by_id(db,post[0].user_ID) 
+                   commentUser = ModelUser.get_User(db,post[0].user_ID) 
                    commentsUsers.append(commentUser)
                    
             return render_template("/forum/showPost.html", 
@@ -151,11 +155,11 @@ def postComment(postID):
     ModelComment.createComment(db,postID,current_user.id,_text,_media)
     
     post = ModelPost.listPosts(db,None,postID)
-    user = ModelUser.get_by_id(db,post[0].user_ID)
+    user = ModelUser.get_User(db,post[0].user_ID)
     comments = ModelComment.getComments(db,postID)
     commentsUsers = list()
     for comment in comments:
-        commentUser = ModelUser.get_by_id(db,comment.user_ID)
+        commentUser = ModelUser.get_User(db,comment.user_ID)
         commentsUsers.append(commentUser)
      
     return redirect(url_for('forum.showPost',id = postID))        

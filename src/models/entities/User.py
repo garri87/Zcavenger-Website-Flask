@@ -3,7 +3,7 @@ from flask_login import UserMixin
 
 class User(UserMixin):
     
-    def __init__(self, id, username, contrasena, realname = "",mail = "",  country = "", createdate = "", profileimg = "" ) -> None:
+    def __init__(self, id, username, contrasena, realname = "",mail = "",  country = "", createdate = "", profileimg = "", token = "", active = False) -> None:
     
         self.id = id
         self.username = username
@@ -13,6 +13,8 @@ class User(UserMixin):
         self.country = country
         self.createdate = createdate
         self.profileimg = profileimg
+        self.token = token
+        self.active = active
         
     
     @classmethod

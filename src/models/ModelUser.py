@@ -9,6 +9,7 @@ import os
 class ModelUser():
     @classmethod
     def login(self, db, user):
+        """Returns a User() object if credentials are correct"""
         try:
             cursor = db.connection.cursor()
             sql = """SELECT * FROM users 
@@ -25,7 +26,7 @@ class ModelUser():
             raise Exception(ex)
         
     @classmethod
-    def registerUser(self, db, user, password, mail,realname = "", country = "", profileimg = ""):
+    def registerUser(self, db, user, password, mail,realname = "", country = "", profileimg = "", token = "", active = False):
         try:
             cursor = db.connection.cursor()
             
@@ -61,13 +62,13 @@ class ModelUser():
             raise Exception(ex)
     
     @classmethod    
-    def checkAvailability(self, db, username):
+    def checkAvailability(self, db, username = "", email = ""):
         try:
             cursor = db.connection.cursor()
-            cursor.execute("SELECT username FROM zcavengerdb.users WHERE username = '{}'".format(username))
+            cursor.execute("SELECT username, mail FROM users WHERE username = '{}' AND mail = '{}'".format(username, email))
             row = cursor.fetchone()
             if row != None:
-                if row[0] == username:
+                if row[0] == username or row[1] == email:
                     return False
                 else:
                     return True
@@ -77,18 +78,35 @@ class ModelUser():
             raise Exception(ex)
         
     @classmethod
-    def get_by_id(self, db, id):
-        """return a User() object by user id"""
+    def get_User(self, db, id = None ,username="", email = ""):
+        """return a User() object by user id, username or email"""
         
         try:
             cursor = db.connection.cursor()
-            sql = "SELECT id, username, realname, mail, country, createdate, profileimg FROM users WHERE id = {}".format(id)
+            if id != None:
+                sql = "SELECT * FROM users WHERE id = {}".format(id)
+            elif username != "":
+                sql = "SELECT * FROM users WHERE username = '{}'".format(username)
+            elif email != "":
+                sql = "SELECT * FROM users WHERE mail = '{}'".format(email)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                return User(row[0], row[1], None, row[2], row[3], row[4], row[5],row[6])
+                return User(row[0], row[1], row[2], row[3], row[4], row[5],row[6],row[7],row[8])
             else:
                 print("No user found with id: " + id)
                 return None
+        except Exception as ex:
+            raise Exception(ex)
+
+
+    @classmethod
+    def activateUser(self,db,id,activate):
+        try:
+            cursor = db.connection.cursor()
+            sql = "UPDATE users SET active = {} WHERE id = {}".format(activate, id)
+            cursor.execute(sql)
+            db.connection.commit()
+
         except Exception as ex:
             raise Exception(ex)
