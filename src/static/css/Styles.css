@@ -1,5 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400&family=Lato:wght@300;400&family=Oswald:wght@200;300;400&display=swap');
+
+/*
+font-family: 'Inter', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Oswald', sans-serif;
+font-family: 'Anton', sans-serif;
+
+*/
+
+
 
 :root {
 
@@ -14,6 +23,12 @@
 	--black: black;
 	--darkBlue: rgb(0, 53, 114);
 	--lightBlue: rgb(0, 88, 187);
+
+	--font_Inter: 'Inter', sans-serif;
+	--font_Lato: 'Lato', sans-serif;
+	--font_Oswald: 'Oswald', sans-serif;
+	--font_Anton: 'Anton', sans-serif;
+
 }
 
 
@@ -41,7 +56,7 @@ h2,
 h3,
 h4,
 h5 {
-	font-family: 'Anton', sans-serif;
+	font-family: var(--font_Anton);
 	color: var(--white);
 	text-shadow: 1px 1px var(--black);
 	font-weight: normal;
@@ -50,14 +65,14 @@ h5 {
 }
 
 p {
-	font-family: 'Lato', sans-serif;
+	font-family: var(--font_Lato);
 	color: var(--white);
 }
 
 
 
 label {
-	font-family: 'Oswald', sans-serif;
+	font-family: var(--font_Oswald);
 	text-shadow: 1px 1px var(--black);
 
 }
@@ -74,7 +89,7 @@ footer {
 }
 
 footer * {
-	font-family: 'Lato', sans-serif;
+	font-family: var(--font_Lato)
 	color: var(--white);
 	text-decoration: none;
 }
@@ -101,7 +116,7 @@ footer img {
 			var(--orange) 100%);
 
 	color: var(--black);
-	font-family: 'Anton', sans-serif;
+	font-family: var(--font_Anton);
 	text-decoration: none;
 	padding: 0.5%;
 	border-radius: 2px;
@@ -123,7 +138,7 @@ footer img {
 	text-align: center;
 	padding: 2%;
 	border: 2px solid var(--darkGray);
-	font-family: 'Oswald', sans-serif;
+	font-family: var(--font_Oswald);
 	
 }
 
@@ -154,7 +169,7 @@ footer img {
 .NavigationButton {
 	background-color: var(--darkGray);
 	color: rgb(247, 247, 247);
-	font-family: 'Oswald', sans-serif;
+	font-family: var(--font_Oswald);
 	text-decoration: none;
 	padding: 0.5%;
 	margin: 1%;
@@ -252,9 +267,10 @@ h5 {
 .defaultBox {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	border: 1px solid var(--darkGray);
-	width: fit-content;
 	width: 100%;
+
 }
 
 
@@ -264,6 +280,7 @@ h5 {
 	background-color: var(--darkRed);
 	background: linear-gradient(180deg, var(--lightred) 0%, var(--darkRed) 80%, transparent 100%);
 	font-size: 100%;
+	width: 99%;
 }
 
 #defaultBoxText {
@@ -452,8 +469,8 @@ input[type=submit]:hover {
 
 .PostsTable {
 	background-color: var(--darkGray);
-	width: auto;
-	font-family: 'Oswald';
+	width: 90%;
+	font-family: sans-serif;
 	border: 1px solid var(--darkBlue);
 
 }
@@ -574,6 +591,7 @@ input[type=submit]:hover {
 .TopicDashboard {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	width: 100%;
 
 	background-color: var(--darkGray);

@@ -20,13 +20,14 @@
 
     <script src="https://kit.fontawesome.com/f97f302caa.js" crossorigin="anonymous"></script>
     <script src="../static/scripts/login.js"></script>
+
 </head>
 
 <body>
 
     <header class="NavigationBox">
         <a href="{{url_for('index')}}"> <img src="../static/Img/TitleTransparent.png" id="logo"></a>
-       
+
         <nav>
             <a href="{{ url_for('index') }}" class="NavigationButton">Home</a>
 
@@ -38,8 +39,8 @@
 
             <a href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d"
                 class="DownloadButton">DOWNLOAD</a>
-            
-            {%include 'auth/login.html' %}  
+
+            {%include 'auth/login.html' %}
 
         </nav>
     </header>

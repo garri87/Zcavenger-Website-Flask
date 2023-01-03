@@ -29,24 +29,24 @@ def login():
             if logged_user.contrasena:
                 login_user(logged_user)
                 if current_user.is_active:
-                    return redirect(url_for('home'))
+                    return redirect(request.referrer)
                 else:
                     logout_user()
                     flash("User is not activated, please check your email")
-                    return redirect(url_for('index'))
+                    return redirect(request.referrer)
 
 
             else: 
                 flash('Invalid Credentials')
                 print('logged user: '+ str(logged_user) )
-                return redirect(url_for('index'))
+                return redirect(request.referrer)
 
         else:
             flash('Invalid Credentials')
-            return redirect(url_for('index'))
+            return redirect(request.referrer)
 
     else:
-        return redirect(url_for('index'))
+        return redirect(request.referrer)
 
 @auth.route('/logout')
 def logout():
@@ -103,6 +103,14 @@ def activate(username = None, token = None):
     
         return
     
+@auth.route('/deleteUser/<int:id>')
+def deleteUser(id):
+    ModelUser.deleteUser(db,id)
+    logout_user()
+    flash('User deleted')
+    return render_template('index.html')
+
+
     
 def sendActivationMail(email,username,token):
                     
@@ -115,3 +123,5 @@ def sendActivationMail(email,username,token):
     mail.send(msg)
     
     return
+
+

@@ -42,15 +42,31 @@
                 </tr>
                 <tr>
                     <th>Profile photo: </th>
-                    <td> <img height="150px" src="../static/Img/{{ current_user.profileimg }}" alt=""
+                    <td> <img height="150px" src="../static/uploads/{{current_user.profileimg }}" alt=""
                             style="border: 1px solid black"> </td>
                     <td>Edit</td>
                 </tr>
             
             </table>
-            <a class="defaultButton" href="{{ url_for('auth.logout') }}" style="display :flex; justify-content: center;">Logout</a>
-        </div>
 
+        </div>
+        <div>
+            <h3>Options</h3>
+            <a class="defaultButton" href="{{ url_for('auth.logout') }}" style="display :flex; justify-content: center;">Logout</a>
+
+            <a class="defaultButton" style="display :flex; justify-content: center;" onclick="confirmDelete()">Delete User</a>
+
+            <script>
+                function confirmDelete(){
+                    let text = "Are you sure to delete this user? This action is irreversible "
+                    if (confirm(text))
+                    {
+                        window.location.replace("{{url_for('auth.deleteUser', id = current_user.id)}}")
+                    }
+                }
+            </script>
+
+        </div>
     </div>
 
 

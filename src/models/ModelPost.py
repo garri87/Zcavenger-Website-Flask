@@ -68,18 +68,3 @@ class ModelPost():
             print('no Post found')
             postlist = None
             return list(postlist)
-        
-    @classmethod
-    def getPostUsername(self,db,post,userIDIndex):
-        
-        cursor = db.connection.cursor()
-        
-        sql = "SELECT username FROM users WHERE id='{}'".format(post[userIDIndex])
-         
-        cursor.execute(sql)
-        
-        username = cursor.fetchone()
-        
-        db.connection.commit()
-        
-        return username

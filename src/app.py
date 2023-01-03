@@ -38,12 +38,9 @@ db = MySQL(app)
 
 login_manager_app = LoginManager(app)
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = local_settings.MAIL_USERNAME
-app.config['MAIL_PASSWORD'] = local_settings.MAIL_PASSWORD 
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+profiles_uploads_Folder = os.path.join('uploads')
+
+app.config['PROFILES_UPLOADS_FOLDER'] = profiles_uploads_Folder
 
 mail = Mail(app)
 serializer.secretkey = app.config['SECRET_KEY']

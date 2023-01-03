@@ -41,6 +41,8 @@ def forumIndex():
             
             postUser = ModelUser.get_User(db,post.user_ID)
             
+            
+            
             usersList.append(postUser)
         #################################################
         
@@ -51,8 +53,9 @@ def forumIndex():
                             mediaCount = mediaCount,
                             lastPosts = lastPosts,
                             usersList = usersList)
-    except:
-        return redirect(url_for('index'))
+    except Exception as ex:
+        raise Exception(ex)
+        #return redirect(url_for('index'))
         
 
 

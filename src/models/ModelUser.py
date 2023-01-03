@@ -38,7 +38,7 @@ class ModelUser():
             
             if profileimg != "":
                 newprofileimg = createdate + profileimg.filename
-                profileimg.save("src/static/Img/" + newprofileimg)
+                profileimg.save("src/static/uploads/" + newprofileimg)
             else:
                 newprofileimg = ""
             
@@ -94,10 +94,10 @@ class ModelUser():
             if row != None:
                 return User(row[0], row[1], row[2], row[3], row[4], row[5],row[6],row[7],row[8])
             else:
-                print("No user found with id: " + id)
-                return None
-        except Exception as ex:
-            raise Exception(ex)
+                return User(id = 0, username = "User Not Found", profileimg = "NoProfile.png")  
+        except:
+            
+            return User(id = 0, username = "User Not Found", profileimg = "NoProfile.png")
 
 
     @classmethod
@@ -110,3 +110,22 @@ class ModelUser():
 
         except Exception as ex:
             raise Exception(ex)
+
+    @classmethod
+    def deleteUser(self,db,id):   
+        try:
+            user = ModelUser.get_User(db,id)
+            cursor = db.connection.cursor()
+            
+            sql = "DELETE FROM users WHERE id = {}".format(user.id)
+
+            cursor.execute(sql)
+            db.connection.commit()
+            if user.profileimg != "":
+                os.remove(os.path.join('static',user.profileimg))
+            
+            
+        except Exception as ex:
+            raise Exception(ex)
+
+    
