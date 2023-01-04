@@ -28,7 +28,7 @@ def login():
         if logged_user != None:
             if logged_user.contrasena:
                 login_user(logged_user)
-                if current_user.is_active:
+                if current_user.active:
                     return redirect(request.referrer)
                 else:
                     logout_user()
@@ -103,12 +103,14 @@ def activate(username = None, token = None):
     
         return
     
-@auth.route('/deleteUser/<int:id>')
+@auth.route('/deleteUser/<int:id>', methods=['POST'])
+@login_required
 def deleteUser(id):
-    ModelUser.deleteUser(db,id)
-    logout_user()
-    flash('User deleted')
-    return render_template('index.html')
+    if id == current_user.id:
+        ModelUser.deleteUser(db,id)
+        logout_user()
+        flash('User deleted')
+        return render_template('index.html')
 
 
     
