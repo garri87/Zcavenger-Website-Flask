@@ -56,7 +56,7 @@ h2,
 h3,
 h4,
 h5 {
-	font-family: var(--font_Anton);
+	font-family: var(--font_Oswald);
 	color: var(--white);
 	text-shadow: 1px 1px var(--black);
 	font-weight: normal;
@@ -335,9 +335,11 @@ h5 {
 }
 
 .FormBox {
-
+	display: grid;
+	justify-items: center;
 	width: 100%;
 	max-width: 100%;
+	padding: 1%;
 	background-color: rgb(15, 15, 15);
 	border-top: 1px solid var(--black);
 	animation-name: fadeIn;
@@ -347,22 +349,26 @@ h5 {
 
 
 .Formulario {
-	background-color: var(--darkGray);
-	max-width: 100%;
-	padding: 2%;
-	color: var(--white);
 	display: grid;
+	grid-template-columns: 100%;
 	justify-content: center;
-	grid-template-columns: 50%;
+	
+	background-color: var(--darkGray);
+	width: 80%;
+	padding: 2%;
+	margin: 1%;
+	color: var(--white);
+	
 }
 
 .Formulario input,
 select {
 	background-color: var(--white);
-	border-radius: 1px;
+	border-radius: 5px;
 	border: 1px solid var(--lightGray);
 	height: 25px;
 	text-align: left;
+	font-family: var(--font_Inter);
 
 }
 
@@ -385,14 +391,19 @@ select {
 	color: var(--darkGray);
 }
 
+
+
 #fileSelector .input-file {
 	display: hidden;
 }
 
 .ImgSelectBox {
 	display: flex;
-	align-items: center;
-	justify-content: space-around;
+	gap: 10%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -425,8 +436,8 @@ input[type=submit]:hover {
 }
 
 #imgPreview {
-	height: 150px;
-	max-width: 150px;
+	height: 100px;
+	max-width: 100px;
 	border: 2px solid var(--lightGray);
 
 }
@@ -472,6 +483,7 @@ input[type=submit]:hover {
 	width: 90%;
 	font-family: sans-serif;
 	border: 1px solid var(--darkBlue);
+	border-collapse: collapse;
 
 }
 
@@ -498,7 +510,7 @@ input[type=submit]:hover {
 }
 
 .PostItem:nth-child(odd) {
-	background-color: var(--darkGray)
+	background-color: var(--mediumGray)
 }
 
 .PostUser {
@@ -593,23 +605,33 @@ input[type=submit]:hover {
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-
+	color: white;
 	background-color: var(--darkGray);
 	border: 1px solid var(--mediumGray);
-	color: white;
-	font-family: 'Oswald';
 	font-size: 150%;
-	text-align: center;
+	
 
 }
 
 .TopicDashboard a{
+	font-family: var(--font_Oswald);
 	color: var(--white);
 	text-decoration: none;
+	font-weight: lighter;
+	font-size: 20px;
+	text-align: left;
 }
 
-.TopicDashboard a:hover{
-	color: var(--lightBlue);
+.TopicDashboard th:hover{
+	background-color: var(--darkBlue);
+}
+
+.TopicDashboard th, td{
+	border: 1px solid var(--black);
+	padding:1%;
+	text-align: left;
+	
+	
 }
 
 .userIcon {

@@ -2,6 +2,7 @@ from .entities.Post import Post
 
 from datetime import datetime
 
+import os
 
 class ModelPost():
     
@@ -68,3 +69,32 @@ class ModelPost():
             print('no Post found')
             postlist = None
             return list(postlist)
+        
+    @classmethod
+    def deletePost(self,db,id):
+        try:
+            cursor = db.connection.cursor()
+            
+            sql1 = "SELECT media FROM posts WHERE id = {}".format(id)
+            
+            cursor.execute(sql1)
+            
+            result = cursor.fetchall()
+            
+            for row in result:
+                try:
+                    os.remove('src/static/uploads/' + row[0])
+                    
+                except:
+                    print('File: '  + row[0] + ' not found in uploads directory')
+                    
+                    
+            sql2 = "DELETE FROM posts WHERE id = {}".format(id)
+            
+            cursor.execute(sql2)    
+            
+            db.connection.commit()
+            return
+        except:
+            return
+        

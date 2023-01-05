@@ -1,16 +1,20 @@
 {%include 'head.html'%}
 
 <div class="defaultBox">
-    <a class="defaultButton" href="/posts/{{post[0].topic}}">Back to posts</a>
+    <div style="width: 100%; padding: 2%;">
+        <a class="defaultButton" href="/posts/{{post[0].topic}}">Back to posts</a>
+
+    </div>
 </div>
 
 <div class="PostBody">
 
     <div class="PostUserSection">
-        <img src="../static/Img/{{user.profileimg}}" alt="">
+        <img src="../static/uploads/{{user.profileimg}}" alt="">
         <div class="defaultBox">
             <p>Author: {{user.username}}</p>
             <p>Date: {{post[0].createdate}}</p>
+            
         </div>
 
     </div>
@@ -25,10 +29,16 @@
         <div>
             <h4>Media:</h4>
 
-            <img src="../static/Img/{{post[0].media}}" alt="" style="width:300px">
+            <img src="../static/uploads/{{post[0].media}}" alt="" style="width:300px">
         </div>
         {% endif %}
+        {% if post[0].user_ID == current_user.id %}
+            <div style="width: 100%; text-align: right;">
+                <a class="defaultButton" href="/deletePost/{{post[0].id}}">Delete post</a>
+            </div>
+            
 
+            {% endif %}
     </div>
 </div>
 
@@ -40,19 +50,19 @@
     <div class="">
         {% for comment in comments%}
         <div class="Comment">
-            <div class= "CommentText">
+            <div class="CommentText">
                 {{comment.text}}
 
                 {% if comment.media != "" %}
                 <div>
                     Media:
-                    <img src="..static/Img/{{comment.media}}" alt="">
+                    <img src="..static/uploads/{{comment.media}}" alt="">
                 </div>
                 {% endif %}
             </div>
             <div class="CommentUserSection">
 
-                <img src="../static/Img/{{commentsUsers[comments.index(comment)].profileimg}}" alt="">
+                <img src="../static/uploads/{{commentsUsers[comments.index(comment)].profileimg}}" alt="">
 
                 <div>
                     {{commentsUsers[comments.index(comment)].username}}
@@ -81,7 +91,7 @@
 
     <h2>Post a comment </h2>
     <div class="defaultBox">
-        <form action="/postComment/{{post[0].id}}" method="POST" enctype="multipart/form-data">
+        <form class="Formulario" action="/postComment/{{post[0].id}}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <textarea name="commentText" id="" cols="30" rows="10">
             </textarea>

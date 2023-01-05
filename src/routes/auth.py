@@ -28,7 +28,7 @@ def login():
         if logged_user != None:
             if logged_user.contrasena:
                 login_user(logged_user)
-                if current_user.active:
+                if logged_user.active == True:
                     return redirect(request.referrer)
                 else:
                     logout_user()
@@ -79,8 +79,10 @@ def register():
                 return redirect(url_for('index'))
             else:
                 flash('Username already exists')
+                return redirect(url_for('index'))
         else: 
             flash("Passwords don't match")
+            return redirect(url_for('index'))
 
     else:
         return render_template('register.html')
@@ -103,7 +105,7 @@ def activate(username = None, token = None):
     
         return
     
-@auth.route('/deleteUser/<int:id>', methods=['POST'])
+@auth.route('/deleteUser/<int:id>', methods=['GET', 'POST'])
 @login_required
 def deleteUser(id):
     if id == current_user.id:

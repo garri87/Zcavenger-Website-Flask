@@ -18,7 +18,7 @@ class ModelUser():
             row = cursor.fetchone()
                         
             if row != None:
-                user = User(row[0], row[1], User.check_password(row[2], user.contrasena),row[3], row[4], row[5], row[6], row[7])
+                user = User(row[0], row[1], User.check_password(row[2], user.contrasena),row[3], row[4], row[5], row[6], row[7],row[8], row[9])
                 return user
             else:
                 return None
@@ -115,14 +115,17 @@ class ModelUser():
     def deleteUser(self,db,id):   
         try:
             user = ModelUser.get_User(db,id)
+            
+            if user.profileimg != "":
+                os.remove('src/static/uploads/' + user.profileimg)
+            
             cursor = db.connection.cursor()
             
             sql = "DELETE FROM users WHERE id = {}".format(user.id)
 
             cursor.execute(sql)
             db.connection.commit()
-            if user.profileimg != "":
-                os.remove(os.path.join('static',user.profileimg))
+           
             
             
         except Exception as ex:

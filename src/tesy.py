@@ -1,4 +1,4 @@
 import os
 
 
-print(os.path.join("static"))
+print(os.path.join("static", 'hola','chau'))

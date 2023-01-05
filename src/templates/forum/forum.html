@@ -71,25 +71,33 @@
     <div class="TopicDashboard">
         <h2 id="defaultBoxTitle">Latest Posts</h2>
         <table class="PostsTable">
-        {% for post in lastPosts %}
+            {% for post in lastPosts %}
 
-        
+
             <tr>
-                <th> <a href="/showPost/{{post.id}}" style="font-size:80%">{{post.title}}</a>  </th>
-                <td> <img src="../static/Img/{{usersList[lastPosts.index(post)].profileimg}}" alt="" style="width: 30%">
+                <th> <a href="/showPost/{{post.id}}" style="font-size:80%">
+                        <h4>{{post.title}}</h4>
+                    </a> </th>
+                <td>
+                    <div>
 
-                    {{usersList[lastPosts.index(post)].username}}
-                    <td>
+                        <p style="text-align:center;"> <img
+                                src="../static/uploads/{{usersList[lastPosts.index(post)].profileimg}}" alt=""
+                                style="width: 30%"> {{usersList[lastPosts.index(post)].username}}</p>
+                    </div>
 
-                        Date: {{post.createdate}}
-    
-                    </td>
+
+                <td>
+
+                    Date: {{post.createdate}}
+
                 </td>
-                
+                </td>
+
             </tr>
-        
-        {% endfor %}
-    </table>
+
+            {% endfor %}
+        </table>
     </div>
 
 

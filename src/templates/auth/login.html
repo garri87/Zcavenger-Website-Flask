@@ -23,7 +23,7 @@
         {% if current_user.is_authenticated %}
         <div class="userInfo">
 
-            <img src="../static/Img/{{current_user.profileimg}}" alt="profile image" id="profileImg">
+            <img src="../static/uploads/{{current_user.profileimg}}" alt="profile image" id="profileImg">
 
             <button>
                 <a style="color:black" href="{{ url_for('auth.logout')}}">LOGOUT</a>

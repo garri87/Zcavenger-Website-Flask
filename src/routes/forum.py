@@ -99,7 +99,7 @@ def createPost(postTopic):
         
         if media.filename != '':
             mediaName = date + media.filename
-            media.save("src/static/Img/"+mediaName)
+            media.save("src/static/uploads/"+mediaName)
             
             modelPost = ModelPost.createPost(db,title,current_user.id,text,mediaName,topic)       
             
@@ -172,3 +172,13 @@ def postComment(postID):
     #                       user = user,
     #                       comments = comments,
     #                       commentsUsers = commentsUsers)
+    
+    
+    
+@forum.route('/deletePost/<int:id>')
+def deletePost(id):
+    
+    
+    
+    flash('Post deleted successfully')
+    redirect(url_for('forum.forumIndex'))

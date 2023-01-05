@@ -31,22 +31,22 @@ import os
 
 app = Flask(__name__)
 
-csrf = CSRFProtect()
+app.config.from_object(config['development'])
 
+csrf = CSRFProtect()
 
 db = MySQL(app)
 
 login_manager_app = LoginManager(app)
 
-profiles_uploads_Folder = os.path.join('uploads')
-
-app.config['PROFILES_UPLOADS_FOLDER'] = profiles_uploads_Folder
-
 mail = Mail(app)
-serializer.secretkey = app.config['SECRET_KEY']
+
+serializer.secretkey = os.environ['SECRET_KEY']
+
 
 @login_manager_app.user_loader
 def load_user(id):
+    
     return ModelUser.get_User(db,id) 
 
 app.register_blueprint(auth)
@@ -70,10 +70,6 @@ def home():
 
     return render_template('home.html')
     
-@app.route('/contactForm')
-def contactForm():
-    return render_template('contactForm.html')
-   
 
 def status_401(error):
     

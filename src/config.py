@@ -20,8 +20,8 @@ class DevelopmentConfig(Config):
     MAIL_PORT = os.environ['MAIL_PORT']
     MAIL_USERNAME = os.environ['MAIL_USERNAME']
     MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
-    MAIL_USE_TLS = os.environ['MAIL_USE_TLS']
-    MAIL_USE_SSL = os.environ['MAIL_USE_SSL']    
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True    
 
 class ProductionConfig(Config):
     DEBUG = False
@@ -34,8 +34,8 @@ class ProductionConfig(Config):
     MAIL_PORT = os.environ['MAIL_PORT']
     MAIL_USERNAME = os.environ['MAIL_USERNAME']
     MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
-    MAIL_USE_TLS = os.environ['MAIL_USE_TLS']
-    MAIL_USE_SSL = os.environ['MAIL_USE_SSL']    
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True    
     
 config = {
     'development': DevelopmentConfig,
