@@ -38,7 +38,7 @@ class ModelUser():
             
             if profileimg != "":
                 newprofileimg = createdate + profileimg.filename
-                profileimg.save("src/static/uploads/" + newprofileimg)
+                profileimg.save("src/uploads/" + newprofileimg)
             else:
                 newprofileimg = ""
             
@@ -117,7 +117,7 @@ class ModelUser():
             user = ModelUser.get_User(db,id)
             
             if user.profileimg != "":
-                os.remove('src/static/uploads/' + user.profileimg)
+                os.remove('src/uploads/' + user.profileimg)
             
             cursor = db.connection.cursor()
             

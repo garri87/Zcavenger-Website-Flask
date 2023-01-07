@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 
 from flask_mysqldb import MySQL
 
@@ -70,6 +70,9 @@ def home():
 
     return render_template('home.html')
     
+@app.route('/uploads/<fileName>')
+def uploads(fileName):
+    return send_from_directory(app.config['UPLOADS_FOLDER'], fileName)
 
 def status_401(error):
     

@@ -1,14 +1,17 @@
 <div class="dropdown">
-
-    <i class="dropbtn fa-solid fa-circle-user fa-2xl" onclick="toggleLoginBox()">
-    </i>
-
+    <p class="LoginButton" onclick="toggleLoginBox()">
+        {% if current_user.is_authenticated %}
+        <img src="../uploads/{{current_user.profileimg}}" alt="">
+        {{current_user.username}}
+        {% else %}
+        <i class="dropbtn fa-solid fa-circle-user fa-2xl"></i>
+        {% endif %}
+        <i class="fa-solid fa-angle-down"></i>
+    </p>
     <div id="myDropdown" class="dropdown-content">
 
         {% with messages = get_flashed_messages() %}
-
         {% if messages %}
-        <br />
         {% for message in messages %}
         <div role="alert">
             <button type="button"><strong>{{ message }}</strong></button>
@@ -17,19 +20,18 @@
         </div>
         {% endfor %}
         {% endif %}
-
         {% endwith %}
 
         {% if current_user.is_authenticated %}
         <div class="userInfo">
 
-            <img src="../static/uploads/{{current_user.profileimg}}" alt="profile image" id="profileImg">
+            <a class="NavigationButton" href="{{url_for('home')}}"> <i class="fa-solid fa-user"></i> Profile</a>
 
-            <button>
-                <a style="color:black" href="{{ url_for('auth.logout')}}">LOGOUT</a>
-            </button>
+            <a class="NavigationButton" href=""><i class="fa-solid fa-newspaper"></i> My Posts</a>
 
-            <a href="{{url_for('home')}}">{{ current_user.username}}</a>
+
+            <a class="NavigationButton" href="{{ url_for('auth.logout')}}"><i
+                    class="fa-solid fa-right-from-bracket"></i> Log Out</a>
 
         </div>
 
@@ -44,9 +46,9 @@
 
             <label for="contrasena"><i class="fa-solid fa-key" style="color: white"></i></label>
             <input type="password" name="contrasena" id="contrasena" placeholder="Password">
-            
+
             <br>
-            
+
             <button type="submit" name="login" id="login" value="login">LOG IN</button>
         </form>
 

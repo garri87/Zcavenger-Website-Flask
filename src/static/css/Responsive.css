@@ -1,0 +1,98 @@
+
+/*
+Mobile Screen
+*/
+@media screen and (max-width: 600px) {
+
+	.Main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.NavigationBox,
+	nav {
+		display: flex;
+		flex-direction: column;
+		justify-items: center;
+	}
+
+	.NavigationButton, .DownloadButton{
+		width: 100%;
+	}
+
+	.defaultBox {
+		max-width: 95%;
+		height: fit-content;
+	}
+
+	.defaultBox iframe {
+		width: 100%;
+		height: 90%;
+
+	}
+
+	.Social {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+	}
+
+	footer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+}
+
+/*
+Monitor Screen
+*/
+@media screen and (min-width: 600px) {
+
+	.Main {
+		display: grid;
+		grid-template-columns: 50% auto;
+		gap: 1%;
+        margin-bottom: 10%;
+		justify-items: center;
+	}
+
+	.NavigationBox {
+		display: grid;
+		grid-template-columns: 20% auto;
+		align-items: center;
+		
+		padding: 1%;
+	}
+
+	.defaultBox {
+		max-width: 99%;
+	}
+
+	.defaultBox iframe {
+		width: 100%;
+		height: 50vh;
+	}
+
+	.broadcastBox,
+	.FormBox {
+		grid-column: 1/3;
+	}
+
+
+	.Social {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+	}
+
+	footer {
+		display: grid;
+		grid-template-columns: 70% auto;
+		align-items: center;
+	}
+
+
+}

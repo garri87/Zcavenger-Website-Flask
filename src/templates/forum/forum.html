@@ -29,7 +29,7 @@
             <tr>
                 <th>
                     <a href="posts/announcements">
-                        Announcements
+                        <i class="fa-solid fa-bullhorn"></i> Announcements
                     </a>
                 </th>
                 <td>
@@ -40,7 +40,7 @@
             <tr>
                 <th>
                     <a href="posts/bugreports">
-                        Bug reports
+                        <i class="fa-solid fa-bug"></i> Bug reports
                     </a>
                 </th>
                 <td>
@@ -51,7 +51,7 @@
             <tr>
                 <th>
                     <a href="posts/generaldiscussion">
-                        General discussion
+                        <i class="fa-regular fa-comments"></i> General discussion
                     </a>
                 </th>
                 <td>
@@ -61,7 +61,7 @@
 
             <tr>
                 <th> <a href="posts/media">
-                        Media
+                        <i class="fa-solid fa-photo-film"></i> Media
                     </a> </th>
                 <td>{{mediaCount}} posts</td>
             </tr>
@@ -75,15 +75,21 @@
 
 
             <tr>
-                <th> <a href="/showPost/{{post.id}}" style="font-size:80%">
+                <td>
+                    {{post.topic}}
+                </td>
+                <th>
+                                       
+                    <a href="/showPost/{{post.id}}" style="font-size:80%">
                         <h4>{{post.title}}</h4>
-                    </a> </th>
+                    </a>
+                </th>
                 <td>
                     <div>
 
                         <p style="text-align:center;"> <img
-                                src="../static/uploads/{{usersList[lastPosts.index(post)].profileimg}}" alt=""
-                                style="width: 30%"> {{usersList[lastPosts.index(post)].username}}</p>
+                                src="uploads/{{usersList[lastPosts.index(post)].profileimg}}" alt="" style="width: 30%">
+                            {{usersList[lastPosts.index(post)].username}}</p>
                     </div>
 
 

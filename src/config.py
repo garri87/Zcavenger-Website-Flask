@@ -9,7 +9,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     
-    PROFILES_UPLOADS_FOLDER = os.path.join('uploads')
+    UPLOADS_FOLDER = os.path.join('uploads')
     
     MYSQL_HOST = os.environ['MYSQL_HOST']
     MYSQL_USER = os.environ['MYSQL_USER']

@@ -15,7 +15,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/Styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/MainStyles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Dropdown.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Responsive.css')}}">
+
 
 
     <script src="https://kit.fontawesome.com/f97f302caa.js" crossorigin="anonymous"></script>
@@ -37,8 +40,8 @@
 
             <a href="{{ url_for('forum.forumIndex')}}" class="NavigationButton">Forums</a>
 
-            <a href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d"
-                class="DownloadButton">DOWNLOAD</a>
+            <a class="DownloadButton"
+                href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d">DOWNLOAD</a>
 
             {%include 'auth/login.html' %}
 

@@ -10,35 +10,35 @@
 <div class="PostBody">
 
     <div class="PostUserSection">
-        <img src="../static/uploads/{{user.profileimg}}" alt="">
+        <img src="../uploads/{{user.profileimg}}" alt="">
         <div class="defaultBox">
-            <p>Author: {{user.username}}</p>
+            <p>{{user.username}}</p>
             <p>Date: {{post[0].createdate}}</p>
             
         </div>
+        {% if post[0].user_ID == current_user.id %}
+        <div>
+                <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
+        </div>
+            
 
+        {% endif %}
     </div>
 
     <div class="PostContent"> <!-- Text -->
         <div>
-            <h2> {{post[0].title}} </h2> <!-- Title -->
+            <h2 >{{post[0].title}}</h2> <!-- Title -->
         </div>
         <p> {{post[0].text}} </p>
 
-        {% if post[0].media != null %}
+        {% if post[0].media != "" %}
         <div>
             <h4>Media:</h4>
 
-            <img src="../static/uploads/{{post[0].media}}" alt="" style="width:300px">
+            <img class="defaultBox" src="../uploads/{{post[0].media}}" alt="" style="width:300px">
         </div>
         {% endif %}
-        {% if post[0].user_ID == current_user.id %}
-            <div style="width: 100%; text-align: right;">
-                <a class="defaultButton" href="/deletePost/{{post[0].id}}">Delete post</a>
-            </div>
-            
-
-            {% endif %}
+        
     </div>
 </div>
 
@@ -56,13 +56,13 @@
                 {% if comment.media != "" %}
                 <div>
                     Media:
-                    <img src="..static/uploads/{{comment.media}}" alt="">
+                    <img src="../uploads/{{comment.media}}" alt="" style="width:300px">
                 </div>
                 {% endif %}
             </div>
             <div class="CommentUserSection">
 
-                <img src="../static/uploads/{{commentsUsers[comments.index(comment)].profileimg}}" alt="">
+                <img src="../uploads/{{commentsUsers[comments.index(comment)].profileimg}}" alt="">
 
                 <div>
                     {{commentsUsers[comments.index(comment)].username}}
@@ -118,3 +118,16 @@
 
 <br>
 {%include 'footer.html'%}
+
+
+<script>
+    function confirmDelete(){
+        let text = "Are you sure to delete this post? This action is irreversible "
+        if (confirm(text))
+        {
+            window.location.replace("{{url_for('forum.deletePost', id = post[0].id)}}")
+
+            
+        }
+    }
+</script>

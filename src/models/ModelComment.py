@@ -17,7 +17,7 @@ class ModelComment():
             
             if media.filename != "":
                 newMedia = createdate + media.filename
-                media.save("src/static/Img/" + newMedia)
+                media.save("src/uploads/" + newMedia)
             else:
                 newMedia = ""
             

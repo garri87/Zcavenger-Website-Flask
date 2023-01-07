@@ -13,7 +13,15 @@ class ModelPost():
             
             createdate = datetime.now()
             
-            data = (title,user_ID,createdate,text,media,topic)
+            fileDate = createdate.strftime("%Y%H%M%S")
+            
+            if media.filename != '':
+                mediaName = fileDate + "_" + media.filename
+                media.save("src/uploads/"+mediaName)
+            else:
+                mediaName = media
+                
+            data = (title,user_ID,createdate,text,mediaName,topic)
             
             sql = "INSERT INTO posts VALUES (NULL,%s,%s,%s,%s,%s,%s)"
             
@@ -75,26 +83,46 @@ class ModelPost():
         try:
             cursor = db.connection.cursor()
             
-            sql1 = "SELECT media FROM posts WHERE id = {}".format(id)
+            queryPostMedia = "SELECT media FROM posts WHERE id = {}".format(id)
             
-            cursor.execute(sql1)
+            cursor.execute(queryPostMedia)
             
-            result = cursor.fetchall()
+            postMediaResult = cursor.fetchall()
             
-            for row in result:
-                try:
-                    os.remove('src/static/uploads/' + row[0])
+            if postMediaResult != None:
+                for row in postMediaResult:
+                    try:
+                        os.remove('src/uploads/' + row[0])
+                        
+                    except:
+                        print('File: ' + row[0] + ' not found in uploads directory')
                     
-                except:
-                    print('File: '  + row[0] + ' not found in uploads directory')
                     
-                    
-            sql2 = "DELETE FROM posts WHERE id = {}".format(id)
+            queryDeletePost = "DELETE FROM posts WHERE id = {}".format(id)
             
-            cursor.execute(sql2)    
+            cursor.execute(queryDeletePost)    
+            
+            queryCommentsMedia = "SELECT media FROM comments WHERE id = {}".format(id)
+            
+            cursor.execute(queryCommentsMedia)
+            
+            commentMediaResult = cursor.fetchall()
+            
+            if commentMediaResult != None:
+                for row in commentMediaResult:
+                    try:
+                        os.remove('src/uploads/' + row[0])
+                        
+                    except:
+                        print('File: ' + row[0] + ' not found in uploads directory')
+                        
+            queryDeleteComments = "DELETE FROM comments WHERE post_ID = {}".format(id)
+            
+            cursor.execute(queryDeleteComments)
             
             db.connection.commit()
-            return
-        except:
-            return
         
+        except Exception as ex:
+            raise Exception(ex)
+            #print("No post found with ID: " + id)
+            

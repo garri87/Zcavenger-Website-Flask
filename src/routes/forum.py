@@ -29,7 +29,7 @@ def forumIndex():
         
         #TODO: create func get latests posts
         #################################################
-        latestPostsCount = 3
+        latestPostsCount = 4
 
         allposts = ModelPost.listPosts(db)
             
@@ -91,28 +91,10 @@ def createPost(postTopic):
         text = request.form['txtText']
         media = request.files['media']
         topic = postTopic
-
-        now = datetime.now()
-
-        date = now.strftime("%Y%H%M%S")
-        
-        
-        if media.filename != '':
-            mediaName = date + media.filename
-            media.save("src/static/uploads/"+mediaName)
-            
-            modelPost = ModelPost.createPost(db,title,current_user.id,text,mediaName,topic)       
-            
-        else:
-            modelPost = ModelPost.createPost(db,title,current_user.id,text,None,topic)
-        post = list()
-        post.append(modelPost)    
-        user = ModelUser.get_User(db,modelPost.user_ID)
-                    
-        return render_template('/forum/showPost.html',
-                               user = user, 
-                               post = post,
-                               comments = list())
+               
+        modelPost = ModelPost.createPost(db,title,current_user.id,text,media,topic)    
+                           
+        return redirect(url_for('forum.showPost', id = modelPost.id))
       
     else:
         
@@ -178,7 +160,6 @@ def postComment(postID):
 @forum.route('/deletePost/<int:id>')
 def deletePost(id):
     
+    ModelPost.deletePost(db,id)
     
-    
-    flash('Post deleted successfully')
-    redirect(url_for('forum.forumIndex'))
+    return redirect(url_for('forum.forumIndex'))
