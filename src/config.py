@@ -25,6 +25,9 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
+    
+    UPLOADS_FOLDER = os.path.join('uploads')
+    
     MYSQL_HOST = os.environ['MYSQL_HOST']
     MYSQL_USER = os.environ['MYSQL_USER']
     MYSQL_PASSWORD = os.environ['MYSQL_PASSWORD']
