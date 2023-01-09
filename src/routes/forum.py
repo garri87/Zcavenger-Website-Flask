@@ -113,7 +113,7 @@ def showPost(id):
         if comments != None:
             commentsUsers = list()
             for comment in comments:
-                   commentUser = ModelUser.get_User(db,post[0].user_ID) 
+                   commentUser = ModelUser.get_User(db,comment.user_ID) 
                    commentsUsers.append(commentUser)
                    
             return render_template("/forum/showPost.html", 

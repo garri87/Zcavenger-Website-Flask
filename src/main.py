@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 
-from flaskext.mysql import MySQL
+from flask_mysqldb import MySQL
 
 from flask_wtf.csrf import CSRFProtect
 
@@ -28,7 +28,7 @@ from datetime import datetime
 
 import os
 
-env = 'prod' #'dev'
+env = 'dev' #'prod'
 
 app = Flask(__name__)
 
@@ -36,9 +36,7 @@ app.config.from_object(config[env])
 
 csrf = CSRFProtect()
 
-db = MySQL()
-
-db.init_app(app)
+db = MySQL(app)
 
 login_manager_app = LoginManager(app)
 
@@ -70,8 +68,7 @@ def development():
 @app.route('/home')
 @login_required
 def home(): 
-    conn = db.connect()
-    cursor = conn.cursor()
+    
     return render_template('home.html')
     
 @app.route('/uploads/<fileName>')
