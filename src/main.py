@@ -18,7 +18,7 @@ import utils.serializer as serializer
 
 import os
 
-env = 'dev' #'prod'
+env = 'prod' #'dev'
 
 app = Flask(__name__)
 
