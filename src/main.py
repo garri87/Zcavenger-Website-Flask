@@ -80,4 +80,6 @@ if __name__ == '__main__':
     csrf.init_app(app)
     app.register_error_handler(401, status_401)
     app.register_error_handler(404, status_404)
-    app.run()    
+    app.run()   
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080) 
