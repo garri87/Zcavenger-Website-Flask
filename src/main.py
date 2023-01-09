@@ -1,20 +1,30 @@
-from flask import Flask, render_template, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 
 from flaskext.mysql import MySQL
 
 from flask_wtf.csrf import CSRFProtect
 
-from flask_login import LoginManager, login_required
-from flask_mail import Mail
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+
+from flask_mail import Mail, Message
    
+
 from config import config
 
+import local_settings
+
 from models.ModelUser import ModelUser
+from models.ModelPost import ModelPost
+
+from models.entities.User import User
+from models.entities.Post import Post
 
 from routes.auth import auth
 from routes.forum import forum
 
 import utils.serializer as serializer 
+
+from datetime import datetime
 
 import os
 
