@@ -11,7 +11,10 @@ class ModelUser():
     def login(self, db, user):
         """Returns a User() object if credentials are correct"""
         try:
-            cursor = db.connection.cursor()
+            
+            conn = db.connect()
+            cursor = conn.cursor()
+            
             sql = """SELECT * FROM users 
             WHERE username = '{}'""".format(user.username)
             cursor.execute(sql)

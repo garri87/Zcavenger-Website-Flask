@@ -11,10 +11,10 @@ class DevelopmentConfig(Config):
     
     UPLOADS_FOLDER = os.path.join('uploads')
     
-    MYSQL_HOST = os.environ['MYSQL_HOST']
-    MYSQL_USER = os.environ['MYSQL_USER']
-    MYSQL_PASSWORD = os.environ['MYSQL_PASSWORD']
-    MYSQL_DB = os.environ['MYSQL_DB']
+    MYSQL_DATABASE_HOST = os.environ['MYSQL_HOST']
+    MYSQL_DATABASE_USER = os.environ['MYSQL_USER']
+    MYSQL_DATABASE_PASSWORD = os.environ['MYSQL_PASSWORD']
+    MYSQL_DATABASE_DB = os.environ['MYSQL_DB']
     
     MAIL_SERVER = os.environ['MAIL_SERVER']
     MAIL_PORT = os.environ['MAIL_PORT']

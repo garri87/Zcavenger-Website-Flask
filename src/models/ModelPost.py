@@ -1,4 +1,5 @@
 from .entities.Post import Post
+from utils.db import db
 
 from datetime import datetime
 
@@ -9,7 +10,8 @@ class ModelPost():
     @classmethod
     def createPost(self,db,title,user_ID,text,media,topic):
         try:
-            cursor = db.connection.cursor()
+            conn = db.connect()
+            cursor = conn.cursor()
             
             createdate = datetime.now()
             
@@ -33,7 +35,7 @@ class ModelPost():
             
             post_ID = cursor.fetchone()    
 
-            db.connection.commit()  
+            db.commit()  
             
             id = post_ID[0] 
              
@@ -49,7 +51,8 @@ class ModelPost():
     def listPosts(self,db,topic = None, id = None):
         """returns a list of Post() objects by topic or id or all if no argument is given"""
         try:
-            cursor = db.connection.cursor()
+            conn = db.connect()
+            cursor = conn.cursor()
             if id == None and topic != None: #search by topic
                 query = "SELECT * FROM zcavengerdb.posts WHERE topic = '{}';".format(topic)
             elif topic == None and id != None: #search by id
@@ -61,7 +64,7 @@ class ModelPost():
             
             queryResult = cursor.fetchall()
                        
-            db.connection.commit()
+            conn.commit()
             
             postsList = list()
                                      
@@ -81,7 +84,8 @@ class ModelPost():
     @classmethod
     def deletePost(self,db,id):
         try:
-            cursor = db.connection.cursor()
+            conn = db.connect()
+            cursor = conn.cursor()
             
             queryPostMedia = "SELECT media FROM posts WHERE id = {}".format(id)
             
@@ -120,7 +124,7 @@ class ModelPost():
             
             cursor.execute(queryDeleteComments)
             
-            db.connection.commit()
+            conn.commit()
         
         except Exception as ex:
             raise Exception(ex)

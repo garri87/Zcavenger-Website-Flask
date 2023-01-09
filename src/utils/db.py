@@ -1,3 +1,3 @@
-from flask_mysqldb import MySQL
+from flaskext.mysql import MySQL
 
 db = MySQL()

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, send_from_directory
 
-from flask_mysqldb import MySQL
+from flaskext.mysql import MySQL
 
 from flask_wtf.csrf import CSRFProtect
 
@@ -26,7 +26,9 @@ app.config.from_object(config[env])
 
 csrf = CSRFProtect()
 
-db = MySQL(app)
+db = MySQL()
+
+db.init_app(app)
 
 login_manager_app = LoginManager(app)
 
@@ -58,7 +60,8 @@ def development():
 @app.route('/home')
 @login_required
 def home(): 
-
+    conn = db.connect()
+    cursor = conn.cursor()
     return render_template('home.html')
     
 @app.route('/uploads/<fileName>')
