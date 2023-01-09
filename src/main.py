@@ -18,10 +18,11 @@ import utils.serializer as serializer
 
 import os
 
+env = 'dev' #'prod'
 
 app = Flask(__name__)
 
-app.config.from_object(config['production'])
+app.config.from_object(config[env])
 
 csrf = CSRFProtect()
 
@@ -72,7 +73,7 @@ def status_404(error):
     return "<h1>404: Page not found </h1>", 404
 
 if __name__ == '__main__':
-    app.config.from_object(config['production'])
+    app.config.from_object(config[env])
     csrf.init_app(app)
     app.register_error_handler(401, status_401)
     app.register_error_handler(404, status_404)

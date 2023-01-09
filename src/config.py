@@ -43,6 +43,6 @@ class ProductionConfig(Config):
     MAIL_USE_SSL = True    
     
 config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig
+    'dev': DevelopmentConfig,
+    'prod': ProductionConfig
 }
