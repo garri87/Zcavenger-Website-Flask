@@ -83,6 +83,7 @@ def status_401(error):
 def status_404(error):
     return "<h1>404: Page not found </h1>", 404
 
+
 if __name__ == '__main__':
     app.config.from_object(config[env])
     csrf.init_app(app)
@@ -90,4 +91,4 @@ if __name__ == '__main__':
     app.register_error_handler(404, status_404)
     #app.run()   
     serve(app, host="0.0.0.0", port=os.environ.get('PORT')) 
-    print("Server on port " + os.environ.get('PORT'))
+    
