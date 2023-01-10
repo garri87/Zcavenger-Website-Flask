@@ -52,11 +52,11 @@ class ModelPost():
             cursor = db.connection.cursor()
 
             if id == None and topic != None: #search by topic
-                query = "SELECT * FROM zcavengerdb.posts WHERE topic = '{}';".format(topic)
+                query = "SELECT * FROM posts WHERE topic = '{}';".format(topic)
             elif topic == None and id != None: #search by id
-                query = "SELECT * FROM zcavengerdb.posts WHERE id = '{}';".format(id)
+                query = "SELECT * FROM posts WHERE id = '{}';".format(id)
             elif topic == None and id == None: #search all posts
-                query = "SELECT * FROM zcavengerdb.posts"
+                query = "SELECT * FROM posts"
             
             cursor.execute(query)
             

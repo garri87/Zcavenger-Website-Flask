@@ -7,7 +7,8 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 from flask_mail import Mail, Message
-   
+from waitress import serve
+  
 
 from config import config
 
@@ -28,7 +29,7 @@ from datetime import datetime
 
 import os
 
-env = 'dev' #'prod'
+env = 'prod' # 'dev' or 'prod'
 
 app = Flask(__name__)
 
@@ -42,7 +43,7 @@ login_manager_app = LoginManager(app)
 
 mail = Mail(app)
 
-serializer.secretkey = os.environ['SECRET_KEY']
+serializer.secretkey = os.environ.get('SECRET_KEY')
 
 
 @login_manager_app.user_loader
@@ -87,6 +88,5 @@ if __name__ == '__main__':
     csrf.init_app(app)
     app.register_error_handler(401, status_401)
     app.register_error_handler(404, status_404)
-    app.run()   
-    from waitress import serve
+    #app.run()   
     serve(app, host="0.0.0.0", port=8080) 
