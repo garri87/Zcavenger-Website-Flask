@@ -31,11 +31,11 @@ class ProductionConfig(Config):
     UPLOADS_FOLDER = os.path.join('uploads')
     
     MYSQL_URL = os.environ.get('MYSQL_URL')
-    MYSQL_DB = os.environ.get('MYSQLDATABASE')
-    MYSQL_HOST = os.environ.get('MYSQLHOST')
-    MYSQL_USER = os.environ.get('MYSQLUSER')
-    MYSQL_PASSWORD = os.environ.get('MYSQLPASSWORD')
-    MYSQL_PORT = os.environ.get('MYSQLPORT')
+    MYSQL_DB = os.environ.get('MYSQL_DB')
+    MYSQL_HOST = os.environ.get('MYSQL_HOST')
+    MYSQL_USER = os.environ.get('MYSQL_USER')
+    MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
+    MYSQL_PORT = os.environ.get('MYSQL_PORT')
     
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = os.environ.get('MAIL_PORT')
