@@ -9,7 +9,7 @@ from waitress import serve
 from flask_wtf.csrf import CSRFProtect
 import os
 
-env = 'prod' # 'dev' or 'prod's
+env = 'dev' # 'dev' or 'prod's
 
 csrf = CSRFProtect()
 
