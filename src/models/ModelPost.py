@@ -68,8 +68,11 @@ class ModelPost():
                         os.remove('src/uploads/' + post.media)
                         
                     except:
+                        pass
                        # print('File: ' + post.media + ' not found in uploads directory')
+                       
                             
+            
             db.session.delete(post)
             db.session.commit()
             
@@ -80,6 +83,7 @@ class ModelPost():
                     try:
                         os.remove('src/uploads/' + comment.media)
                     except:
+                        pass
                       #  print('File: ' + comment.media + ' not found in uploads directory')
                     
             db.session.delete(comments)
