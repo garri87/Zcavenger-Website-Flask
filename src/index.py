@@ -41,8 +41,8 @@ if __name__ == '__main__':
     app.register_error_handler(404, status_404)
     
     if env == 'dev':
-        app.run(host="0.0.0.0", port= config('$PORT'))
+        app.run(host="0.0.0.0", port= config('PORT'))
     else:
-        serve(app, host="0.0.0.0",  port= config('$PORT'), threads = 4) 
+        serve(app, host="0.0.0.0",  port= config('PORT'), threads = 4) 
 
 

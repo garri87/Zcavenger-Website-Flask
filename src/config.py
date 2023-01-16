@@ -13,6 +13,8 @@ elif env == 'prod':
     
 SECRET_KEY = config('SECRET_KEY')
 
+PORT = config('PORT')
+
 user = config("MYSQL_USER")
 password = config("MYSQL_PASSWORD")
 host = config("MYSQL_HOST")
