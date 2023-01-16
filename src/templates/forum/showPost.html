@@ -2,7 +2,7 @@
 
 <div class="defaultBox">
     <div style="width: 100%; padding: 2%;">
-        <a class="defaultButton" href="/posts/{{post[0].topic}}">Back to posts</a>
+        <a class="defaultButton" href="/posts/{{post.topic}}">Back to posts</a>
 
     </div>
 </div>
@@ -13,10 +13,10 @@
         <img src="../uploads/{{user.profileimg}}" alt="">
         <div class="defaultBox">
             <p>{{user.username}}</p>
-            <p>Date: {{post[0].createdate}}</p>
+            <p>Date: {{post.createdate}}</p>
             
         </div>
-        {% if post[0].user_ID == current_user.id %}
+        {% if post.user_ID == current_user.id %}
         <div>
                 <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
         </div>
@@ -27,15 +27,15 @@
 
     <div class="PostContent"> <!-- Text -->
         <div>
-            <h2 >{{post[0].title}}</h2> <!-- Title -->
+            <h2 >{{post.title}}</h2> <!-- Title -->
         </div>
-        <p> {{post[0].text}} </p>
+        <p> {{post.text}} </p>
 
-        {% if post[0].media != "" %}
+        {% if post.media != "" %}
         <div>
             <h4>Media:</h4>
 
-            <img class="defaultBox" src="../uploads/{{post[0].media}}" alt="" style="width:300px">
+            <img class="defaultBox" src="../uploads/{{post.media}}" alt="" style="width:300px">
         </div>
         {% endif %}
         
@@ -91,7 +91,7 @@
 
     <h2>Post a comment </h2>
     <div class="defaultBox">
-        <form class="Formulario" action="/postComment/{{post[0].id}}" method="POST" enctype="multipart/form-data">
+        <form class="Formulario" action="/postComment/{{post.id}}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <textarea name="commentText" id="" cols="30" rows="10">
             </textarea>
@@ -125,7 +125,7 @@
         let text = "Are you sure to delete this post? This action is irreversible "
         if (confirm(text))
         {
-            window.location.replace("{{url_for('forum.deletePost', id = post[0].id)}}")
+            window.location.replace("{{url_for('forum.deletePost', id = post.id)}}")
 
             
         }

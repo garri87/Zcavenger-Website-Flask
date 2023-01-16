@@ -1,135 +1,138 @@
 
 from .entities.User import User
 from werkzeug.security import generate_password_hash
+from flask_login import login_user
 
 from datetime import datetime
 
 import os
 
 class ModelUser():
+    
+    @classmethod
+    def get_user(self, db, id = None ,usrname="", email = ""):
+        """return a User() object by user id, username or email"""
+        user = None
+        try:
+            if id != None:
+                user = User.query.get(id)
+            elif usrname != "":
+                user = User.query.filter_by(username = usrname).first()
+            elif email != "":
+                user = User.query.filter_by(mail = email).first()    
+          
+            return User(user.id,user.username,user.password,user.realname,user.mail,user.country,user.createdate,user.profileimg,user.token,user.active) 
+        except:
+            return user
+    
+    
     @classmethod
     def login(self, db, user):
-        """Returns a User() object if credentials are correct"""
+        """Login a User() and returns a complete User() object if credentials are correct"""
         try:
-            
-            cursor = db.connection.cursor()
-            
-            sql = """SELECT * FROM users 
-            WHERE username = '{}'""".format(user.username)
-            cursor.execute(sql)
-            row = cursor.fetchone()
-                        
-            if row != None:
-                user = User(row[0], row[1], User.check_password(row[2], user.contrasena),row[3], row[4], row[5], row[6], row[7],row[8], row[9])
-                return user
+            #search for usename first
+            query = User.query.filter_by(username = user.username).first()           
+                                         
+            if query != None:
+                #if user is found check his password
+                if User.check_password(query.contrasena,user.contrasena):
+                    #if correct log in the user and return a user object
+                    user = User(query.id,query.username,query.contrasena,query.realname,query.mail,query.country,query.createdate,query.profileimg,query.token,query.active)
+                    login_user(user)
+                    return user
+                else:
+                    return None
             else:
                 return None
         except Exception as ex:
             raise Exception(ex)
         
     @classmethod
-    def registerUser(self, db, user, password, mail,realname = "", country = "", profileimg = "", token = "", active = False):
+    
+    def register_user(self, db, usrname, password, email,name = "", country = "", profileimg = "", token = "", active = False):
+        """Register a new user into db and returns a User() Object
+
+        Args:
+            db (SQLAlchemy()): Database to save
+            usrname (string): Username
+            password (string): Generates a password hash
+            email (string): E-mail
+            name (str, optional): Real Name. Defaults to "".
+            country (str, optional): Country. Defaults to "".
+            profileimg (str, optional): Profile Image. Defaults to "".
+            token (str, optional): Activation Token. Defaults to "".
+            active (bool, optional): User is active?. Defaults to False.
+
+        Returns:
+            User(): 
+        """
+    
         try:
-            cursor = db.connection.cursor()
-            
-            hashed_password = generate_password_hash(password)
-            
-            now = datetime.now()
-            
-            createdate = now.strftime("%Y%H%M%S")
-            
-            if profileimg != "":
-                newprofileimg = createdate + profileimg.filename
-                profileimg.save("src/uploads/" + newprofileimg)
+            if User.query.filter_by(username = usrname).first() is None:
+                           
+                hashed_password = generate_password_hash(password)
+                
+                now = datetime.now()
+                
+                fileDate = now.strftime("%Y%H%M%S")
+                
+                if profileimg != "":
+                    newprofileimg = fileDate + "_" + profileimg.filename
+                    profileimg.save("src/uploads/" + newprofileimg)
+                else:
+                    newprofileimg = ""
+                new_user = User(None,usrname,hashed_password,name,email,country,now,newprofileimg,token,active)
+                db.session.add(new_user)
+                db.session.commit()
+                
+                user = User.query.filter_by(username = new_user.username,mail = new_user.mail).first()
+                            
+                return User(user.id,user.username,user.contrasena,user.realname,user.mail,user.country,user.createdate,user.profileimg,user.token,user.active)
             else:
-                newprofileimg = ""
-            
-            data = (user,hashed_password,realname,mail,country,now,newprofileimg)
-            sql = "INSERT INTO users (id, username, contrasena, realname, mail, country, createdate, profileimg) VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)"
-            cursor.execute(sql,data)
-        
-            sql2 = "SELECT * FROM users ORDER BY id DESC LIMIT 1"
-            
-            cursor.execute(sql2)
-            
-            row = cursor.fetchone() 
-            
-            
-            db.connection.commit()
-        
-            return User(row[0],row[1],User.check_password(row[2], password),row[3],row[4],row[5],row[6],row[7])
+                
+                return None
+                
         
         
         except Exception as ex:
             raise Exception(ex)
     
     @classmethod    
-    def checkAvailability(self, db, username = "", email = ""):
+    def check_aviavility(self, usrname = "", email = ""):
         try:
-            cursor = db.connection.cursor()
-            cursor.execute("SELECT username, mail FROM users WHERE username = '{}' AND mail = '{}'".format(username, email))
-            row = cursor.fetchone()
-            if row != None:
-                if row[0] == username or row[1] == email:
-                    return False
-                else:
-                    return True
+            user = User.query.filter_by(username = usrname, mail = email).first()            
+            
+            if user != None:
+                return False
             else:
                 return True
+            
         except Exception as ex:
             raise Exception(ex)
         
-    @classmethod
-    def get_User(self, db, id = None ,username="", email = ""):
-        """return a User() object by user id, username or email"""
-        
-        try:
-            cursor = db.connection.cursor()
-            if id != None:
-                sql = "SELECT * FROM users WHERE id = {}".format(id)
-            elif username != "":
-                sql = "SELECT * FROM users WHERE username = '{}'".format(username)
-            elif email != "":
-                sql = "SELECT * FROM users WHERE mail = '{}'".format(email)
-            cursor.execute(sql)
-            row = cursor.fetchone()
-            if row != None:
-                return User(row[0], row[1], row[2], row[3], row[4], row[5],row[6],row[7],row[8])
-            else:
-                return User(id = 0, username = "User Not Found", profileimg = "NoProfile.png")  
-        except:
-            
-            return User(id = 0, username = "User Not Found", profileimg = "NoProfile.png")
-
+    
 
     @classmethod
-    def activateUser(self,db,id,activate):
+    def activate_user(self,db,id,activate):
         try:
-            cursor = db.connection.cursor()
-            sql = "UPDATE users SET active = {} WHERE id = {}".format(activate, id)
-            cursor.execute(sql)
-            db.connection.commit()
+            user = User.query.get(id)
+            user.active = activate
+            db.session.commit()
 
         except Exception as ex:
             raise Exception(ex)
 
     @classmethod
-    def deleteUser(self,db,id):   
+    def delete_user(self,db,id):   
         try:
-            user = ModelUser.get_User(db,id)
-            
+            user = User.query.get(id)
             if user.profileimg != "":
                 os.remove('src/uploads/' + user.profileimg)
             
-            cursor = db.connection.cursor()
-            
-            sql = "DELETE FROM users WHERE id = {}".format(user.id)
+            db.session.delete(user)          
 
-            cursor.execute(sql)
-            db.connection.commit()
+            db.session.commit()
            
-            
-            
         except Exception as ex:
             raise Exception(ex)
 

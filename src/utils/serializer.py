@@ -1,6 +1,6 @@
 from itsdangerous import URLSafeSerializer, SignatureExpired
 import os
+from decouple import config
 
-secretkey = os.environ['SECRET_KEY']
-
+secretkey = config('SECRET_KEY')
 s = URLSafeSerializer(secretkey)

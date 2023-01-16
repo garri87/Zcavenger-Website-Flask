@@ -34,7 +34,9 @@
                         Date: {{post.createdate}}
                     </div>
                     <div class="defaultBox">
-                        {{commentsList[postsList.index(post)]|length}} replies
+                        {% if commentsList != None %}
+                            {{commentsList[postsList.index(post)]|length}} replies
+                        {% endif %}
                     </div>
                 </div>
 

@@ -1,7 +1,11 @@
 <div class="dropdown">
     <p class="LoginButton" onclick="toggleLoginBox()">
         {% if current_user.is_authenticated %}
-        <img src="../uploads/{{current_user.profileimg}}" alt="">
+            {% if current_user.profileimg != "" %}
+            <img src="../uploads/{{current_user.profileimg}}" alt="">
+            {% else %}
+            <img src="../uploads/NoProfile.png" alt="">
+            {%endif%}
         {{current_user.username}}
         {% else %}
         <i class="dropbtn fa-solid fa-circle-user fa-2xl"></i>

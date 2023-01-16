@@ -1,68 +1,73 @@
 
 from .entities.Comment import Comment
 
+import os
+
 from datetime import datetime
 
 
 class ModelComment():
     @classmethod
-    def createComment(self,db,post_ID,user_ID,text,media = ""):
+    def create_comment(self,db,post_ID,user_ID,text,media = ""):
         """Inserts data in the comments table and returns a Comment() object"""
         try:
-            cursor = db.connection.cursor()
             
             now = datetime.now()
             
-            createdate = now.strftime("%Y%H%M%S")
+            fileDate = now.strftime("%Y%H%M%S")
             
             if media.filename != "":
-                newMedia = createdate + media.filename
+                newMedia = fileDate + media.filename
                 media.save("src/uploads/" + newMedia)
             else:
                 newMedia = ""
             
-            data = (post_ID,user_ID,text,newMedia,now)
+            newComment = Comment(None,post_ID,user_ID,text,newMedia,now)
             
-            sql = "INSERT INTO comments VALUES (NULL,%s,%s,%s,%s,%s)"
-            cursor.execute(sql,data)
+            db.session.add(newComment)
+            db.session.commit()
             
-            sql2 = "SELECT * FROM comments ORDER BY id DESC LIMIT 1"
-            
-            cursor.execute(sql2)
-            
-            result = cursor.fetchone()    
-            
-            comment = Comment(result[0],result[1],result[2],result[3],result[4],result[5])
-            db.connection.commit()
-            
-            return comment
+                                   
+            return Comment(newComment.id,newComment.post_ID,newComment.user_ID,newComment.text,newComment.media,newComment.createdate)
             
         except Exception as ex:
             raise Exception(ex)
     
     
     @classmethod
-    def getComments(self, db, post_ID = None,user_ID = None):
+    def get_comments(self, postID = None,userID = None):
         """returns a list of Comment() objects by post_ID or user_ID"""
-        cursor = db.connection.cursor()
         
-        if post_ID != None and user_ID == None:
+        commentList = list()
         
-            sql = "SELECT * from comments WHERE post_ID = {}".format(post_ID)
+        if postID != None: 
+            comments = Comment.query.filter_by(post_ID = postID).order_by(Comment.createdate.desc())
         
-        elif post_ID == None and user_ID != None:
-            sql = "SELECT * from comments WHERE user_ID = {}".format(user_ID)
-        
-        cursor.execute(sql)
-                
-        result = cursor.fetchall()    
-        comments = list()
-        for row in result:
-           comment = Comment(row[0],row[1],row[2],row[3],row[4],row[5])
-           comments.append(comment)
-        return comments
+        elif userID == None:
+            comments = Comment.query.filter_by(user_ID = userID).order_by(Comment.createdate.desc()) 
+               
+        else:
+            comments = Comment.query.all().order_by(Comment.createdate.desc()) 
+          
+        if comments != None:
+            for comment in comments:
+                commentList.append(comment)
+                                         
+        return commentList
     
     @classmethod
-    def deleteComment():
-        return
+    def delete_comment(db,id):
+        try:
+            comment = Comment.query.get(id)
+        
+            if comment.media != "":
+                os.remove('src/uploads/' + comment.media)
+
+            db.session.delete(comment)
+            db.session.commit()
+            
+        except Exception as ex:
+            raise Exception(ex)
+        
+        
     

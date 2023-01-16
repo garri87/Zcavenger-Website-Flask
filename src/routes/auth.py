@@ -8,7 +8,9 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 
 from flask_mail import Mail, Message
 
-from utils.db import db
+from sqlalchemy import update
+
+from utils.database import db
 from utils.mail import mail
 from utils.serializer import s, SignatureExpired 
 from itsdangerous import URLSafeTimedSerializer
@@ -25,33 +27,31 @@ def login():
         user = User(0,request.form['username'], request.form['contrasena'])
         
         logged_user = ModelUser.login(db,user)
+        
         if logged_user != None:
-            if logged_user.contrasena:
-                login_user(logged_user)
-                if logged_user.active == True:
-                    return redirect(request.referrer)
-                else:
-                    logout_user()
-                    flash("User is not activated, please check your email")
-                    return redirect(request.referrer)
-
-
-            else: 
-                flash('Invalid Credentials')
-                print('logged user: '+ str(logged_user) )
+            
+            if logged_user.active == True:
+                
                 return redirect(request.referrer)
-
-        else:
+            
+            else:
+                
+                logout_user()
+                
+                flash("User is not activated, please check your email")
+                
+                return redirect(request.referrer)
+        else: 
+            
             flash('Invalid Credentials')
             return redirect(request.referrer)
+        
 
-    else:
-        return redirect(request.referrer)
 
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('index'))
 
 @auth.route('/register', methods = ['GET','POST'])
 def register():
@@ -67,13 +67,11 @@ def register():
         
         if _pass == _pass2:
                         
-            if ModelUser.checkAvailability(db,_user,_mail) == True:
+            if ModelUser.check_aviavility(_user,_mail) == True:
+                new_user = ModelUser.register_user(db, _user, _pass, _mail,_realname, _country, _profileimg,"",False)
                 
-                token  = s.dumps(_mail,salt='mail-confirm')
-
-                sendActivationMail(_mail,_user,token)              
-                ModelUser.registerUser(db, _user, _pass, _mail,_realname, _country, _profileimg,token,False)
-                
+                send_activation_mail(new_user)              
+               
                 flash('Registration Complete, a confirmation Mail was sent to activate your account') 
                 
                 return redirect(url_for('index'))
@@ -92,15 +90,16 @@ def activate(username = None, token = None):
     try:
         email = s.loads(token, salt='mail-confirm')
         
-        user = ModelUser.get_User(db,None,username,email)
-        print(email + " " + user.mail)
+        user = ModelUser.get_user(db,None,username,email)
+        
         if user.mail == email:
-            ModelUser.activateUser(db,user.id,True)
+            ModelUser.activate_user(db,user.id,True)
             flash('User successfully activated')
             return redirect(url_for('index'))
         else:
             flash('Wrong activation token')
             return redirect(url_for('index'))
+        
     except SignatureExpired:
     
         return
@@ -109,22 +108,28 @@ def activate(username = None, token = None):
 @login_required
 def deleteUser(id):
     if id == current_user.id:
-        ModelUser.deleteUser(db,id)
+        ModelUser.delete_user(db,id)
         logout_user()
         flash('User deleted')
         return render_template('index.html')
 
 
     
-def sendActivationMail(email,username,token):
-                    
-    msg = Message('Zcavenger.com | Activate your account', sender = 'noreply@zcavenger.com', recipients= [email])
+def send_activation_mail(user):
+
+    new_token  = s.dumps(user.mail,salt='mail-confirm')
+                             
+    msg = Message('Zcavenger.com | Activate your account', sender = 'noreply@zcavenger.com', recipients= [user.mail])
                 
-    link = url_for('auth.activate', username = username, token = token, _external = True)
+    link = url_for('auth.activate', username = user.username, token = new_token, _external = True)
     msg.body = ""
-    msg.html = render_template('auth/activationMail.html',username = username, email = email, token = token, link = link)
-                
+    msg.html = render_template('auth/activationMail.html',username = user.username, email = user.mail, token = new_token, link = link)
+    
+               
     mail.send(msg)
+    query = User.query.get(user.id) 
+    query.token = new_token
+    db.session.commit()  
     
     return
 

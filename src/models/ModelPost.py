@@ -1,4 +1,5 @@
 from .entities.Post import Post
+from .entities.Comment import Comment
 
 from datetime import datetime
 
@@ -7,9 +8,8 @@ import os
 class ModelPost():
     
     @classmethod
-    def createPost(self,db,title,user_ID,text,media,topic):
+    def create_post(self,db,title,user_ID,text,media,topic):
         try:
-            cursor = db.connection.cursor()
 
             createdate = datetime.now()
             
@@ -21,23 +21,11 @@ class ModelPost():
             else:
                 mediaName = media
                 
-            data = (title,user_ID,createdate,text,mediaName,topic)
+            post = Post(None,title,user_ID,createdate,text,mediaName,topic)
             
-            sql = "INSERT INTO posts VALUES (NULL,%s,%s,%s,%s,%s,%s)"
-            
-            cursor.execute(sql,data)
-            
-            sql2 = "SELECT * FROM posts ORDER BY id DESC LIMIT 1"
-            
-            cursor.execute(sql2)
-            
-            post_ID = cursor.fetchone()    
-
-            db.connection.commit()  
-            
-            id = post_ID[0] 
-             
-            post = Post(id,title,user_ID,createdate,text,media,topic)
+            db.session.add(post)
+            db.session.commit()
+                         
             return post
             
         except Exception as ex:
@@ -46,84 +34,57 @@ class ModelPost():
         
    
     @classmethod
-    def listPosts(self,db,topic = None, id = None):
+    def list_posts(self, db, id = None, userid = None, topic = None, limit = 0):
         """returns a list of Post() objects by topic or id or all if no argument is given"""
         try:
-            cursor = db.connection.cursor()
-
-            if id == None and topic != None: #search by topic
-                query = "SELECT * FROM posts WHERE topic = '{}';".format(topic)
-            elif topic == None and id != None: #search by id
-                query = "SELECT * FROM posts WHERE id = '{}';".format(id)
-            elif topic == None and id == None: #search all posts
-                query = "SELECT * FROM posts"
-            
-            cursor.execute(query)
-            
-            queryResult = cursor.fetchall()
-                       
-            db.connection.commit()
-            
-            postsList = list()
-                                     
-            for row in queryResult:
-                post = Post(row[0], row[1], row[2], row[3],row[4],row[5],row[6])               
-                
-                postsList.append(post)
-                      
-                                               
+            if id != None:
+                postsList = Post.query.get(id)
+            elif topic != None: #search by topic
+                postsList = Post.query.filter_by(topic = topic)
+            elif userid != None: #search by user id
+                postsList = Post.query.filter_by(user_ID = userid)
+            else: #search all posts
+                if limit > 0:
+                    postsList = Post.query.limit(limit).all()
+                    if len(postsList) > 0:
+                        postsList.order_by(Post.createdate.desc())
+                else:
+                    postsList = Post.query.all()
+   
             return postsList
         
         except:
-            print('no Post found')
+           # print('no Post found')
             postlist = None
-            return list(postlist)
+            return postlist
         
     @classmethod
-    def deletePost(self,db,id):
+    def delete_post(self,db,id):
         try:
-            cursor = db.connection.cursor()
-
-            
-            queryPostMedia = "SELECT media FROM posts WHERE id = {}".format(id)
-            
-            cursor.execute(queryPostMedia)
-            
-            postMediaResult = cursor.fetchall()
-            
-            if postMediaResult != None:
-                for row in postMediaResult:
+            post = Post.query.get(id)
+                        
+            if post != None and post.media != "":
                     try:
-                        os.remove('src/uploads/' + row[0])
+                        os.remove('src/uploads/' + post.media)
                         
                     except:
-                        print('File: ' + row[0] + ' not found in uploads directory')
-                    
-                    
-            queryDeletePost = "DELETE FROM posts WHERE id = {}".format(id)
+                       # print('File: ' + post.media + ' not found in uploads directory')
+                            
+            db.session.delete(post)
+            db.session.commit()
             
-            cursor.execute(queryDeletePost)    
+            comments = Comment.query.filter_by(post_ID = id)
             
-            queryCommentsMedia = "SELECT media FROM comments WHERE id = {}".format(id)
-            
-            cursor.execute(queryCommentsMedia)
-            
-            commentMediaResult = cursor.fetchall()
-            
-            if commentMediaResult != None:
-                for row in commentMediaResult:
+            for comment in comments:
+                if comment.media != "":
                     try:
-                        os.remove('src/uploads/' + row[0])
-                        
+                        os.remove('src/uploads/' + comment.media)
                     except:
-                        print('File: ' + row[0] + ' not found in uploads directory')
-                        
-            queryDeleteComments = "DELETE FROM comments WHERE post_ID = {}".format(id)
+                      #  print('File: ' + comment.media + ' not found in uploads directory')
+                    
+            db.session.delete(comments)
+            db.session.commit()            
             
-            cursor.execute(queryDeleteComments)
-            
-            db.connection.commit()
-        
         except Exception as ex:
             raise Exception(ex)
             #print("No post found with ID: " + id)

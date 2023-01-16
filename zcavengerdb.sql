@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-01-2023 a las 18:06:54
+-- Tiempo de generación: 16-01-2023 a las 19:01:13
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -24,51 +24,51 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `comments`
+-- Estructura de tabla para la tabla `comment`
 --
 
-CREATE TABLE `comments` (
-  `id` int(8) NOT NULL,
-  `post_ID` int(8) NOT NULL,
-  `user_ID` int(8) NOT NULL,
-  `text` varchar(1000) NOT NULL,
-  `media` varchar(255) DEFAULT NULL,
-  `createdate` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `posts`
---
-
-CREATE TABLE `posts` (
-  `id` int(8) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `user_ID` int(8) NOT NULL,
-  `createdDate` datetime NOT NULL,
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
+  `post_ID` int(11) DEFAULT NULL,
+  `user_ID` int(11) DEFAULT NULL,
   `text` varchar(1000) DEFAULT NULL,
   `media` varchar(255) DEFAULT NULL,
-  `topic` varchar(50) NOT NULL
+  `createdate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Estructura de tabla para la tabla `post`
 --
 
-CREATE TABLE `users` (
-  `id` int(8) NOT NULL,
+CREATE TABLE `post` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `user_ID` int(11) DEFAULT NULL,
+  `createdate` datetime DEFAULT NULL,
+  `text` varchar(1000) DEFAULT NULL,
+  `media` varchar(255) DEFAULT NULL,
+  `topic` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(40) NOT NULL,
-  `contrasena` char(255) NOT NULL,
+  `contrasena` varchar(255) NOT NULL,
   `realname` varchar(100) DEFAULT NULL,
   `mail` varchar(100) NOT NULL,
   `country` varchar(100) DEFAULT NULL,
-  `createdate` datetime NOT NULL,
+  `createdate` datetime DEFAULT NULL,
   `profileimg` varchar(255) DEFAULT NULL,
-  `token` char(255) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL
+  `token` varchar(255) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -76,44 +76,46 @@ CREATE TABLE `users` (
 --
 
 --
--- Indices de la tabla `comments`
+-- Indices de la tabla `comment`
 --
-ALTER TABLE `comments`
+ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `posts`
+-- Indices de la tabla `post`
 --
-ALTER TABLE `posts`
+ALTER TABLE `post`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `users`
+-- Indices de la tabla `user`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `mail` (`mail`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `comments`
+-- AUTO_INCREMENT de la tabla `comment`
 --
-ALTER TABLE `comments`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `posts`
+-- AUTO_INCREMENT de la tabla `post`
 --
-ALTER TABLE `posts`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+ALTER TABLE `post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT de la tabla `user`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -71,6 +71,7 @@
     <div class="TopicDashboard">
         <h2 id="defaultBoxTitle">Latest Posts</h2>
         <table class="PostsTable">
+            {% if lastPosts != None %}
             {% for post in lastPosts %}
 
 
@@ -103,6 +104,7 @@
             </tr>
 
             {% endfor %}
+            {% endif %}
         </table>
     </div>
 

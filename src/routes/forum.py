@@ -1,17 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 
-from utils.db import db
+from utils.database import db
+
+from models.entities.Post import Post
+from models.entities.Comment import Comment
 
 from models.ModelPost import ModelPost
 from models.ModelUser import ModelUser
 from models.ModelComment import ModelComment
 
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-
-from datetime import datetime
-
-import os
-
+from flask_login import login_required, current_user
 
 forum = Blueprint('forum',__name__, template_folder='templates')
 
@@ -21,30 +19,22 @@ forum = Blueprint('forum',__name__, template_folder='templates')
 def forumIndex():
     
     try:
-        announcementsCount = len(ModelPost.listPosts(db,'announcements')) 
-        bugReportCount = len(ModelPost.listPosts(db,'bugreports'))
-        generalDiscussionCount = len(ModelPost.listPosts(db,'generaldiscussion')) 
-        mediaCount = len(ModelPost.listPosts(db,'media')) 
+        announcementsCount = len(list(ModelPost.list_posts(db = db, topic ='announcements'))) 
+        bugReportCount = len(list(ModelPost.list_posts(db = db,topic ='bugreports')))
+        generalDiscussionCount = len(list(ModelPost.list_posts(db = db,topic = 'generaldiscussion'))) 
+        mediaCount = len(list(ModelPost.list_posts(db = db,topic ='media')))
         
-        
-        #TODO: create func get latests posts
-        #################################################
         latestPostsCount = 4
 
-        allposts = ModelPost.listPosts(db)
-            
-        lastPosts = list(allposts[-latestPostsCount:]) 
-        lastPosts.reverse()
+        lastPosts = ModelPost.list_posts(db = db, limit=latestPostsCount) 
         usersList = list()
         
-        for post in lastPosts:
-            
-            postUser = ModelUser.get_User(db,post.user_ID)
-            
-            
-            
-            usersList.append(postUser)
-        #################################################
+        if  lastPosts != None:
+            for post in lastPosts:
+
+                postUser = ModelUser.get_user(db,post.user_ID)
+                    
+                usersList.append(postUser)
         
         return render_template('/forum/forum.html',
                             announcementsCount = announcementsCount,
@@ -62,18 +52,18 @@ def forumIndex():
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])
 def showPosts(topic):
     
-    postsList = ModelPost.listPosts(db,topic)
+    postsList = ModelPost.list_posts(db = db, topic = topic)
 
     usersList = list()
-
+    postsList = list(postsList)
     commentsList = list()
-
-    for post in postsList:
-        
-        postUser = ModelUser.get_User(db,post.user_ID)
-        comments = ModelComment.getComments(db,post.id)        
-        usersList.append(postUser)
-        commentsList.append(comments)
+    if len(postsList) > 0:
+        for post in postsList:
+            
+            postUser = ModelUser.get_user(db,post.user_ID)
+            comments = ModelComment.get_comments(post.id)        
+            usersList.append(postUser)
+            commentsList.append(comments)
 
     return render_template('/forum/posts.html',
             postsList = postsList, 
@@ -92,7 +82,7 @@ def createPost(postTopic):
         media = request.files['media']
         topic = postTopic
                
-        modelPost = ModelPost.createPost(db,title,current_user.id,text,media,topic)    
+        modelPost = ModelPost.create_post(db,title,current_user.id,text,media,topic)    
                            
         return redirect(url_for('forum.showPost', id = modelPost.id))
       
@@ -105,15 +95,15 @@ def createPost(postTopic):
 @forum.route('/showPost/<int:id>')
 def showPost(id):
     
-    post = ModelPost.listPosts(db,None,id)
+    post = ModelPost.list_posts(db,id)
     if post != None:    
-        user = ModelUser.get_User(db,post[0].user_ID) 
+        user = ModelUser.get_user(db,post.user_ID) 
         
-        comments = ModelComment.getComments(db,post[0].id)
+        comments = ModelComment.get_comments(post.id)
         if comments != None:
             commentsUsers = list()
             for comment in comments:
-                   commentUser = ModelUser.get_User(db,comment.user_ID) 
+                   commentUser = ModelUser.get_user(db,comment.user_ID) 
                    commentsUsers.append(commentUser)
                    
             return render_template("/forum/showPost.html", 
@@ -135,31 +125,44 @@ def postComment(postID):
     
     _text = request.form['commentText']
     _media = request.files['commentMedia']
-    
-    
-    ModelComment.createComment(db,postID,current_user.id,_text,_media)
-    
-    post = ModelPost.listPosts(db,None,postID)
-    user = ModelUser.get_User(db,post[0].user_ID)
-    comments = ModelComment.getComments(db,postID)
-    commentsUsers = list()
-    for comment in comments:
-        commentUser = ModelUser.get_User(db,comment.user_ID)
-        commentsUsers.append(commentUser)
-     
+        
+    ModelComment.create_comment(db,postID,current_user.id,_text,_media)
+         
     return redirect(url_for('forum.showPost',id = postID))        
-    
-    #return render_template('/forum/showPost.html',
-    #                       post = post,
-    #                       user = user,
-    #                       comments = comments,
-    #                       commentsUsers = commentsUsers)
-    
+       
     
     
 @forum.route('/deletePost/<int:id>')
+@login_required
 def deletePost(id):
     
-    ModelPost.deletePost(db,id)
-    
+    try:
+        post = Post.query.get(id)
+        if post.user_ID == current_user.id:
+            ModelPost.delete_post(db,id)    
+            flash("Post deleted successfully")
+        else:
+            flash("You are not allowed to delete this post")
+    except:
+        flash("An error ocurred when deleting Post")
+        
     return redirect(url_for('forum.forumIndex'))
+
+
+@forum.route('/deleteComment/<int:id>')
+@login_required
+def deleteComment(id):
+    
+    try:
+        comment = Comment.query.get(id)
+        if comment.user_ID == current_user.id:
+            ModelPost.delete_comment(db,id)    
+            flash("Comment deleted successfully")
+        else:
+            flash("You are not allowed to delete this comment")
+    except:
+        flash("An error ocurred when deleting comment")
+        
+    return redirect(request.referrer)
+
+
