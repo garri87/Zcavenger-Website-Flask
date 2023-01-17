@@ -9,7 +9,7 @@ from waitress import serve
 from flask_wtf.csrf import CSRFProtect
 import os
 
-env = 'dev' # 'dev' or 'prod's
+env = 'prod' # 'dev' or 'prod'
 
 csrf = CSRFProtect()
 
@@ -25,6 +25,7 @@ try:
     print("Connected to database!")
 except:
     print("Error connecting to database")
+    print(config('SQLALCHEMY_DATABASE_URI'))
 
     
 def status_401(error):

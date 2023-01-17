@@ -20,7 +20,7 @@ password = config("MYSQL_PASSWORD")
 host = config("MYSQL_HOST")
 database = config("MYSQL_DB")
     
-DATABASE_CONNECTION_URI = f'mysql://{user}:{password}@{host}/{database}'
+DATABASE_CONNECTION_URI = config('SQLALCHEMY_DATABASE_URI')
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
   
