@@ -5,7 +5,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     post_ID = db.Column(db.Integer())
     user_ID = db.Column(db.Integer())
-    text = db.Column(db.String(1000))
+    text = db.Column(db.String(100000))
     media = db.Column(db.String(255))
     createdate = db.Column(db.DateTime)    
     
