@@ -9,7 +9,7 @@
         <label for="txtTitle">Title</label>
         <input type="text" name="txtTitle" required>
         <br>
-        <textarea name="txtText" id="" cols="30" rows="10"  maxlength="100000" placeholder="Insert your text here"></textarea>
+        {{ ckeditor.create() }}
         <br>
         <label for="media">Media:</label>
         <input type="file" name="media" onchange="previewFile()">
@@ -19,7 +19,7 @@
         <input type="submit" name="submit" value="Submit Post">
 
     </form>
-
+    {{ ckeditor.load() }}
 
 </div>
 

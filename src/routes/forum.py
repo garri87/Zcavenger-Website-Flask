@@ -83,7 +83,7 @@ def showPosts(topic):
 def createPost(postTopic):
     if request.method == 'POST':
         title = request.form['txtTitle']
-        text = request.form['txtText']
+        text = request.form.get('ckeditor')
         media = request.files['media']
         topic = postTopic
                
@@ -128,8 +128,9 @@ def showPost(id):
 @forum.route('/postComment/<int:postID>', methods = ['POST'])
 def postComment(postID):
     
-    _text = request.form['commentText']
+    _text = request.form.get('ckeditor')
     _media = request.files['commentMedia']
+    
         
     ModelComment.create_comment(db,postID,current_user.id,_text,_media)
          

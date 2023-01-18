@@ -6,7 +6,7 @@ class Post(db.Model):
     title = db.Column(db.String(100),nullable=False)
     user_ID = db.Column(db.Integer(),nullable=False)
     createdate = db.Column(db.DateTime,nullable=False)
-    text = db.Column(db.String(100000))
+    text = db.Column(db.Text())
     media = db.Column(db.String(255))
     topic = db.Column(db.String(100),nullable=False)
     

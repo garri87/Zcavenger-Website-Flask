@@ -5,6 +5,7 @@ import config as _config
 
 from utils.database import db
 from utils.mail import mail
+from utils.ckeditor import ckeditor
 
 from waitress import serve
 from flask_wtf.csrf import CSRFProtect
@@ -18,6 +19,7 @@ env = _config.env
 
 db.init_app(app)
 mail.init_app(app)
+ckeditor.init_app(app)
 
 
 try:

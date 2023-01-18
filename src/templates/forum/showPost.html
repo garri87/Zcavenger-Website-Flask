@@ -14,22 +14,22 @@
         <div class="defaultBox">
             <p>{{user.username}}</p>
             <p>Date: {{post.createdate}}</p>
-            
+
         </div>
         {% if post.user_ID == current_user.id %}
         <div>
-                <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
+            <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
         </div>
-            
+
 
         {% endif %}
     </div>
 
     <div class="PostContent"> <!-- Text -->
         <div>
-            <h2 >{{post.title}}</h2> <!-- Title -->
+            <h2>{{post.title}}</h2> <!-- Title -->
         </div>
-        <p> {{post.text}} </p>
+        <p> {{post.text|safe}} </p>
 
         {% if post.media != "" %}
         <div>
@@ -38,7 +38,7 @@
             <img class="defaultBox" src="../uploads/{{post.media}}" alt="" style="width:300px">
         </div>
         {% endif %}
-        
+
     </div>
 </div>
 
@@ -51,7 +51,7 @@
         {% for comment in comments%}
         <div class="Comment">
             <div class="CommentText">
-                {{comment.text}}
+                {{comment.text|safe}}
 
                 {% if comment.media != "" %}
                 <div>
@@ -93,8 +93,7 @@
     <div class="defaultBox">
         <form class="Formulario" action="/postComment/{{post.id}}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <textarea name="commentText" id="" cols="30" rows="10">
-            </textarea>
+            {{ ckeditor.create() }}
             <br>
             <input type="file" name="commentMedia"><br>
             <img src="../static/Img/NoProfile.png" alt="" id="imgPreview"><br>
@@ -102,6 +101,7 @@
             <input type="submit" name="submit">
 
         </form>
+        {{ ckeditor.load() }}
     </div>
 
 
@@ -121,13 +121,12 @@
 
 
 <script>
-    function confirmDelete(){
+    function confirmDelete() {
         let text = "Are you sure to delete this post? This action is irreversible "
-        if (confirm(text))
-        {
+        if (confirm(text)) {
             window.location.replace("{{url_for('forum.deletePost', id = post.id)}}")
 
-            
+
         }
     }
 </script>

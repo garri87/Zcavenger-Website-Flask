@@ -75,7 +75,7 @@ class ModelPost():
             db.session.delete(post)
             db.session.commit()
             
-            comments = Comment.query.filter_by(post_ID = id)
+            comments = Comment.query.filter_by(post_ID = id).all()
             
             for comment in comments:
                 if comment.media != "":
