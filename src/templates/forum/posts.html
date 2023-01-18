@@ -15,42 +15,42 @@
 <div class="defaultBox">
 
     <div class="PostsTable">
-        {% if postsList|count != 0 %}
-        {%for post in postsList %}
-        <div class="PostItem">
-            <div class="PostTitle">
-                <a href="/showPost/{{post.id}}  ">
-                    {{post.title}}
-                </a>
-            </div>
-            <div class="PostUser">
-                <div class="">
-                    <img src="../uploads/{{usersList[postsList.index(post)].profileimg}}" alt="">
-                </div>
-
-                <div class="">
-                    {{usersList[postsList.index(post)].username}}
-                    <div>
-                        Date: {{post.createdate}}
+        {% if postsList != None %}
+            {%for post in postsList %}
+                <div class="PostItem">
+                    <div class="PostTitle">
+                        <a href="/showPost/{{post.id}}  ">
+                            {{post.title}}
+                        </a>
                     </div>
-                    <div class="defaultBox">
-                        {% if commentsList != None %}
-                            {{commentsList[postsList.index(post)]|length}} replies
-                        {% endif %}
+                    <div class="PostUser">
+                        <div class="">
+                            <img src="../uploads/{{usersList[postsList.index(post)].profileimg}}" alt="">
+                        </div>
+
+                        <div class="">
+                            {{usersList[postsList.index(post)].username}}
+                            <div>
+                                Date: {{post.createdate}}
+                            </div>
+                            <div class="defaultBox">
+                                {% if commentsList != None %}
+                                    {{commentsList[postsList.index(post)]|length}} replies
+                                {% endif %}
+                            </div>
+                        </div>
+
                     </div>
+
+
+
                 </div>
-
-            </div>
-
-
-
-        </div>
-        {% endfor %}
+            {% endfor %}
         {% else %}
 
-        <div class="defaultBox" style="text-align:left">
-            <h4>No posts found in this topic but you can start a new post by clicking the create post button</h4>
-        </div>
+            <div class="defaultBox" style="text-align:left">
+                <h4>No posts found in this topic but you can start a new post by clicking the create post button</h4>
+            </div>
 
         {% endif %}
     </div>

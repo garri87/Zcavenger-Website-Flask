@@ -34,29 +34,28 @@ class ModelPost():
         
    
     @classmethod
-    def list_posts(self, db, id = None, userid = None, topic = None, limit = 0):
+    def list_posts(self, postID = None, userID = None, topic = None, limit = 0):
         """returns a list of Post() objects by topic or id or all if no argument is given"""
-        try:
-            if id != None:
-                postsList = Post.query.get(id)
-            elif topic != None: #search by topic
-                postsList = Post.query.filter_by(topic = topic)
-            elif userid != None: #search by user id
-                postsList = Post.query.filter_by(user_ID = userid)
-            else: #search all posts
-                if limit > 0:
-                    postsList = Post.query.limit(limit).all()
-                    if len(postsList) > 0:
-                        postsList.order_by(Post.createdate.desc())
-                else:
-                    postsList = Post.query.all()
-   
-            return postsList
+        #try:
+        if postID != None:
+            postsList = Post.query.get(postID)
+            
+        elif topic != None: #search by topic
+            postsList = Post.query.filter_by(topic = topic).all()
+        elif userID != None: #search by user id
+            postsList = Post.query.filter_by(user_ID = userID).all()
+        else: #search all posts
+            postsList = Post.query.all()
+                
+        if limit > 0:
+            postsList = Post.query.order_by(Post.createdate.desc()).limit(limit).all()
+               
+        return postsList
         
-        except:
+        #except:
            # print('no Post found')
-            postlist = None
-            return postlist
+            #postlist = None
+           # return postlist
         
     @classmethod
     def delete_post(self,db,id):

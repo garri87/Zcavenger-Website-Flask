@@ -26,77 +26,49 @@
         <h2 id="defaultBoxTitle">Main Topics</h2>
 
         <table class="PostsTable">
+            {% for i in range(topics|length) %}
             <tr>
                 <th>
-                    <a href="posts/announcements">
-                        <i class="fa-solid fa-bullhorn"></i> Announcements
+                    <a href="posts/{{topics[i]}}">
+                        <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
                     </a>
                 </th>
                 <td>
-                    {{announcementsCount}} posts
+                    {% if topicList[i] != None %}
+                    {{topicList[i]|count}} posts
+                    {% endif %}
                 </td>
             </tr>
-
-            <tr>
-                <th>
-                    <a href="posts/bugreports">
-                        <i class="fa-solid fa-bug"></i> Bug reports
-                    </a>
-                </th>
-                <td>
-                    {{bugReportCount}} posts
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    <a href="posts/generaldiscussion">
-                        <i class="fa-regular fa-comments"></i> General discussion
-                    </a>
-                </th>
-                <td>
-                    {{generalDiscussionCount}} posts
-                </td>
-            </tr>
-
-            <tr>
-                <th> <a href="posts/media">
-                        <i class="fa-solid fa-photo-film"></i> Media
-                    </a> </th>
-                <td>{{mediaCount}} posts</td>
-            </tr>
-
+            {% endfor %}
         </table>
     </div>
     <div class="TopicDashboard">
         <h2 id="defaultBoxTitle">Latest Posts</h2>
         <table class="PostsTable">
             {% if lastPosts != None %}
-            {% for post in lastPosts %}
-
-
+            {% for i in range(lastPosts|count) %}
             <tr>
                 <td>
-                    {{post.topic}}
+                    {{lastPosts[i].topic}}
                 </td>
                 <th>
-                                       
-                    <a href="/showPost/{{post.id}}" style="font-size:80%">
-                        <h4>{{post.title}}</h4>
+
+                    <a href="/showPost/{{lastPosts[i].id}}" style="font-size:80%">
+                        <h4>{{lastPosts[i].title}}</h4>
                     </a>
                 </th>
                 <td>
                     <div>
 
-                        <p style="text-align:center;"> <img
-                                src="uploads/{{usersList[lastPosts.index(post)].profileimg}}" alt="" style="width: 30%">
-                            {{usersList[lastPosts.index(post)].username}}</p>
+                        <p style="text-align:center;"> <img src="../uploads/{{usersList[i].profileimg}}" alt=""
+                                style="width: 30%">
+                            {{usersList[i].username}}</p>
                     </div>
 
 
                 <td>
 
-                    Date: {{post.createdate}}
+                    Date: {{lastPosts[i].createdate}}
 
                 </td>
                 </td>
@@ -107,20 +79,7 @@
             {% endif %}
         </table>
     </div>
-
-
-
-
-
-
-
     </table>
-
-
-
-
-</div>
-
 </div>
 
 <br>

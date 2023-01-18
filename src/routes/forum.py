@@ -13,20 +13,28 @@ from flask_login import login_required, current_user
 
 forum = Blueprint('forum',__name__, template_folder='templates')
 
+#forum Config
+latestPostsCount = 4
+
+topics = ["announcements", 
+             "bugreports",
+             "generaldiscussion",
+             "media"
+             ]
+
 
 
 @forum.route('/forumIndex')
 def forumIndex():
     
     try:
-        announcementsCount = len(list(ModelPost.list_posts(db = db, topic ='announcements'))) 
-        bugReportCount = len(list(ModelPost.list_posts(db = db,topic ='bugreports')))
-        generalDiscussionCount = len(list(ModelPost.list_posts(db = db,topic = 'generaldiscussion'))) 
-        mediaCount = len(list(ModelPost.list_posts(db = db,topic ='media')))
-        
-        latestPostsCount = 4
+        topicList = list()
+        for topic in topics:
+            topicPosts = ModelPost.list_posts(topic = topic)
+            topicList.append(topicPosts)
 
-        lastPosts = ModelPost.list_posts(db = db, limit=latestPostsCount) 
+        lastPosts = ModelPost.list_posts(limit=latestPostsCount) 
+                
         usersList = list()
         
         if  lastPosts != None:
@@ -37,10 +45,8 @@ def forumIndex():
                 usersList.append(postUser)
         
         return render_template('/forum/forum.html',
-                            announcementsCount = announcementsCount,
-                            bugReportCount = bugReportCount,
-                            generalDiscussionCount = generalDiscussionCount,
-                            mediaCount = mediaCount,
+                            topics=topics,
+                            topicList = topicList,
                             lastPosts = lastPosts,
                             usersList = usersList)
     except Exception as ex:
@@ -52,12 +58,11 @@ def forumIndex():
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])
 def showPosts(topic):
     
-    postsList = ModelPost.list_posts(db = db, topic = topic)
+    postsList = ModelPost.list_posts(topic = topic)
 
     usersList = list()
-    postsList = list(postsList)
     commentsList = list()
-    if len(postsList) > 0:
+    if postsList != None:
         for post in postsList:
             
             postUser = ModelUser.get_user(db,post.user_ID)
@@ -95,9 +100,9 @@ def createPost(postTopic):
 @forum.route('/showPost/<int:id>')
 def showPost(id):
     
-    post = ModelPost.list_posts(db,id)
+    post = ModelPost.list_posts(postID = id)
     if post != None:    
-        user = ModelUser.get_user(db,post.user_ID) 
+        user = ModelUser.get_user(db, post.user_ID) 
         
         comments = ModelComment.get_comments(post.id)
         if comments != None:

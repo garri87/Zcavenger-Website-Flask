@@ -1,6 +1,7 @@
 from app import app
 from flask import redirect,url_for,flash
 from decouple import config
+import config as _config
 
 from utils.database import db
 from utils.mail import mail
@@ -9,11 +10,11 @@ from waitress import serve
 from flask_wtf.csrf import CSRFProtect
 import os
 
-env = 'prod' # 'dev' or 'prod'
+app.config.from_pyfile('config.py')
 
 csrf = CSRFProtect()
 
-app.config.from_pyfile('config.py')
+env = _config.env
 
 db.init_app(app)
 mail.init_app(app)
@@ -23,9 +24,10 @@ try:
   with app.app_context():
     db.create_all()  
     print("Connected to database!")
+    print("running on " + env)
+
 except:
     print("Error connecting to database")
-    print(config('SQLALCHEMY_DATABASE_URI'))
 
     
 def status_401(error):
@@ -45,5 +47,6 @@ if __name__ == '__main__':
         app.run(host="0.0.0.0", port= config('PORT'))
     else:
         serve(app, host="0.0.0.0",  port= config('PORT'), threads = 4) 
+
 
 

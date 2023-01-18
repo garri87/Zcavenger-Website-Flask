@@ -4,7 +4,7 @@ import os
 
 load_dotenv()
 
-env = 'dev'
+env = 'prod'
 
 if env == 'dev':
     DEBUG = True
