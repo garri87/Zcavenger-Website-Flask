@@ -28,8 +28,8 @@ try:
     print("Connected to database!")
     print("running on " + env)
 
-except:
-    print("Error connecting to database")
+except Exception as ex:
+    print("Error connecting to database: -->" + str(ex))
 
     
 def status_401(error):

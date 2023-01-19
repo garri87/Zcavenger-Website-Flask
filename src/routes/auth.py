@@ -1,19 +1,20 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-
-from models.ModelUser import ModelUser
-
-from models.entities.User import User
-
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-
 from flask_mail import Mail, Message
+from decouple import config
+
+from itsdangerous import URLSafeTimedSerializer
+
+import requests
 
 from sqlalchemy import update
+
+from models.ModelUser import ModelUser
+from models.entities.User import User
 
 from utils.database import db
 from utils.mail import mail
 from utils.serializer import s, SignatureExpired 
-from itsdangerous import URLSafeTimedSerializer
 
 
 auth = Blueprint('auth',__name__)
@@ -57,6 +58,9 @@ def logout():
 def register():
     
     if request.method == 'POST':
+        
+        
+        
         _user = request.form['txtusername']
         _pass = request.form['txtpass']
         _pass2 = request.form['txtpass2']
@@ -65,25 +69,36 @@ def register():
         _country = request.form['txtcountry']
         _profileimg = request.files['profileimg']
         
-        if _pass == _pass2:
-                        
-            if ModelUser.check_aviavility(_user,_mail) == True:
-                new_user = ModelUser.register_user(db, _user, _pass, _mail,_realname, _country, _profileimg,"",False)
+        secret_response = request.form['g-recaptcha-response']
+        
+        verify_response = requests.post(url=f"{config('RECAPTCHA_VERIFY_URL')}? secret={config('RECAPTCHA_SECRET_KEY')}&response={secret_response}").json()
+        
+        if verify_response['success'] == True:
+        
+            if _pass == _pass2:
+                            
+                if ModelUser.check_aviavility(_user,_mail) == True:
+                    new_user = ModelUser.register_user(db, _user, _pass, _mail,_realname, _country, _profileimg,"",False)
+                    
+                    send_activation_mail(new_user)              
                 
-                send_activation_mail(new_user)              
-               
-                flash('Registration Complete, a confirmation Mail was sent to activate your account') 
-                
-                return redirect(url_for('index'))
-            else:
-                flash('Username already exists')
+                    flash('Registration Complete, a confirmation Mail was sent to activate your account') 
+                    
+                    return redirect(url_for('index'))
+                else:
+                    flash('Username already exists')
+                    return redirect(url_for('index'))
+            else: 
+                flash("Passwords don't match")
                 return redirect(url_for('index'))
         else: 
-            flash("Passwords don't match")
-            return redirect(url_for('index'))
+            abort(401)
 
     else:
-        return render_template('register.html')
+        
+        site_key = config('RECAPTCHA_SITE_KEY')
+        
+        return render_template('register.html', site_key = site_key)
 
 @auth.route("/activate/<username>/<token>")
 def activate(username = None, token = None):

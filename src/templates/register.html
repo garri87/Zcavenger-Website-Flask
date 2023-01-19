@@ -1,10 +1,15 @@
 {%include 'head.html'%}
 
 <div class="defaultBox">
+  <script src="https://www.google.com/recaptcha/api.js"></script>
 
+  <script>
+    function onSubmit(token) {
+      document.getElementById("registerForm").submit();
+    }
+  </script>
 
-  
-  <form class="Formulario" action="/register" method="POST" enctype="multipart/form-data">
+  <form class="Formulario" id="registerForm" action="/register" method="POST" enctype="multipart/form-data">
     <h1 style="text-align:center">Sign Up</h1>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <label for="txtusername">Username</label>
@@ -278,7 +283,12 @@
     </div>
 
     <br>
-    <button type="submit" name="submit">Register</button>
+    {{ recaptcha }}
+    <br>
+    <button type="submit" class="g-recaptcha" 
+        data-sitekey="{{ site_key }}" 
+        data-callback='onSubmit' 
+        data-action='submit'>Register</button>
   </form>
 </div>
 
