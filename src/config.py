@@ -4,11 +4,13 @@ import os
 
 load_dotenv()
 
-env = 'dev'
+env = 'prod'
 
 if env == 'dev':
+    DATABASE_CONNECTION_URI = 'mysql://root:@localhost/zcavengerdb'
     DEBUG = True
 elif env == 'prod': 
+    DATABASE_CONNECTION_URI = config('SQLALCHEMY_DATABASE_URI')
     DEBUG = False 
     
 SECRET_KEY = config('SECRET_KEY')
@@ -20,7 +22,6 @@ password = config("MYSQL_PASSWORD")
 host = config("MYSQL_HOST")
 database = config("MYSQL_DB")
     
-DATABASE_CONNECTION_URI = config('SQLALCHEMY_DATABASE_URI')
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
   

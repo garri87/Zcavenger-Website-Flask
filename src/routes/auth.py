@@ -46,7 +46,8 @@ def login():
             
             flash('Invalid Credentials')
             return redirect(request.referrer)
-        
+    else:
+        return redirect(request.referrer)    
 
 
 @auth.route('/logout')
@@ -59,8 +60,6 @@ def register():
     
     if request.method == 'POST':
         
-        
-        
         _user = request.form['txtusername']
         _pass = request.form['txtpass']
         _pass2 = request.form['txtpass2']
@@ -71,10 +70,11 @@ def register():
         
         secret_response = request.form['g-recaptcha-response']
         
-        verify_response = requests.post(url=f"{config('RECAPTCHA_VERIFY_URL')}? secret={config('RECAPTCHA_SECRET_KEY')}&response={secret_response}").json()
-        
-        if verify_response['success'] == True:
-        
+        verify_response = requests.post(url=f"{config('RECAPTCHA_VERIFY_URL')}?secret={config('RECAPTCHA_SECRET_KEY')}&response={secret_response}").json()
+        print(verify_response["success"])
+        print(verify_response["score"])       
+        if verify_response["success"] == True:
+            
             if _pass == _pass2:
                             
                 if ModelUser.check_aviavility(_user,_mail) == True:
@@ -92,7 +92,8 @@ def register():
                 flash("Passwords don't match")
                 return redirect(url_for('index'))
         else: 
-            abort(401)
+            print('aborted')
+
 
     else:
         
