@@ -31,7 +31,7 @@
 
             <a class="NavigationButton" href="{{url_for('home')}}"> <i class="fa-solid fa-user"></i> Profile</a>
 
-            <a class="NavigationButton" href=""><i class="fa-solid fa-newspaper"></i> My Posts</a>
+            <a class="NavigationButton" href="{{url_for('forum.posts',userID = current_user.id)}}"><i class="fa-solid fa-newspaper"></i> My Posts</a>
 
 
             <a class="NavigationButton" href="{{ url_for('auth.logout')}}"><i

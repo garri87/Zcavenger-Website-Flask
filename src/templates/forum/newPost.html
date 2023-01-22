@@ -12,7 +12,7 @@
         {{ ckeditor.create() }}
         <br>
         <label for="media">Media:</label>
-        <input type="file" name="media" onchange="previewFile()">
+        <input type="file" name="media" id="fileSelector" onchange="previewFile()">
         <img src="../static/Img/noMedia.jpg" alt="" id="imgPreview">
         
         <br>
@@ -25,3 +25,24 @@
 
 
 {%include 'footer.html'%}
+
+
+<script>
+
+
+    function previewFile() {
+      var preview = document.getElementById('imgPreview');
+      var file = document.getElementById('fileSelector').files[0];
+      var reader = new FileReader();
+  
+      reader.onloadend = function () {
+        preview.src = reader.result;
+      }
+  
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "";
+      }
+    }
+  </script>

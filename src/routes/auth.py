@@ -77,7 +77,7 @@ def register():
             
             if _pass == _pass2:
                             
-                if ModelUser.check_aviavility(_user,_mail) == True:
+                if ModelUser.check_availability(_user,_mail) == True:
                     new_user = ModelUser.register_user(db, _user, _pass, _mail,_realname, _country, _profileimg,"",False)
                     
                     send_activation_mail(new_user)              
@@ -127,7 +127,7 @@ def deleteUser(id):
         ModelUser.delete_user(db,id)
         logout_user()
         flash('User deleted')
-        return render_template('index.html')
+        return redirect(url_for('index'))
 
 
     

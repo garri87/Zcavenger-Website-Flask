@@ -16,7 +16,7 @@ forum = Blueprint('forum',__name__, template_folder='templates')
 #forum Config
 latestPostsCount = 4
 
-topics = ["announcements", 
+topics = ["announcements",
              "bugreports",
              "generaldiscussion",
              "media"
@@ -30,7 +30,7 @@ def forumIndex():
     try:
         topicList = list()
         for topic in topics:
-            topicPosts = ModelPost.list_posts(topic = topic)
+            topicPosts = ModelPost.list_posts(_topic = topic)
             topicList.append(topicPosts)
 
         lastPosts = ModelPost.list_posts(limit=latestPostsCount) 
@@ -56,9 +56,17 @@ def forumIndex():
 
 
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])
-def showPosts(topic):
+@forum.route('/posts/<int:userID>', methods=['GET', 'POST'])
+
+def posts(topic = None, userID = None):
     
-    postsList = ModelPost.list_posts(topic = topic)
+    if userID != None:
+        print("userID: " + str(userID))
+        postsList = ModelPost.list_posts(_userID = userID)
+
+    if topic != None:
+        print("Topic: topic")
+        postsList = ModelPost.list_posts(_topic = topic)
 
     usersList = list()
     commentsList = list()
@@ -69,7 +77,6 @@ def showPosts(topic):
             comments = ModelComment.get_comments(post.id)        
             usersList.append(postUser)
             commentsList.append(comments)
-
     return render_template('/forum/posts.html',
             postsList = postsList, 
             topic = topic,

@@ -98,7 +98,7 @@ class ModelUser():
             raise Exception(ex)
     
     @classmethod    
-    def check_aviavility(self, usrname = "", email = ""):
+    def check_availability(self, usrname = "", email = ""):
         try:
             user = User.query.filter_by(username = usrname, mail = email).first()            
             

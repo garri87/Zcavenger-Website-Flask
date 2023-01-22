@@ -29,7 +29,7 @@
             {% for i in range(topics|length) %}
             <tr>
                 <th>
-                    <a href="posts/{{topics[i]}}">
+                    <a href="{{url_for('forum.posts',topic=topics[i])}}">
                         <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
                     </a>
                 </th>

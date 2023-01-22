@@ -4,7 +4,7 @@ import os
 
 load_dotenv()
 
-env = 'prod'
+env = config('ENV')
 
 if env == 'dev':
     DATABASE_CONNECTION_URI = 'mysql://root:@localhost/zcavengerdb'

@@ -136,7 +136,8 @@ footer img {
 	font-family: var(--font_Anton);
 	text-decoration: none;
 	padding: 0.5%;
-	border-radius: 2px;
+	border: 1px solid black;
+	border-radius: 5px;
 	margin: 1%;
 
 }
@@ -180,6 +181,20 @@ footer img {
 
 .broadcastBox a {
 	margin-left: 1%;
+}
+
+.cke_chrome{
+	border: 2px solid var(--white);
+}
+
+.cke_top{
+    background-color: var(--darkGray) !important ;
+	box-shadow: 1px 1px black;
+}
+
+.cke_top *{
+	color: white !important;
+
 }
 
 .CommentSection {
@@ -243,7 +258,6 @@ footer img {
 #defaultBoxTitle {
 	color: var(--white);
 	background-color: var(--darkBlue);
-	font-size: 100%;
 	width: 100%;
    	margin-top: 0px;
   	margin-left: 0px;
@@ -288,16 +302,17 @@ footer img {
 	align-content: center;
 	max-width: 100%;
 	height: fit-content;
-	border: 2px solid var(--lightGray);
+	border: 2px solid var(--darkBlue);
 	text-align: justify;
 	background-color: var(--darkGray);
 
 	color: var(--white);
-	padding: 3%;
 }
 
 .disclaimer p {
 	font-family: 'Oswald', sans-serif;
+	margin-left: 2%;
+	margin-right: 2%;
 }
 
 .FormBox {
@@ -416,8 +431,10 @@ input[type=submit]:hover {
 	flex-direction: row;
 	width: 100%;
 	text-align: center;	
+	border-radius: 5px;
 	padding: 0%;
 	margin: 0px;
+	
 	
 	border: 1px solid var(--lightGray);
 	border-radius: 3px;
@@ -426,8 +443,8 @@ input[type=submit]:hover {
 }
 
 .LoginButton img{
-	max-width: 40px;
-	max-height: 40px;
+	max-width: 30px;
+	max-height: 30px;
 	border-radius: 50%;
 	aspect-ratio: 1/1;
 	object-fit: cover;
@@ -459,12 +476,18 @@ input[type=submit]:hover {
 	padding: 0.5%;
 	margin: 1%;
 	border: 1px solid var(--lightGray);
+	border-radius: 5px;
 
 }
 
 .NavigationButton:hover {
 	background-color: var(--lightGray);
 	color: var(--white);
+}
+
+.NewsBox{
+	background-color: var(--darkGray);
+	border: 2px solid var(--darkBlue);
 }
 
 #profileImg {
@@ -479,7 +502,29 @@ input[type=submit]:hover {
 	width: 100%;
 }
 
+.PostBody {
+	display: grid;
+	grid-template-columns: 20% 80%;
+	background-color: rgb(55, 55, 55);
+	border: 1px solid var(--black);
+	width: 99%;
+}
 
+.PostContent {
+	color: var(--white);
+	width: 100%;
+	text-align: justify;
+	font-family: var(--font_Lato);	
+}
+
+.PostContent > div:first-of-type{
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.PostContent h2{
+	background-color: var(--darkGray);
+}
 
 .PostsTable {
 	background-color: var(--darkGray);
@@ -497,7 +542,7 @@ input[type=submit]:hover {
 
 .PostItem {
 	display: grid;
-	grid-template-columns: 80% 20%;
+	grid-template-columns: 20% 80%;
 	grid-row: 10%;
 	font-family: 'Oswald';
 	align-items: center;
@@ -519,9 +564,10 @@ input[type=submit]:hover {
 .PostUser {
 	display: grid;
 	grid-template-columns: 40% 60%;
+	background-color: var(--mediumGray);
 	justify-items: center;
 	align-items: center;
-	
+	border: 2px solid var(--darkBlue);
 	color: var(--white);
 	padding: 2%;
 	font-size: 70%;	
@@ -537,7 +583,8 @@ input[type=submit]:hover {
 .PostTitle * {
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	text-decoration: none;
-	color: var(--white)
+	color: var(--white);
+	
 }
 
 .PostTitle {
@@ -546,12 +593,7 @@ input[type=submit]:hover {
 	justify-content: center;
 }
 
-.PostBody {
-	display: grid;
-	grid-template-columns: 20% 80%;
-	background-color: rgb(55, 55, 55);
-	border: 1px solid var(--black);
-}
+
 
 .PostUserSection {
 	display: flex;
@@ -564,10 +606,7 @@ input[type=submit]:hover {
 	border: 1px solid var(--black);
 }
 
-.PostContent {
-	margin-left: 2%;
-	padding: 1%;
-}
+
 
 .PostUserSection img {
 	border: 1px solid var(--lightGray);

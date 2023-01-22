@@ -19,7 +19,7 @@ class ModelPost():
                 mediaName = fileDate + "_" + media.filename
                 media.save("src/uploads/"+mediaName)
             else:
-                mediaName = media
+                mediaName = ''
                 
             post = Post(None,title,user_ID,createdate,text,mediaName,topic)
             
@@ -34,19 +34,17 @@ class ModelPost():
         
    
     @classmethod
-    def list_posts(self, postID = None, userID = None, topic = None, limit = 0):
+    def list_posts(self, postID = None, _userID = None, _topic = None, limit = 0):
         """returns a list of Post() objects by topic or id or all if no argument is given"""
         #try:
         if postID != None:
-            postsList = Post.query.get(postID)
-            
-        elif topic != None: #search by topic
-            postsList = Post.query.filter_by(topic = topic).all()
-        elif userID != None: #search by user id
-            postsList = Post.query.filter_by(user_ID = userID).all()
+            postsList = Post.query.get(postID)  
+        elif _topic != None: #search by topic
+            postsList = Post.query.filter_by(topic = _topic).all()
+        elif _userID != None: #search by user id
+            postsList = Post.query.filter_by(user_ID = _userID).all()
         else: #search all posts
             postsList = Post.query.all()
-                
         if limit > 0:
             postsList = Post.query.order_by(Post.createdate.desc()).limit(limit).all()
                
