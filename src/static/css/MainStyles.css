@@ -325,7 +325,15 @@ footer img {
 	border-top: 1px solid var(--black);
 	animation-name: fadeIn;
 	animation-duration: 1s;
+}
+.FormBox form{
+	display: flex;
+	flex-direction: column;
+	
+}
 
+.FormBox label{
+	color: var(--white)
 }
 
 

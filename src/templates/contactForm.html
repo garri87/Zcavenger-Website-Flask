@@ -1,29 +1,28 @@
 <div class="FormBox" id="contactForm">
-	<div class="Formulario">
-		
-		<script src="https://www.google.com/recaptcha/api.js"></script>
 
-		<script>
-			function onSubmit(token) {
-				document.getElementById("contact").submit();
-			}
-		</script>
+	<script src="https://www.google.com/recaptcha/api.js"></script>
+
+	<script>
+		function onSubmit(token) {
+			document.getElementById("contact").submit();
+		}
+	</script>
 
 
-		<form id="contact" action="/contactForm" method="POST" enctype="multipart/form-data">
-			<h1>Contact</h1>
-			<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-			<label for="FormNombre"><b>Name:</b></label>
-			<input type="text" name="name" id="formName" required>
+	<form id="contact" action="/contactForm" method="POST" enctype="multipart/form-data">
+		<h1>Contact</h1>
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+		<label for="FormNombre"><b>Name:</b></label>
+		<input type="text" name="name" id="formName" required>
 
-			<label for="FormCorreo"><b>E-Mail:</b></label>
-			<input type="email" name="email" id="formMail" required>
+		<label for="FormCorreo"><b>E-Mail:</b></label>
+		<input type="email" name="email" id="formMail" required>
 
-			<label for="formMensaje"><b>Message:</b></label>
-			<textarea name="text" id="formMessage" cols="30" rows="5"></textarea required>
+		<label for="formMensaje"><b>Message:</b></label>
+		<textarea name="text" id="formMessage" cols="30" rows="5"></textarea required>
 			
 			<input type="submit" class="g-recaptcha" data-sitekey="{{ site_key }}"  data-callback='onSubmit' data-action='submit'>
 		
 		</form>
-	</div>
+
 </div>
