@@ -276,12 +276,14 @@
     </select>
     <br>
     <div class="ImgSelectBox">
-      <label for="profileimg"><input type="file" name="profileimg" id="fileSelector" accept="image/*"
-          onchange="previewFile()"></label>
+      <label for="profileimg">
+        <input type="file" name="profileimg" id="fileSelector" accept="image/*"
+          onchange="previewFile()">
+      </label>
 
       <img src="../static/Img/NoProfile.png" alt="" id="imgPreview">
+      <p>Files must not be larger than 5mb</p>
     </div>
-
     <br>
     <br>
     <button type="submit" class="g-recaptcha" data-sitekey="{{ site_key }}" 
@@ -289,13 +291,9 @@
   </form>
 </div>
 
-
-
 {%include 'footer.html'%}
 
 <script>
-
-
   function previewFile() {
     var preview = document.getElementById('imgPreview');
     var file = document.getElementById('fileSelector').files[0];

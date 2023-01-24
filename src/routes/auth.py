@@ -71,8 +71,7 @@ def register():
         secret_response = request.form['g-recaptcha-response']
         
         verify_response = requests.post(url=f"{config('RECAPTCHA_VERIFY_URL')}?secret={config('RECAPTCHA_SECRET_KEY')}&response={secret_response}").json()
-        print(verify_response["success"])
-        print(verify_response["score"])       
+            
         if verify_response["success"] == True:
             
             if _pass == _pass2:

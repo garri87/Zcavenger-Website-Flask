@@ -2,7 +2,7 @@
 from .entities.User import User
 from werkzeug.security import generate_password_hash
 from flask_login import login_user
-
+from decouple import config
 from datetime import datetime
 
 import os
@@ -78,7 +78,11 @@ class ModelUser():
                 
                 if profileimg != "":
                     newprofileimg = fileDate + "_" + profileimg.filename
-                    profileimg.save("src/uploads/" + newprofileimg)
+                    file_path, file_extension = os.path.splitext("src/uploads/" + newprofileimg)
+                    if file_extension in config("UPLOAD_EXTENSIONS"):
+                        profileimg.save("src/uploads/" + newprofileimg)
+                    else:
+                        print("Format: " + file_extension + " is not supported")
                 else:
                     newprofileimg = ""
                 new_user = User(None,usrname,hashed_password,name,email,country,now,newprofileimg,token,active)
