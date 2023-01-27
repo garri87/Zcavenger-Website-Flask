@@ -19,13 +19,13 @@
 
         {% endif %}
         
-        <div class="defaultBox">
+        
             <p>{{user.username}}</p>
-            <p>Date: {{post.createdate}}</p>
+            <p>Created: {{post.createdate}}</p>
 
-        </div>
+       
         {% if post.user_ID == current_user.id %}
-        <div>
+        <div class="defaultBox">
             <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
         </div>
 

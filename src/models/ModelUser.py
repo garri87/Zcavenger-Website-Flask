@@ -140,4 +140,30 @@ class ModelUser():
         except Exception as ex:
             raise Exception(ex)
 
-    
+    @classmethod
+    def update_user(self, db, id, new_password = "", new_email = "", new_name = "", new_country = "", new_profileimg = ""):
+        
+        user = User.query.get(id)
+        if new_password != "":
+            user.password = generate_password_hash(new_password)
+        user.mail = new_email
+        user.realname = new_name
+        user.country = new_country
+                 
+        now = datetime.now()
+                
+        fileDate = now.strftime("%Y%H%M%S")    
+        
+        if new_profileimg != "":
+            profileimg_name = fileDate + "_" + new_profileimg.filename
+            file_path, file_extension = os.path.splitext("src/uploads/" + profileimg_name)
+            if file_extension in config("UPLOAD_EXTENSIONS"):
+                if user.profileimg != "":
+                    os.remove('src/uploads/' + user.profileimg)
+                new_profileimg.save("src/uploads/" + profileimg_name)
+                user.profileimg = profileimg_name
+            else:
+                print("Format: " + file_extension + " is not supported")
+       
+        db.session.commit()
+        return user

@@ -1,15 +1,37 @@
-
-
-
 <div class="defaultBox NewsBox">
-    <h2 id="defaultBoxTitle">New forum section!</h2>
-    <a href="{{ url_for('forum.forumIndex')}}">
+    <div>
+        <h2 id="defaultBoxTitle">New forum section!</h2>
+        <a href="{{ url_for('forum.forumIndex')}}">
+            <h3>
+                Check the latest announcements, bug reports and more!
+            </h3>
+            <img src="../static/Img/" alt="">
+        </a>
+    </div>
 
-    
+</div>
 
-    <h3>
-        Check the latest announcements, bug reports and more!
-    </h3>
-    <img src="../static/Img/" alt="">
-</a>
+<div class="defaultBox">
+    <h2 id="defaultBoxTitle">About The Game</h2>
+    <p>Welcome to the official page of Zcavenger, a zombie survival game with roguelike, shooter and platform
+        elements. The game is in alpha stage of development with many features to add and that I will be
+        reporting
+        through the <a href="{{url_for('development')}}">development</a> section.
+        I hope you enjoy my first game!</p>
+    <br>
+    <p>Sincerely</p>
+    <p><b><i>Pablo Flores</i></b></p>
+
+
+
+</div>
+
+<div class="defaultBox">
+
+    <iframe src="https://www.youtube.com/embed/ButFzvM5TiQ"
+        title="ZCAVENGER DevLog - Weapons Showcase: Molotov Cocktail" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+
 </div>

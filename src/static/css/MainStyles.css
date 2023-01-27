@@ -67,10 +67,11 @@ h5 {
 	text-shadow: 1px 1px var(--black);
 	font-weight: normal;
 	text-decoration: none;
+	margin: 0px;
 }
 
 p {
-	font-family: var(--font_Lato);
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	color: var(--white);
 }
 
@@ -119,44 +120,15 @@ footer img {
 .AlertBox p {
 	display: block;
 	width: 50%;
-	background-color: var(--darkBlue);
-	color: var(--white);
+	background-color: var(--orange);
+	color: var(--black);
 	text-align: center;
 	padding: 2%;
 	border: 2px solid var(--darkGray);
 	font-family: var(--font_Oswald);
+	text-decoration: underline;
 
 }
-
-
-.DownloadButton {
-	
-	background-color: var(--orange);
-	color: var(--black);
-	font-family: var(--font_Anton);
-	text-decoration: none;
-	padding: 0.5%;
-	border: 1px solid black;
-	border-radius: 5px;
-	margin: 1%;
-
-}
-
-.DownloadButton:hover{
-	color: black;
-	background-color: var(--yellow);
-	cursor: pointer;
-}
-
-
-
-#logo {
-	width: 100px;
-	height: 30px;
-}
-
-
-
 .broadcastBox {
 	text-align: left;
 
@@ -218,6 +190,8 @@ footer img {
 .Comment img {
 	width: 60px;
 	border: 1px solid var(--white);
+	aspect-ratio: 1/1;
+	object-fit: cover;
 
 }
 
@@ -245,11 +219,29 @@ footer img {
 	height: 100%;
 }
 
+.DownloadButton {
+	
+	background-color: var(--orange);
+	color: var(--black);
+	font-family: var(--font_Anton);
+	text-decoration: none;
+	padding: 0.5%;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin: 1%;
+
+}
+
+.DownloadButton:hover{
+	color: black;
+	background-color: var(--yellow);
+	cursor: pointer;
+}
 
 .defaultBox {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: stretch;
 	border: 1px solid var(--darkGray);
 	width: 100%;
 
@@ -257,7 +249,7 @@ footer img {
 
 #defaultBoxTitle {
 	color: var(--white);
-	background-color: var(--darkBlue);
+	background-color: var(--darkRed);
 	width: 100%;
    	margin-top: 0px;
   	margin-left: 0px;
@@ -292,27 +284,16 @@ footer img {
 
 .defaultButton:hover {
 	background-color: var(--darkBlue);
-
 }
 
-.disclaimer {
-
-	display: grid;
-
-	align-content: center;
-	max-width: 100%;
-	height: fit-content;
-	border: 2px solid var(--darkBlue);
-	text-align: justify;
-	background-color: var(--darkGray);
-
-	color: var(--white);
-}
-
-.disclaimer p {
-	font-family: 'Oswald', sans-serif;
-	margin-left: 2%;
-	margin-right: 2%;
+.DropdownMenu{
+	display: flex;
+    flex-direction: column;
+    justify-items: center;
+    grid-template-columns: auto auto;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
 }
 
 .FormBox {
@@ -350,8 +331,7 @@ footer img {
 
 }
 
-.Formulario input,
-select {
+.Formulario input, select {
 	background-color: var(--white);
 	border-radius: 5px;
 	border: 1px solid var(--lightGray);
@@ -428,9 +408,15 @@ input[type=submit]:hover {
 	height: 100px;
 	max-width: 100px;
 	border: 2px solid var(--lightGray);
+	aspect-ratio: 1/1;
+	object-fit: cover;
 
 }
 
+#logo {
+	width: 100px;
+	height: 30px;
+}
 
 .LoginButton {
 	display: flex;
@@ -494,8 +480,21 @@ input[type=submit]:hover {
 }
 
 .NewsBox{
-	background-color: var(--darkGray);
+	background-image: url('../Img/zombiecomputer.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 	border: 2px solid var(--darkBlue);
+
+}
+
+.NewsBox *{
+	text-align: left;
+}
+
+.NewsBox div{
+	height:100%;
+	background-color: rgba(0, 0, 0, 0.6);
 }
 
 #profileImg {
@@ -506,9 +505,7 @@ input[type=submit]:hover {
 	border: 1px solid var(--white);
 }
 
-.Social {
-	width: 100%;
-}
+
 
 .PostBody {
 	display: grid;
@@ -536,16 +533,44 @@ input[type=submit]:hover {
 
 .PostsTable {
 	background-color: var(--darkGray);
-	width: 98%;
+	width:100%;
 	font-family: sans-serif;
-	border: 1px solid var(--darkBlue);
+	border: 1px solid var(--darkGray);
 	border-collapse: collapse;
+	
+	
+}
+.PostsTable table{
+	width: 100%;
+	font-size: auto;
+	
+}
+
+.PostsTable *{
+	margin: 0px;
+}
+
+.PostsTable td, th{
+	text-align: center;
+	padding: 2%;
+}
+
+
+.PostsTable tr{
+	display: flex;
+	align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
 
 }
 
-.PostsTable td {
-	font-size: 60%;
-	width: 20%;
+.PostsTable tr:hover{
+	background-color: var(--lightGray);
+	text-decoration: underline
+}
+
+.PostsTable img{
+	width: 30px
 }
 
 .PostItem {
@@ -554,6 +579,10 @@ input[type=submit]:hover {
 	grid-row: 10%;
 	font-family: 'Oswald';
 	align-items: center;
+}
+
+.PostItem:hover{
+	text-decoration: underline;
 }
 
 .PostItem .defaultBox {
@@ -589,7 +618,6 @@ input[type=submit]:hover {
 }
 
 .PostTitle * {
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	text-decoration: none;
 	color: var(--white);
 	
@@ -597,11 +625,11 @@ input[type=submit]:hover {
 
 .PostTitle {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	font-family: var(--font_Oswald);
 }
-
-
 
 .PostUserSection {
 	display: flex;
@@ -612,16 +640,21 @@ input[type=submit]:hover {
 	background-color: var(--darkGray);
 	font-size: 70%;
 	border: 1px solid var(--black);
+	
 }
-
-
+.PostUserSection *{
+	margin: 0px
+}
 
 .PostUserSection img {
 	border: 1px solid var(--lightGray);
 	width: 60px;
-	margin: 10px;
 	aspect-ratio: 1/1;
 	object-fit: cover;
+}
+
+.Social {
+	width: 100%;
 }
 
 .TopicDashboard {
@@ -646,18 +679,13 @@ input[type=submit]:hover {
 	text-align: left;
 }
 
-.TopicDashboard th:hover {
-	background-color: var(--darkBlue);
-}
-
 .TopicDashboard th,
 td {
-	border: 1px solid var(--black);
 	padding: 1%;
 	text-align: left;
-
-
 }
+
+
 
 .userIcon {
 	color: var(--lightGray);
@@ -668,8 +696,16 @@ td {
 	flex-direction: column;
 	justify-items: center;
 	grid-template-columns: auto auto;
-	align-items: stretch;
+	align-items: flex-start;
+    justify-content: center;
 	
+	font-size: 50%;
+	border: 1px solid var(--darkGray);
+	
+}
+
+.userInfo *{
+	margin: 0px;
 }
 
 .userInfo a {
@@ -682,8 +718,7 @@ td {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 50%;
-	
+	text-align: center;
 	border: 1px solid var(--black);
 	background-color: var(--darkGray);
 
@@ -698,11 +733,10 @@ td {
 
 }
 
-.UserDashboard th,td {
+.UserDashboard th{
 	width: fit-content;
 	text-align: center;
 	border: 1px solid var(--darkGray);
-	
 
 	font-family: var(--font_Oswald);
 	text-shadow: 1px 1px black;	
@@ -722,9 +756,6 @@ tr:nth-child(odd) {
 	width: 100%;
 	text-align: center;
 }
-
-
-
 
 @keyframes paddingOut {
 	from {

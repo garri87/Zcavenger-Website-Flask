@@ -15,6 +15,7 @@ from models.entities.User import User
 from utils.database import db
 from utils.mail import mail
 from utils.serializer import s, SignatureExpired 
+from utils.countries import countries
 
 
 auth = Blueprint('auth',__name__)
@@ -98,7 +99,7 @@ def register():
         
         site_key = config('RECAPTCHA_SITE_KEY')
         
-        return render_template('register.html', site_key = site_key)
+        return render_template('register.html', site_key = site_key, countries = countries)
 
 @auth.route("/activate/<username>/<token>")
 def activate(username = None, token = None):
@@ -128,7 +129,27 @@ def deleteUser(id):
         flash('User deleted')
         return redirect(url_for('index'))
 
-
+@auth.route('/updateUser/<string:id>', methods=['GET', 'POST'])
+def updateUser(id):
+    user = User.query.get(id)
+   
+    if request.method == 'POST':
+        _pass = request.form['txtpass']
+        _pass2 = request.form['txtpass2']
+        _mail = request.form['txtmail']
+        _realname = request.form['txtrealname']
+        _country = request.form['txtcountry']
+        _profileimg = request.files['profileimg']
+        
+        if _pass == _pass2:
+            user = ModelUser.update_user(db,id,_pass,_mail,_realname,_country,_profileimg)
+            flash('Account successfully updated')
+            return redirect(url_for('home'))
+        else:
+            flash('Passwords do not match')
+    
+    return render_template('auth/updateUser.html', user = user, countries = countries)
+    
     
 def send_activation_mail(user):
 
