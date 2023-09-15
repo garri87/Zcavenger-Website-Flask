@@ -11,7 +11,9 @@ from waitress import serve
 from flask_wtf.csrf import CSRFProtect
 import os
 
-app.config.from_pyfile('config.py')
+config_file = 'settings.py'
+
+app.config.from_pyfile(config_file)
 
 csrf = CSRFProtect()
 
@@ -40,7 +42,7 @@ def status_404(error):
     return "<h1>404: Page not found </h1>", 404   
     
 if __name__ == '__main__':
-    app.config.from_pyfile('config.py')
+    app.config.from_pyfile(config_file)
     csrf.init_app(app)
     app.register_error_handler(401, status_401)
     app.register_error_handler(404, status_404)
