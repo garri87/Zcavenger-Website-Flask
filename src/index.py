@@ -1,7 +1,7 @@
 from app import app
 from flask import redirect,url_for,flash
 from decouple import config
-import config as _config
+import settings
 
 from utils.database import db
 from utils.mail import mail
@@ -15,7 +15,7 @@ app.config.from_pyfile('config.py')
 
 csrf = CSRFProtect()
 
-env = _config.env
+env = settings.env
 
 db.init_app(app)
 mail.init_app(app)

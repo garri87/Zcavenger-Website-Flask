@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, sen
 import git
 import requests
 
-from config import config,DATABASE_CONNECTION_URI,SQLALCHEMY_TRACK_MODIFICATIONS
+from settings import config,DATABASE_CONNECTION_URI,SQLALCHEMY_TRACK_MODIFICATIONS
 
 from flask_login import LoginManager, login_required
 
