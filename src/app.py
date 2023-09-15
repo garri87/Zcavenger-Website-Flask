@@ -44,7 +44,7 @@ app.register_blueprint(forum)
 @app.route('/update_server', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('/home/garri87/mysite')
+        repo = git.Repo('/home/garri87/mysite/')
         origin = repo.remotes.origin
         origin.pull()
 
