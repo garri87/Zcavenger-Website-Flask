@@ -2,3 +2,4 @@ local_settings.py
 test.py
 __pycache__
 .env
+env/

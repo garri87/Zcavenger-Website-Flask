@@ -41,17 +41,6 @@ def load_user(id):
 app.register_blueprint(auth)
 app.register_blueprint(forum)
 
-@app.route('/update_server', methods=['POST'])
-def webhook():
-    if request.method == 'POST':
-        repo = git.Repo('/home/garri87/mysite/.git/')
-        origin = repo.remotes.origin
-        origin.pull()
-
-        return 'Updated PythonAnywhere successfully', 200
-    else:
-        return 'Wrong event type', 400
-
 @app.route('/')
 @app.route('/index') 
 def index():
