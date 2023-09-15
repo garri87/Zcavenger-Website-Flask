@@ -28,22 +28,4 @@
 
 <body>
 
-    <header class="NavigationBox">
-        <a href="{{url_for('index')}}"> <img src="../static/Img/TitleTransparent.png" id="logo"></a>
-
-        <nav>
-            <a href="{{ url_for('index') }}" class="NavigationButton">Home</a>
-
-            <a href="{{ url_for('development') }}" class="NavigationButton">Development</a>
-
-            <a href="{{ url_for('index') }}#contactForm" class="NavigationButton">Contact</a>
-
-            <a href="{{ url_for('forum.forumIndex')}}" class="NavigationButton">Forums</a>
-
-            <a class="DownloadButton"
-                href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d">DOWNLOAD</a>
-
-            {%include 'auth/login.html' %}
-
-        </nav>
-    </header>
+{%include 'nav.html'%}
