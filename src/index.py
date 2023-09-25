@@ -15,6 +15,8 @@ config_file = 'settings.py'
 
 app.config.from_pyfile(config_file)
 
+app.secret_key = app.config['SECRET_KEY']
+
 csrf = CSRFProtect()
 
 env = settings.env
