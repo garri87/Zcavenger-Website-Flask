@@ -19,6 +19,8 @@ app.secret_key = app.config['SECRET_KEY']
 
 csrf = CSRFProtect()
 
+csrf.secret_key = app.secret_key
+
 env = settings.env
 
 db.init_app(app)
