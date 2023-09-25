@@ -30,6 +30,9 @@ login_manager_app = LoginManager(app)
 
 mail = Mail(app)
 
+from flask_wtf.csrf import generate_csrf
+
+
 serializer.secretkey = app.config['SECRET_KEY']
 
 
@@ -40,6 +43,13 @@ def load_user(id):
 
 app.register_blueprint(auth)
 app.register_blueprint(forum)
+
+@app.context_processor
+def csrf():
+    csrf_token = generate_csrf()
+    return dict(csrf_token=csrf_token)
+    
+
 
 @app.route('/')
 @app.route('/index') 

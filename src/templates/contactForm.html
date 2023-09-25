@@ -11,7 +11,7 @@
 
 	<form id="contact" action="/contactForm" method="POST" enctype="multipart/form-data">
 		<h1>Contact</h1>
-		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 		<label for="FormNombre"><b>Name:</b></label>
 		<input type="text" name="name" id="formName" required>
 
