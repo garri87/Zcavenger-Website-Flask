@@ -22,6 +22,7 @@ from flask_wtf.csrf import CSRFProtect
 
 
 app = Flask(__name__)
+app.secret_key = app.config['SECRET_KEY']
 csrf = CSRFProtect(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_CONNECTION_URI
