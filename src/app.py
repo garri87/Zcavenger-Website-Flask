@@ -17,10 +17,12 @@ import utils.serializer as serializer
 from utils.database import db
 
 import os
+from flask_wtf.csrf import CSRFProtect
+
 
 
 app = Flask(__name__)
-
+csrf = CSRFProtect(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_CONNECTION_URI
 
