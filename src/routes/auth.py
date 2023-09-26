@@ -1,13 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from flask_mail import Mail, Message
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import logout_user, login_required, current_user
+from flask_mail import Message
 from decouple import config
 
-from itsdangerous import URLSafeTimedSerializer
-
 import requests
-
-from sqlalchemy import update
 
 from models.ModelUser import ModelUser
 from models.entities.User import User

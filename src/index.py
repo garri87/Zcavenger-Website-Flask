@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect,url_for,flash
+from flask import redirect,url_for
 from decouple import config
 import settings
 

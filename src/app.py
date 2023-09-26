@@ -16,9 +16,6 @@ from routes.forum import forum
 import utils.serializer as serializer 
 from utils.database import db
 
-import os
-
-
 
 app = Flask(__name__)
 
