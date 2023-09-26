@@ -42,7 +42,7 @@
         {% else %}
         <form class="LoginForm" action="/login" method="POST" enctype="multipart/form-data">
 
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
             <label for="username"><i class="fa-solid fa-user" style="color: white"></i></label>
             <input type="text" name="username" id="username" placeholder="Username">

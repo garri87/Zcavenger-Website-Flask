@@ -47,7 +47,7 @@ app.register_blueprint(forum)
 @app.context_processor
 def csrf():
     csrf_token = generate_csrf()
-    return dict(csrf_token=csrf_token)
+    return {'csrf_token': csrf_token}
     
 
 
