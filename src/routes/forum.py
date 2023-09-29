@@ -27,7 +27,6 @@ topics = ["announcements",
 @forum.route('/forumIndex')
 def forumIndex():
     
-    try:
         topicList = list()
         for topic in topics:
             topicPosts = ModelPost.list_posts(_topic = topic)
@@ -49,11 +48,7 @@ def forumIndex():
                             topicList = topicList,
                             lastPosts = lastPosts,
                             usersList = usersList)
-    except Exception as ex:
-        flash('Error en conexion')
-        return redirect(request.referrer)
-        #raise Exception(ex)
-        #return redirect(url_for('index'))
+    
         
 
 
