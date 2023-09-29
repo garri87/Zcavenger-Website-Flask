@@ -54,7 +54,7 @@ if __name__ == '__main__':
     if env == 'dev':
         app.run()
     else:
-        serve(app, host="0.0.0.0",  port= config('PORT'), threads = 4) 
+        serve(app, host=config('HOST'),  port= config('PORT'), threads = 4) 
 
 
 

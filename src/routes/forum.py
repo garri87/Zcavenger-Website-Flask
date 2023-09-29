@@ -50,7 +50,7 @@ def forumIndex():
                             lastPosts = lastPosts,
                             usersList = usersList)
     except Exception as ex:
-        raise Exception(ex)
+        #raise Exception(ex)
         #return redirect(url_for('index'))
         
 
