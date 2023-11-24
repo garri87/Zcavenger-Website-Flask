@@ -20,4 +20,4 @@ RUN pip install -r requirements.txt
 RUN apk del build-deps
 
 
-CMD ["python3", "src/index.py"]
+#CMD ["python3", "src/index.py"]
