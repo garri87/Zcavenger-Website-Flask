@@ -10,9 +10,9 @@
 <div class="PostBody">
 
     <div class="PostUserSection">
-        {% if user.profileimg != "" %}
+        {% if post.user.profileimg != "" %}
 
-        <img src="../uploads/{{user.profileimg}}" alt="">
+        <img src="../uploads/{{post.user.profileimg}}" alt="">
         {% else %}
         
         <img src="../uploads/NoProfile.png" alt="">
@@ -20,7 +20,7 @@
         {% endif %}
         
         
-            <p>{{user.username}}</p>
+            <p>{{post.user.username}}</p>
             <p>Created: {{post.createdate}}</p>
 
        
@@ -55,9 +55,9 @@
 
     <h3>Comments:</h3>
 
-    {% if comments|length > 0 %}
+    {% if post.comments %}
     <div class="">
-        {% for comment in comments%}
+        {% for comment in post.comments%}
         <div class="Comment">
             <div class="CommentText">
                 {{comment.text|safe}}
@@ -71,11 +71,14 @@
             </div>
             <div class="CommentUserSection">
 
-                <img src="../uploads/{{commentsUsers[comments.index(comment)].profileimg}}" alt="">
+                <img src="../uploads/{{comment.user.profileimg}}" alt="">
 
                 <div>
-                    {{commentsUsers[comments.index(comment)].username}}
+                    {{comment.user.username}}
                     <p>Date: {{comment.createdate}}</p>
+                    {% if current_user.isadmin %}
+                        <a href="{url_for('delete_comment', comment.id)}" class="button">Delete Comment</a>
+                    {% endif %}
                 </div>
 
             </div>

@@ -1,4 +1,6 @@
-{%include 'head.html'%}
+{%extends 'layouts/base.html'%}
+
+{% block content %}
 
 <div class="defaultBox">
   <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -11,7 +13,7 @@
 
   <form class="Formulario" id="registerForm" action="/register" method="POST" enctype="multipart/form-data">
     <h1 style="text-align:center">Sign Up</h1>
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <label for="txtusername">Username</label>
     <input type="text" name="txtusername" required>
     <br>
@@ -291,8 +293,6 @@
   </form>
 </div>
 
-{%include 'footer.html'%}
-
 <script>
   function previewFile() {
     var preview = document.getElementById('imgPreview');
@@ -310,3 +310,5 @@
     }
   }
 </script>
+
+{% endblock %}

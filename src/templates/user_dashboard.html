@@ -1,4 +1,6 @@
-{%include 'head.html'%}
+{%extends 'layouts/base.html'%}
+
+{% block content %}
 
 {% if current_user.is_authenticated == true %}
 <div class="AlertBox">
@@ -62,18 +64,11 @@
     </div>
 </div>
 
-
-
-
-
 <br>
-
-
-
 <br>
 <br>
 {% else %}
 
 {% endif %}
 
-{%include 'footer.html'%}
+{% endblock %}

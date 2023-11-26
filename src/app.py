@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, sen
 import git
 import requests
 
-from settings import config,DATABASE_CONNECTION_URI,SQLALCHEMY_TRACK_MODIFICATIONS
+import settings
 
 from flask_login import LoginManager, login_required
 
@@ -15,13 +15,9 @@ from routes.forum import forum
 
 import utils.serializer as serializer 
 from utils.database import db
-
+import os
 
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_CONNECTION_URI
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
 
 login_manager_app = LoginManager(app)
 
@@ -29,14 +25,13 @@ mail = Mail(app)
 
 from flask_wtf.csrf import generate_csrf
 
-
 serializer.secretkey = app.config['SECRET_KEY']
 
 
 @login_manager_app.user_loader
 def load_user(id):
     
-    return ModelUser.get_user(db,id) 
+    return ModelUser.get_user(id=id) 
 
 app.register_blueprint(auth)
 app.register_blueprint(forum)
@@ -51,7 +46,7 @@ def csrf():
 @app.route('/')
 @app.route('/index') 
 def index():
-    site_key = config('RECAPTCHA_SITE_KEY')    
+    site_key = settings.RECAPTCHA_SITE_KEY    
     return render_template('index.html', site_key = site_key)
 
 @app.route('/development')
@@ -73,7 +68,7 @@ def contacForm():
         
         secret_response = request.form['g-recaptcha-response']
         
-        verify_response = requests.post(url=f"{config('RECAPTCHA_VERIFY_URL')}?secret={config('RECAPTCHA_SECRET_KEY')}&response={secret_response}").json()
+        verify_response = requests.post(url=f"{settings.RECAPTCHA_VERIFY_URL}?secret={settings.RECAPTCHA_SECRET_KEY}&response={secret_response}").json()
              
         if verify_response["success"] == True:
             _name = request.form['name']

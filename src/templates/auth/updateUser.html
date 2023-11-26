@@ -1,15 +1,4 @@
-{%include 'head.html'%}
-
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<div class="AlertBox" role="alert">
-    <p><strong>{{ message }}</strong></p>
-</div>
-{% endfor %}
-{% endif %}
-{% endwith %}
-
+{% extends 'layouts/base.html'%}
 
 <div class="defaultBox">
   <script src="https://www.google.com/recaptcha/api.js"></script>

@@ -1,16 +1,18 @@
 
+from flask import flash, redirect, request
 from .entities.User import User
+from .entities.Privileges import Privileges
 from werkzeug.security import generate_password_hash
 from flask_login import login_user
-from decouple import config
 from datetime import datetime
-
+import settings
 import os
+from utils.uploads import upload_profile_img
 
 class ModelUser():
     
     @classmethod
-    def get_user(self, db, id = None ,usrname="", email = ""):
+    def get_user(self, id = None ,usrname="", email = ""):
         """return a User() object by user id, username or email"""
         user = None
         try:
@@ -21,35 +23,34 @@ class ModelUser():
             elif email != "":
                 user = User.query.filter_by(mail = email).first()    
           
-            return User(user.id,user.username,user.password,user.realname,user.mail,user.country,user.createdate,user.profileimg,user.token,user.active) 
+            return user 
         except:
             return user
     
     
     @classmethod
-    def login(self, db, user):
-        """Login a User() and returns a complete User() object if credentials are correct"""
+    def login(self, user):
+        """Login a User() and returns User() object if credentials are correct"""
         try:
             #search for usename first
-            query = User.query.filter_by(username = user.username).first()           
+            query = User.query.filter(User.username == user.username).first()           
                                          
             if query != None:
                 #if user is found check his password
                 if User.check_password(query.contrasena,user.contrasena):
-                    #if correct log in the user and return a user object
-                    user = User(query.id,query.username,query.contrasena,query.realname,query.mail,query.country,query.createdate,query.profileimg,query.token,query.active)
-                    login_user(user)
-                    return user
+                    #if correct, log in the user and return a user object
+                    login_user(query)
+                    return query 
                 else:
                     return None
             else:
                 return None
-        except Exception as ex:
-            raise Exception(ex)
+        except:
+            flash("Error connecting to database, please try again later")
+            return None
         
-    @classmethod
-    
-    def register_user(self, db, usrname, password, email,name = "", country = "", profileimg = "", token = "", active = False):
+    @classmethod 
+    def register_user(self, db, username, password, mail, realname = "", country = "", profile_img = None, token = "", active = False):
         """Register a new user into db and returns a User() Object
 
         Args:
@@ -68,30 +69,25 @@ class ModelUser():
         """
     
         try:
-            if User.query.filter_by(username = usrname).first() is None:
+            if User.query.filter_by(username = username).first() is None or User.query.filter_by(mail = mail).first():
                            
                 hashed_password = generate_password_hash(password)
                 
-                now = datetime.now()
+                new_profile_img_name = upload_profile_img(new_profileimg=profile_img)
                 
-                fileDate = now.strftime("%Y%H%M%S")
-                
-                if profileimg != "":
-                    newprofileimg = fileDate + "_" + profileimg.filename
-                    file_path, file_extension = os.path.splitext("src/uploads/" + newprofileimg)
-                    if file_extension in config("UPLOAD_EXTENSIONS"):
-                        profileimg.save("src/uploads/" + newprofileimg)
-                    else:
-                        print("Format: " + file_extension + " is not supported")
-                else:
-                    newprofileimg = ""
-                new_user = User(None,usrname,hashed_password,name,email,country,now,newprofileimg,token,active)
+                privileges = Privileges(is_admin=False,can_comment=True,can_post=True)
+                new_user = User(username=username,
+                                contrasena=hashed_password,
+                                realname=realname,
+                                mail=mail,
+                                country=country,
+                                profileimg=new_profile_img_name,
+                                token=token,
+                                active=active,
+                                privileges=privileges)
                 db.session.add(new_user)
-                db.session.commit()
-                
-                user = User.query.filter_by(username = new_user.username,mail = new_user.mail).first()
-                            
-                return User(user.id,user.username,user.contrasena,user.realname,user.mail,user.country,user.createdate,user.profileimg,user.token,user.active)
+                db.session.commit()                            
+                return new_user
             else:
                 
                 return None
@@ -140,30 +136,21 @@ class ModelUser():
         except Exception as ex:
             raise Exception(ex)
 
+    
+    
     @classmethod
-    def update_user(self, db, id, new_password = "", new_email = "", new_name = "", new_country = "", new_profileimg = ""):
-        
-        user = User.query.get(id)
+    def update_user(self, db, user_id, new_password = "", new_mail = "", new_real_name = "", new_country = "", new_profileimg = ""):
+
+        user = User.query.get(user_id)
         if new_password != "":
             user.password = generate_password_hash(new_password)
-        user.mail = new_email
-        user.realname = new_name
+        user.mail = new_mail
+        user.realname = new_real_name
         user.country = new_country
-                 
-        now = datetime.now()
-                
-        fileDate = now.strftime("%Y%H%M%S")    
+    
+        upload_profile_img(user,new_profileimg)
         
-        if new_profileimg != "":
-            profileimg_name = fileDate + "_" + new_profileimg.filename
-            file_path, file_extension = os.path.splitext("src/uploads/" + profileimg_name)
-            if file_extension in config("UPLOAD_EXTENSIONS"):
-                if user.profileimg != "":
-                    os.remove('src/uploads/' + user.profileimg)
-                new_profileimg.save("src/uploads/" + profileimg_name)
-                user.profileimg = profileimg_name
-            else:
-                print("Format: " + file_extension + " is not supported")
-       
         db.session.commit()
         return user
+    
+    

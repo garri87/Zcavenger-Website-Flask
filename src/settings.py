@@ -1,33 +1,33 @@
-from dotenv import load_dotenv
-from decouple import config
 import os
-
+from dotenv import load_dotenv
 load_dotenv()
 
-env = config('ENV')
+env = os.getenv('ENV')
 
+SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 if env == 'dev':
-    DATABASE_CONNECTION_URI = 'mysql://root:@localhost/zcavengerdb'
-    DEBUG = True
-elif env == 'prod': 
-    DATABASE_CONNECTION_URI = config('SQLALCHEMY_DATABASE_URI')
-    DEBUG = False 
+    DEBUG = True 
+else:
+    DEBUG = False
     
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
+RECAPTCHA_SITE_KEY = os.getenv('RECAPTCHA_SITE_KEY')
+RECAPTCHA_VERIFY_URL = os.getenv('RECAPTCHA_VERIFY_URL')
+RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
 
 MAX_CONTENT_LENGTH = 5120*5120
-UPLOAD_EXTENSIONS = config('UPLOAD_EXTENSIONS')
+UPLOAD_EXTENSIONS = os.getenv('UPLOAD_EXTENSIONS')
 
-PORT = config('PORT')
+PORT = os.getenv('PORT')
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
   
-UPLOADS_FOLDER = os.path.join('uploads')
+UPLOADS_FOLDER = os.path.join(os.path.dirname(__name__), 'src', 'uploads')
       
-MAIL_SERVER = config('MAIL_SERVER')
-MAIL_PORT = config('MAIL_PORT')
-MAIL_USERNAME = config('MAIL_USERNAME')
-MAIL_PASSWORD = config('MAIL_PASSWORD')
+MAIL_SERVER = os.getenv('MAIL_SERVER')
+MAIL_PORT = os.getenv('MAIL_PORT')
+MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True 
 

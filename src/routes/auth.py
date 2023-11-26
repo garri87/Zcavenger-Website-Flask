@@ -7,6 +7,7 @@ import requests
 
 from models.ModelUser import ModelUser
 from models.entities.User import User
+from models.entities.Privileges import Privileges
 
 from utils.database import db
 from utils.mail import mail
@@ -22,11 +23,18 @@ def login():
     
     if request.method == 'POST':
         
-        user = User(0,request.form['username'], request.form['contrasena'])
+        user = User(request.form['username'], request.form['contrasena'])
         
-        logged_user = ModelUser.login(db,user)
+        try:
         
-        if logged_user != None:
+            logged_user = ModelUser.login(user)
+        
+        except:
+            flash('An error ocurred, please try again later')
+
+            logged_user = None
+        
+        if logged_user:
             
             if logged_user.active == True:
                 
@@ -95,14 +103,14 @@ def register():
         
         site_key = config('RECAPTCHA_SITE_KEY')
         
-        return render_template('register.html', site_key = site_key, countries = countries)
+        return render_template('auth/register.html', site_key = site_key, countries = countries)
 
 @auth.route("/activate/<username>/<token>")
 def activate(username = None, token = None):
     try:
         email = s.loads(token, salt='mail-confirm')
         
-        user = ModelUser.get_user(db,None,username,email)
+        user = ModelUser.get_user(usrname=username,email=email)
         
         if user.mail == email:
             ModelUser.activate_user(db,user.id,True)

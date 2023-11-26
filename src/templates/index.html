@@ -1,5 +1,5 @@
-{%include 'head.html'%}
-
+{% extends 'layouts/base.html' %}
+{% block content %}
 <div class="Main">
     <div class="broadcastBox">
         <h3>Emergency Broadcast</h3>
@@ -18,7 +18,7 @@
 
     {%include 'newsBox.html'%}
 
-    {%include 'contactForm.html'%}
+    {%include 'contact/contactForm.html'%}
 </div>
 
-{%include 'footer.html'%}
+{% endblock %}

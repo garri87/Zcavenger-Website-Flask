@@ -22,13 +22,13 @@ class ModelComment():
             else:
                 newMedia = ""
             
-            newComment = Comment(None,post_ID,user_ID,text,newMedia,now)
+            newComment = Comment(post_ID,user_ID,text,newMedia)
             
             db.session.add(newComment)
             db.session.commit()
             
                                    
-            return Comment(newComment.id,newComment.post_ID,newComment.user_ID,newComment.text,newComment.media,newComment.createdate)
+            return newComment
             
         except Exception as ex:
             raise Exception(ex)
@@ -40,20 +40,16 @@ class ModelComment():
         
         commentList = list()
         
-        if postID != None: 
-            comments = Comment.query.filter_by(post_ID = postID).order_by(Comment.createdate.desc())
-        
-        elif userID == None:
-            comments = Comment.query.filter_by(user_ID = userID).order_by(Comment.createdate.desc()) 
+        if postID is not None: 
+            comments = Comment.query.filter(Comment.post_id == postID).order_by(Comment.createdate.desc())
+            
+        elif userID is not None:
+            comments = Comment.query.filter(Comment.user_id == userID).order_by(Comment.createdate.desc()) 
                
         else:
             comments = Comment.query.all().order_by(Comment.createdate.desc()) 
-          
-        if comments != None:
-            for comment in comments:
-                commentList.append(comment)
-                                         
-        return commentList
+                                                   
+        return comments
     
     @classmethod
     def delete_comment(db,id):

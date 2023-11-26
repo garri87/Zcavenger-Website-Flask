@@ -27,28 +27,22 @@ topics = ["announcements",
 @forum.route('/forumIndex')
 def forumIndex():
     
+    try:
         topicList = list()
         for topic in topics:
-            topicPosts = ModelPost.list_posts(_topic = topic)
+            topicPosts = ModelPost.get_posts(_topic = topic)
             topicList.append(topicPosts)
 
         lastPosts = ModelPost.list_posts(limit=latestPostsCount) 
-                
-        usersList = list()
-        
-        if  lastPosts != None:
-            for post in lastPosts:
-
-                postUser = ModelUser.get_user(db,post.user_ID)
-                    
-                usersList.append(postUser)
         
         return render_template('/forum/forum.html',
                             topics=topics,
                             topicList = topicList,
-                            lastPosts = lastPosts,
-                            usersList = usersList)
-    
+                            lastPosts = lastPosts,)
+    except:
+        flash("Error Connecting to database, please try again later")
+        return redirect(request.referrer)
+        
         
 
 
@@ -59,26 +53,14 @@ def posts(topic = None, userID = None):
     
     if userID != None:
         print("userID: " + str(userID))
-        postsList = ModelPost.list_posts(_userID = userID)
+        postsList = ModelPost.get_posts(_userID = userID)
 
     if topic != None:
         print("Topic: topic")
-        postsList = ModelPost.list_posts(_topic = topic)
+        postsList = ModelPost.get_posts(_topic = topic)
 
-    usersList = list()
-    commentsList = list()
-    if postsList != None:
-        for post in postsList:
-            
-            postUser = ModelUser.get_user(db,post.user_ID)
-            comments = ModelComment.get_comments(post.id)        
-            usersList.append(postUser)
-            commentsList.append(comments)
     return render_template('/forum/posts.html',
-            postsList = postsList, 
-            topic = topic,
-            usersList = usersList,
-            commentsList = commentsList)
+            postsList = postsList,)
    
    
    
@@ -104,29 +86,12 @@ def createPost(postTopic):
 @forum.route('/showPost/<int:id>')
 def showPost(id):
     
-    post = ModelPost.list_posts(postID = id)
-    if post != None:    
-        user = ModelUser.get_user(db, post.user_ID) 
-        
-        comments = ModelComment.get_comments(post.id)
-        if comments != None:
-            commentsUsers = list()
-            for comment in comments:
-                   commentUser = ModelUser.get_user(db,comment.user_ID) 
-                   commentsUsers.append(commentUser)
-                   
-            return render_template("/forum/showPost.html", 
-                                   post = post, 
-                                   user = user,
-                                   comments = comments,
-                                   commentsUsers = commentsUsers)
-        
-        
-        else:
-            return render_template("/forum/showPost.html",
-                               post = post, 
-                               user = user)     
+    post = ModelPost.get_posts(postID = id)
+    if post:    
+        return render_template("/forum/showPost.html",
+                               post = post,)     
     else:
+        flash("Post not found")
         return render_template("/forum/posts.html")
              
 @forum.route('/postComment/<int:postID>', methods = ['POST'])
@@ -166,7 +131,7 @@ def deleteComment(id):
     try:
         comment = Comment.query.get(id)
         if comment.user_ID == current_user.id:
-            ModelPost.delete_comment(db,id)    
+            ModelComment.delete_comment(db,id)    
             flash("Comment deleted successfully")
         else:
             flash("You are not allowed to delete this comment")

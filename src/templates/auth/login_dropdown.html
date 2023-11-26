@@ -13,19 +13,7 @@
         <i class="fa-solid fa-angle-down"></i>
     </p>
     <div id="myDropdown" class="dropdown-content">
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div role="alert">
-            <button type="button"><strong>{{ message }}</strong></button>
-
-            <script>toggleLoginBox()</script>
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-
+        
         {% if current_user.is_authenticated %}
         <div class="DropdownMenu">
 
@@ -42,7 +30,7 @@
         {% else %}
         <form class="LoginForm" action="/login" method="POST" enctype="multipart/form-data">
 
-            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
             <label for="username"><i class="fa-solid fa-user" style="color: white"></i></label>
             <input type="text" name="username" id="username" placeholder="Username">

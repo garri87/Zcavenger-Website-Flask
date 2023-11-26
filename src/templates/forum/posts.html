@@ -15,26 +15,26 @@
 <div class="defaultBox">
 
     <div class="PostsTable">
-        {% if postsList|length > 0 %}
+        {% if postsList %}
         {%for post in postsList %}
         <div class="PostItem">
             <div class="PostUser">
                 <div class="">
-                    {% if usersList[postsList.index(post)].profileimg != "" %}
-                    <img src="../uploads/{{usersList[postsList.index(post)].profileimg}}" alt="">
+                    {% if post.user.profileimg %}
+                    <img src="../uploads/{{post.user.profileimg}}" alt="{{post.user.username}} profile photo">
                     {% else %}
-                    <img src="../uploads/NoProfile.png" alt="">
+                    <img src="../uploads/NoProfile.png" alt="No profile">
                     {% endif %}
                 </div>
 
                 <div class="">
-                    {{usersList[postsList.index(post)].username}}
+                    {{post.user.username}}
                     <div>
                         Date: {{post.createdate}}
                     </div>
                     <div class="defaultBox">
-                        {% if commentsList != None %}
-                        {{commentsList[postsList.index(post)]|length}} replies
+                        {% if post.comments %}
+                        {{ post.comments|length}} replies
                         {% endif %}
                     </div>
                 </div>

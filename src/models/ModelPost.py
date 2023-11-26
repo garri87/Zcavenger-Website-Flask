@@ -19,9 +19,9 @@ class ModelPost():
                 mediaName = fileDate + "_" + media.filename
                 media.save("src/uploads/"+mediaName)
             else:
-                mediaName = ''
+                mediaName = None
                 
-            post = Post(None,title,user_ID,createdate,text,mediaName,topic)
+            post = Post(title,user_ID,text,mediaName,topic)
             
             db.session.add(post)
             db.session.commit()
@@ -34,21 +34,21 @@ class ModelPost():
         
    
     @classmethod
-    def list_posts(self, postID = None, _userID = None, _topic = None, limit = 0):
+    def get_posts(self, postID = None, _userID = None, _topic = None, limit = 0):
         """returns a list of Post() objects by topic or id or all if no argument is given"""
         #try:
         if postID != None:
-            postsList = Post.query.get(postID)  
+            posts = Post.query.get(postID)  
         elif _topic != None: #search by topic
-            postsList = Post.query.filter_by(topic = _topic).all()
+            posts = Post.query.filter(Post.topic == _topic).all()
         elif _userID != None: #search by user id
-            postsList = Post.query.filter_by(user_ID = _userID).all()
+            posts = Post.query.filter(Post.user.id == _userID).all()
         else: #search all posts
-            postsList = Post.query.all()
+            posts = Post.query.all()
         if limit > 0:
-            postsList = Post.query.order_by(Post.createdate.desc()).limit(limit).all()
+            posts = Post.query.order_by(Post.createdate.desc()).limit(limit).all()
                
-        return postsList
+        return posts
         
         #except:
            # print('no Post found')

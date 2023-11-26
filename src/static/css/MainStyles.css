@@ -112,22 +112,27 @@ footer img {
 }
 
 .AlertBox {
+	position: absolute;
+	opacity: 0.9;
 	display: flex;
+	flex-direction: column;
 	width: 100%;
-	justify-content: center;
+	align-items: center;
 }
 
 .AlertBox p {
-	display: block;
-	width: 50%;
-	background-color: var(--orange);
 	color: var(--black);
 	text-align: center;
-	padding: 2%;
-	border: 2px solid var(--darkGray);
 	font-family: var(--font_Oswald);
 	text-decoration: underline;
+}
 
+.AlertMessage {
+	background-color: var(--orange);
+	border: 2px solid var(--darkGray);
+	animation-name: fadeIn;
+	animation-duration: 1s;
+	padding: 1%;
 }
 .broadcastBox {
 	text-align: left;
