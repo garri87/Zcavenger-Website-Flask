@@ -9,7 +9,9 @@ RUN python -m venv env
 RUN source env/bin/activate
 
 RUN apk update && \
-    apk add --no-cache mariadb-connector-c-dev build-base postgresql-dev && \
+    apk add --no-cache build-base postgresql-dev && \
+    python -m venv env && \
+    source env/bin/activate && \
     pip install --upgrade pip && \
     pip install -r requirements.txt && \
     apk del build-base
