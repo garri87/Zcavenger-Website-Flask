@@ -53,8 +53,8 @@ if __name__ == '__main__':
         
     if settings.env == 'dev':
         app.run()
-    else:
-        serve(app, host=config('HOST'),  port= config('PORT'), threads = 4) 
+   # else:
+       # serve(app, host=config('HOST'),  port= config('PORT'), threads = 4) 
 
 
 
