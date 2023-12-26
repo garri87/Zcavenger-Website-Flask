@@ -9,9 +9,14 @@ COPY . /app
 
 RUN pip install --upgrade pip
 
+
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add --no-cache mariadb-dev
+
+RUN pip install virtualenv
+RUN virtualenv env
+RUN env\scripts\activate
 
 RUN pip install mysqlclient  
 
