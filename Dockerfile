@@ -1,30 +1,17 @@
-FROM alpine:3.17
-
-RUN apk add --no-cache python3 py3-pip
+FROM python:3.9-alpine
 
 WORKDIR /app
 
-COPY . /app
+COPY requirements.txt .
 
+RUN apk update && \
+    apk add --no-cache mariadb-connector-c-dev build-base && \
+    python -m venv env && \
+    source env/bin/activate && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    apk del build-base
 
-RUN pip install --upgrade pip
-
-
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add --no-cache mariadb-dev
-
-RUN pip install virtualenv
-RUN virtualenv env
-RUN env\scripts\activate
-
-RUN pip install mysqlclient  
-
-RUN pip install gunicorn
-
-RUN pip install -r requirements.txt
-
-RUN apk del build-deps
-
+COPY . .
 
 CMD ["python3", "src/index.py"]
