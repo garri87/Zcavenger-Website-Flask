@@ -1,37 +1,77 @@
-<div class="defaultBox NewsBox">
-    <div>
-        <h2 id="defaultBoxTitle">New forum section!</h2>
-        <a href="{{ url_for('forum.forumIndex')}}">
-            <h3>
-                Check the latest announcements, bug reports and more!
-            </h3>
-            <img src="../static/Img/" alt="">
-        </a>
+<div class="row">
+    <div class=" col broadcastBox">
+        <div class="broadcastBox-heading">
+            <h3>Emergency Broadcast</h3>
+        </div>
+
+        <div class="">
+            <br>
+            <h1>ZCAVENGER ALPHA V0.3 IS OUT NOW!</h1>
+            <h5> How long can you survive?</h5>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div>
+                <a href="https://garri87.itch.io/zcavenger/purchase?popup=1" class="Button DownloadButton"
+                    target="_blank">DOWNLOAD</a>
+                <a href="https://garri87.itch.io/zcavenger/devlog/363273/zcavenger-v03-alpha-early-access"
+                    class="Button NavigationButton" target="_blank">Patch Notes</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+            <div class="news-box">
+                <div>
+                    <h2 class=defaultBox-title>New forum section!</h2>
+
+                    <a href="{{ url_for('forum.forumIndex')}}">
+                        <h3>
+                            Check the latest announcements, bug reports and more!
+                        </h3>
+
+                    </a>
+
+                </div>
+                
+            </div>
+
+    </div>
+
+    <div class="col">
+        <div class="defaultBox">
+            <div class="col">
+                <h2 class=defaultBox-title>About The Game</h2>
+                <div class="row">
+                    <p>Welcome to the official page of Zcavenger, a zombie survival game with roguelike, shooter and
+                        platform
+                        elements. The game is in alpha stage of development with many features to add and that I will be
+                        reporting
+                        through the <a href="{{url_for('development')}}">development</a> section.
+                        I hope you enjoy my first game!</p>
+                    <br>
+                    <p>Sincerely</p>
+                    <p><b><i>Pablo Flores</i></b></p>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
-
-<div class="defaultBox">
-    <h2 id="defaultBoxTitle">About The Game</h2>
-    <p>Welcome to the official page of Zcavenger, a zombie survival game with roguelike, shooter and platform
-        elements. The game is in alpha stage of development with many features to add and that I will be
-        reporting
-        through the <a href="{{url_for('development')}}">development</a> section.
-        I hope you enjoy my first game!</p>
-    <br>
-    <p>Sincerely</p>
-    <p><b><i>Pablo Flores</i></b></p>
-
-
-
+<br>
+<div class="row">
+    <div class="col">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/ButFzvM5TiQ?si=TGCcnP0DZ76EYKlv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <div class="col">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/J0zgmTU7n0k?si=wwi1EfXv1lWi4mCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
 </div>
 
-<div class="defaultBox">
 
-    <iframe src="https://www.youtube.com/embed/ButFzvM5TiQ"
-        title="ZCAVENGER DevLog - Weapons Showcase: Molotov Cocktail" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
 
-</div>
+<br>

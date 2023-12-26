@@ -30,7 +30,7 @@ def login():
             logged_user = ModelUser.login(user)
         
         except:
-            flash('An error ocurred, please try again later')
+            flash('An error ocurred, please try again later',category='login_message')
 
             logged_user = None
         
@@ -44,12 +44,12 @@ def login():
                 
                 logout_user()
                 
-                flash("User is not activated, please check your email")
+                flash("User is not activated, please check your email",category='login_message')
                 
                 return redirect(request.referrer)
         else: 
             
-            flash('Invalid Credentials')
+            flash('Invalid Credentials',category='login_message')
             return redirect(request.referrer)
     else:
         return redirect(request.referrer)    
@@ -86,14 +86,14 @@ def register():
                     
                     send_activation_mail(new_user)              
                 
-                    flash('Registration Complete, a confirmation Mail was sent to activate your account') 
+                    flash('Registration Complete, a confirmation Mail was sent to activate your account',category='general') 
                     
                     return redirect(url_for('index'))
                 else:
-                    flash('Username already exists')
+                    flash('Username already exists', category='general')
                     return redirect(url_for('index'))
             else: 
-                flash("Passwords don't match")
+                flash("Passwords don't match",category='general')
                 return redirect(url_for('index'))
         else: 
             print('aborted')
@@ -114,10 +114,10 @@ def activate(username = None, token = None):
         
         if user.mail == email:
             ModelUser.activate_user(db,user.id,True)
-            flash('User successfully activated')
+            flash('User successfully activated',category='general')
             return redirect(url_for('index'))
         else:
-            flash('Wrong activation token')
+            flash('Wrong activation token',category='general')
             return redirect(url_for('index'))
         
     except SignatureExpired:
@@ -153,6 +153,13 @@ def updateUser(id):
             flash('Passwords do not match')
     
     return render_template('auth/updateUser.html', user = user, countries = countries)
+
+@auth.route('/user_dashboard/<int:user_id>')
+@login_required
+def user_dashboard(user_id): 
+    user = ModelUser.get_user(id=user_id)
+    return render_template('auth/user_dashboard.html', user = user)
+
     
     
 def send_activation_mail(user):

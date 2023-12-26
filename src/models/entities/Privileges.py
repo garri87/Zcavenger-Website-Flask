@@ -1,7 +1,5 @@
 
 from utils.database import db
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
 
 
 class Privileges(db.Model):
@@ -14,7 +12,7 @@ class Privileges(db.Model):
    can_comment = db.Column(db.Boolean,default=False)
    can_post = db.Column(db.Boolean,default=False)
    
-   user = relationship('User', back_populates = 'privileges')
+   user = db.relationship('User', back_populates = 'privileges')
    
    def __init__(self,is_admin,can_comment,can_post):
       self.is_admin = is_admin

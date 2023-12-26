@@ -1,10 +1,10 @@
 
     <div class="AlertBox">
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(category_filter=["general"]) %}
         {% if messages %}
             {% for message in messages %}
                 <div class="AlertMessage" role="alert">
-                    <p><strong>{{ message }}</strong></p>
+                    <strong>{{ message }}</strong>
                 </div>
             {% endfor %}
         {% endif %}

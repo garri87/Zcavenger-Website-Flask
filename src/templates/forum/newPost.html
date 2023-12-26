@@ -1,9 +1,12 @@
-{%include 'head.html'%}
+{%extends 'layouts/base.html'%}
+
+{% block content %}
 
 <div class="defaultBox">
 
-    <form class="Formulario" action="/createPost/{{ topic }}" method="POST" enctype="multipart/form-data">
+    <form class="Formulario" action="{{url_for('forum.create_post',postTopic = topic)}}" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <p>Creating new post for: {{topic}}</p>
         <br>
         <label for="txtTitle">Title</label>
@@ -25,9 +28,6 @@
 </div>
 
 
-{%include 'footer.html'%}
-
-
 <script>
 
 
@@ -47,3 +47,5 @@
       }
     }
   </script>
+
+  {% endblock %}

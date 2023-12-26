@@ -19,7 +19,7 @@ import os
 
 app = Flask(__name__)
 
-login_manager_app = LoginManager(app)
+login_manager_app = LoginManager(app) 
 
 mail = Mail(app)
 
@@ -53,13 +53,6 @@ def index():
 def development():
     
     return render_template('development.html')
-
-
-@app.route('/home')
-@login_required
-def home(): 
-    
-    return render_template('home.html')
 
 
 @app.route('/contactForm', methods=['GET', 'POST'])

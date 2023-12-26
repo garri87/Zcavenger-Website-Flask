@@ -1,46 +1,46 @@
-{%include 'head.html'%}
+{% extends 'layouts/base.html'%}
 
-<div class="defaultBox">
-    <div style="width: 100%; padding: 2%;">
-        <a class="defaultButton" href="/posts/{{post.topic}}">Back to posts</a>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="defaultBox">
+            <div style="width: 100%; padding: 2%;">
+                <a class="NavigationButton Button" href="{{url_for('forum.forumIndex')}}">Back to posts</a>
 
+            </div>
+        </div>
     </div>
-</div>
+{% if post %}
+    <div class="row">
+        <div class="col post-info">
+            {% if post.user.profileimg != "" %}
 
-<div class="PostBody">
+            <img src="../uploads/{{post.user.profileimg}}" alt="">
+            {% else %}
 
-    <div class="PostUserSection">
-        {% if post.user.profileimg != "" %}
+            <img src="../uploads/NoProfile.png" alt="">
 
-        <img src="../uploads/{{post.user.profileimg}}" alt="">
-        {% else %}
-        
-        <img src="../uploads/NoProfile.png" alt="">
+            {% endif %}
 
-        {% endif %}
-        
-        
+
             <p>{{post.user.username}}</p>
             <p>Created: {{post.createdate}}</p>
 
-       
-        {% if post.user_ID == current_user.id %}
-        <div class="defaultBox">
-            <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
+
+            {% if post.user_id == current_user.id %}
+            <div class="defaultBox">
+                <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
+            </div>
+            {% endif %}
         </div>
-
-
-        {% endif %}
-    </div>
-
-    <div class="PostContent"> <!-- Text -->
-        <div>
+        <div class="col post-content">
             <div>
                 <h2>{{post.title}}</h2> <!-- Title -->
             </div>
-            <p> {{post.text|safe}} </p>
-
-            {% if post.media != "" %}
+            <div>
+                <p> {{post.text|safe}} </p>
+            </div>
+            {% if post.media %}
             <div>
                 <h4>Media:</h4>
 
@@ -49,97 +49,82 @@
             {% endif %}
         </div>
     </div>
-</div>
+    <div class="row">
+        <div>
+            <h3>Comments:</h3>
+        </div>
 
-<div class="CommentSection">
-
-    <h3>Comments:</h3>
-
-    {% if post.comments %}
-    <div class="">
+        {% if post.comments %}
         {% for comment in post.comments%}
-        <div class="Comment">
-            <div class="CommentText">
-                {{comment.text|safe}}
-
-                {% if comment.media != "" %}
+        <div class="row">
+            <div class="col post-content">
+                <div>
+                    <p> {{comment.text|safe}} </p>
+                </div>
+                {% if comment.media %}
                 <div>
                     Media:
                     <img src="../uploads/{{comment.media}}" alt="" style="width:300px">
                 </div>
                 {% endif %}
             </div>
-            <div class="CommentUserSection">
+            <div class="col post-info">
+                <img src="../uploads/{{comment.user.profileimg}}">
 
-                <img src="../uploads/{{comment.user.profileimg}}" alt="">
-
-                <div>
-                    {{comment.user.username}}
+                <div id="comment_user_{{comment.user.id}}">
+                    <p>{{comment.user.username}}</p>
                     <p>Date: {{comment.createdate}}</p>
-                    {% if current_user.isadmin %}
-                        <a href="{url_for('delete_comment', comment.id)}" class="button">Delete Comment</a>
+
+                    {% if comment.user.id == current_user.id %}
+                    <a href="{url_for('delete_comment', comment.id)}" class="button">Delete Comment</a>
                     {% endif %}
                 </div>
-
             </div>
-
-
-
         </div>
         {% endfor %}
+        {% else %}
+        <p> There's no comments yet for this post </p>
+        {% endif %}
+    </div>
+
+    {% if current_user.is_authenticated %}
+    <div class="defaultBox" style="width: 100%">
+        <h2>Post a comment </h2>
+        <div class="defaultBox">
+            <form class="Formulario" action="/postComment/{{post.id}}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                {{ ckeditor.create() }}
+                <br>
+                <input type="file" name="commentMedia"><br>
+                <img src="../static/Img/NoProfile.png" alt="" id="imgPreview"><br>
+                <p>Files must not be larger than 5mb</p>
+
+                <input type="submit" name="submit">
+
+            </form>
+            {{ ckeditor.load() }}
+        </div>
     </div>
     {% else %}
+    <div class="row container">
+        <h3>Sign In to comment in this post</h3>
+    </div>
 
-    <p> There's no comments yet for this post </p>
 
     {% endif %}
 
-</div>
-
-
-{% if current_user.is_authenticated %}
-
-<div class="defaultBox" style="width: 100%">
-
-    <h2>Post a comment </h2>
-    <div class="defaultBox">
-        <form class="Formulario" action="/postComment/{{post.id}}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            {{ ckeditor.create() }}
-            <br>
-            <input type="file" name="commentMedia"><br>
-            <img src="../static/Img/NoProfile.png" alt="" id="imgPreview"><br>
-            <p>Files must not be larger than 5mb</p>
-
-            <input type="submit" name="submit">
-
-        </form>
-        {{ ckeditor.load() }}
-    </div>
-
-
-
-</div>
-
 {% else %}
-<div class="AlertBox">
-
-    <h3>Sign In to comment in this post</h3>
-
-</div>
+<br>
+    <div class="row defaultBox container">
+        <h3> Post doesn't exist </h3>
+    </div>
+    <br>
 {% endif %}
+</div>
+<br>
 
 <br>
-{%include 'footer.html'%}
 
 
-<script>
-    function confirmDelete() {
-        let text = "Are you sure to delete this post? This action is irreversible "
-        if (confirm(text)) {
-            window.location.replace("{{url_for('forum.deletePost', id = post.id)}}")
 
-
-        }
-    }
-</script>
+{% endblock %}

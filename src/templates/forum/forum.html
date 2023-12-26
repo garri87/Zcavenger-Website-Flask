@@ -1,4 +1,6 @@
-{%include 'head.html'%}
+{%extends 'layouts/base.html'%}
+
+{% block content %}
 
 <br>
 <div class="defaultBox">
@@ -13,63 +15,58 @@
 <br>
 {% if current_user.is_authenticated == false %}
 
-<div class="AlertBox">
+<div class="defaultBox AlertMessage">
+    Sign in your account to participate in the forum and create new posts
+</div>
+<br>
+{% endif %}
 
-    <p> Sign in your account to participate in the forum and create new posts </p>
+<div class="container">
+    <h3 class="defaultBox-title">Main Topics</h3>
 
+    {% for i in range(topics|length) %}
+    <a class="topic-row" href="{{url_for('forum.posts',topic=topics[i])}}">
+
+        <div class="col topic-name">
+            <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
+        </div>
+        <div class="col topic-count">
+            {% if topicList[i] != None %}
+            <p> {{topicList[i]|count}} posts</p>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+<br>
+{% if lastPosts != None %}
+
+<div class="container">
+    <h3 class="defaultBox-title">Latest Posts</h3>
+
+    {% for i in range(lastPosts|count) %}
+
+    <div class="post-panel">
+
+        <div class="col post-info">
+            <p>By: {{lastPosts[i].user.username}}</p>
+            <p>Created: {{lastPosts[i].createdate}}</p>
+            <p>Topic: {{lastPosts[i].topic}}</p>
+        </div>
+
+        <div class="col post-title">
+            <a href="/showPost/{{lastPosts[i].id}}">
+                <h4>{{lastPosts[i].title}}</h4>
+
+            </a>
+        </div>
+
+    </div>
+
+    {% endfor %}
 </div>
 
 {% endif %}
 
-<div class="Main">
-    <div class="TopicDashboard">
-        <h3 id="defaultBoxTitle">Main Topics</h3>
-
-        <table class="PostsTable">
-            {% for i in range(topics|length) %}
-            <tr>
-                <th>
-                    <a href="{{url_for('forum.posts',topic=topics[i])}}">
-                        <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
-                    </a>
-                </th>
-                <td>
-                    {% if topicList[i] != None %}
-                    <p> {{topicList[i]|count}} posts</p>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <div class="TopicDashboard">
-        <h3 id="defaultBoxTitle">Latest Posts</h3>
-        <table class="PostsTable">
-            {% if lastPosts != None %}
-            {% for i in range(lastPosts|count) %}
-            <tr>
-                <th class="PostTitle">
-
-                    <a href="/showPost/{{lastPosts[i].id}}">
-                        <h4>{{lastPosts[i].title}}</h4>
-
-                    </a>
-
-                </th>
-                <td class="userInfo">
-
-                    <p>By: {{lastPosts[i].user.username}}</p>
-                    <p>Created: {{lastPosts[i].createdate}}</p>
-                    <p>Topic: {{lastPosts[i].topic}}</p>
-                </td>
-            </tr>
-
-            {% endfor %}
-            {% endif %}
-        </table>
-    </div>
-    </table>
-</div>
-
 <br>
-{%include 'footer.html'%}
+{% endblock %}

@@ -1,5 +1,6 @@
 from .entities.Post import Post
 from .entities.Comment import Comment
+from .entities.User import User
 
 from datetime import datetime
 
@@ -34,15 +35,16 @@ class ModelPost():
         
    
     @classmethod
-    def get_posts(self, postID = None, _userID = None, _topic = None, limit = 0):
+    def get_posts(self, post_id = None, user_id = None, topic = None, limit = 0):
         """returns a list of Post() objects by topic or id or all if no argument is given"""
         #try:
-        if postID != None:
-            posts = Post.query.get(postID)  
-        elif _topic != None: #search by topic
-            posts = Post.query.filter(Post.topic == _topic).all()
-        elif _userID != None: #search by user id
-            posts = Post.query.filter(Post.user.id == _userID).all()
+        if post_id:
+            posts = Post.query.get(post_id)  
+        elif topic: #search by topic
+            posts = Post.query.filter(Post.topic == topic).all()
+        elif user_id: #search by user id
+            posts = (Post.query.join(User).filter(User.id == user_id)
+                .all())
         else: #search all posts
             posts = Post.query.all()
         if limit > 0:

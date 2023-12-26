@@ -1,25 +1,51 @@
-<div class="dropdown">
-    <p class="LoginButton" onclick="toggleLoginBox()">
-        {% if current_user.is_authenticated %}
-            {% if current_user.profileimg != "" %}
-            <img src="../uploads/{{current_user.profileimg}}" alt="">
-            {% else %}
-            <img src="../uploads/NoProfile.png" alt="">
-            {%endif%}
+<div class="Button NavigationButton LoginButton dropdown" onclick="toggleLoginBox()">
+    <div>
+
+    {% if current_user.is_authenticated %}
+   
+        {% if current_user.profileimg != "" %}
+        <img src="../uploads/{{current_user.profileimg}}" alt="">
+        {% else %}
+        <img src="../uploads/NoProfile.png" alt="">
+        {%endif%}
+    </div>
+    <div class="">
         {{current_user.username}}
+    </div>
+    <div>
         {% else %}
         <i class="dropbtn fa-solid fa-circle-user fa-2xl"></i>
         {% endif %}
+    </div>
+    <div>
         <i class="fa-solid fa-angle-down"></i>
-    </p>
-    <div id="myDropdown" class="dropdown-content">
-        
+    </div>
+
+
+    {% with messages = get_flashed_messages(category_filter=["login_message"]) %}
+
+    <div id="myDropdown" class="dropdown-content {% if messages %} show {% endif %}">
+        {% endwith %}
+        {% with messages = get_flashed_messages(category_filter=["login_message"]) %}
+        {% if messages %}
+        <div class="defaultBox">
+            {% for message in messages %}
+            <div class="AlertMessage" role="alert">
+                <strong>{{ message }}</strong>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
         {% if current_user.is_authenticated %}
         <div class="DropdownMenu">
 
-            <a class="NavigationButton" href="{{url_for('home')}}"> <i class="fa-solid fa-user"></i> Profile</a>
+            <a class="NavigationButton" href="{{url_for('auth.user_dashboard', user_id = current_user.id    )}}"> <i
+                    class="fa-solid fa-user"></i> Profile</a>
 
-            <a class="NavigationButton" href="{{url_for('forum.posts',userID = current_user.id)}}"><i class="fa-solid fa-newspaper"></i> My Posts</a>
+            <a class="NavigationButton" href="{{url_for('forum.posts',userID = current_user.id)}}"><i
+                    class="fa-solid fa-newspaper"></i> My Posts</a>
 
 
             <a class="NavigationButton" href="{{ url_for('auth.logout')}}"><i
@@ -54,5 +80,3 @@
 
     </div>
 </div>
-
-

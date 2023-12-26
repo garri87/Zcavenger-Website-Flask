@@ -18,7 +18,7 @@ font-family: 'Anton', sans-serif;
 	--lightGray: rgb(104, 104, 104);
 	--yellow: rgb(255, 200, 0);
 	--orange: rgb(255, 157, 0);
-	--black: black;
+	--black: rgb(12, 12, 12);
 	--darkBlue: rgb(0, 53, 114);
 	--lightBlue: rgb(0, 88, 187);
 
@@ -35,15 +35,16 @@ html {
 
 body {
 	background-color: var(--black);
-	margin: 1px;
+	margin: auto;
 }
 
 nav {
 	display: flex;
-	align-items: center;
-    justify-content: flex-end;
-	width: 100%;
-	text-align: center;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center;
+	background-color: var(--darkGray);
 }
 
 nav a {
@@ -56,6 +57,7 @@ h1{
 	text-shadow: 1px 1px var(--black);
 	font-weight: normal;
 	text-decoration: none;
+	padding-left: 1%;
 }
 
 h2,
@@ -68,6 +70,7 @@ h5 {
 	font-weight: normal;
 	text-decoration: none;
 	margin: 0px;
+	padding-left: 1%;
 }
 
 p {
@@ -88,6 +91,7 @@ footer {
 	background-color: var(--mediumGray);
 	max-width: 100%;
 	height: 100%;
+	padding: 1%;
 	
 	
 }
@@ -98,9 +102,6 @@ footer * {
 	text-decoration: none;
 }
 
-footer p {
-	grid-column: 1/3;
-}
 
 footer a:hover {
 	color: var(--lightBlue);
@@ -120,19 +121,16 @@ footer img {
 	align-items: center;
 }
 
-.AlertBox p {
-	color: var(--black);
-	text-align: center;
-	font-family: var(--font_Oswald);
-	text-decoration: underline;
-}
-
 .AlertMessage {
+	animation-duration: 1s;
+	animation-name: fadeIn;
 	background-color: var(--orange);
 	border: 2px solid var(--darkGray);
-	animation-name: fadeIn;
-	animation-duration: 1s;
+	color: var(--black);
+	font-family: var(--font_Oswald);
 	padding: 1%;
+	text-align: center;
+	text-decoration: none;
 }
 .broadcastBox {
 	text-align: left;
@@ -140,8 +138,6 @@ footer img {
 	background-image: url(../Img/banner.png);
 	background-position: top;
 	background-size: cover;
-	width: 100%;
-	max-width: 100%;
 	height: 50vh;
 }
 
@@ -181,11 +177,7 @@ footer img {
 }
 
 .Comment {
-	display: grid;
-	grid-template-columns: 80% 20%;
-	align-items: center;
-
-
+	
 	color: var(--white);
 
 	font-family: 'Oswald';
@@ -209,9 +201,6 @@ footer img {
 }
 
 .CommentUserSection {
-	display: grid;
-	grid-template-columns: 100%;
-	justify-items: center;
 	font-size: 70%;
 	text-align: center;
 	border: 1px solid var(--darkGray);
@@ -229,12 +218,7 @@ footer img {
 	background-color: var(--orange);
 	color: var(--black);
 	font-family: var(--font_Anton);
-	text-decoration: none;
-	padding: 0.5%;
 	border: 1px solid black;
-	border-radius: 5px;
-	margin: 1%;
-
 }
 
 .DownloadButton:hover{
@@ -249,15 +233,15 @@ footer img {
 	align-items: stretch;
 	border: 1px solid var(--darkGray);
 	width: 100%;
-
+	border-radius: 5px;
+	
 }
 
-#defaultBoxTitle {
+
+.defaultBox-title {
 	color: var(--white);
 	background-color: var(--darkRed);
-	width: 100%;
-   	margin-top: 0px;
-  	margin-left: 0px;
+	padding: 1%;
 }
 
 #defaultBoxText {
@@ -270,40 +254,23 @@ footer img {
 
 }
 
-.defaultButton {
-	background-color: var(--lightBlue);
-	width: 100px;
-	padding: 0.5%;
-	border-radius: 2px;
-	margin: 1%;
-	cursor: pointer;
-
-	text-align: center;
-	color: var(--white);
-	font-family: 'Oswald', sans-serif;
-
-	text-decoration: none;
-	font-weight: bold;
-
-}
-
-.defaultButton:hover {
-	background-color: var(--darkBlue);
+.devLog-box{
+	background-color: var(--darkGray);
+	border: 1px solid var(--lightGray);
+	margin-left: 1%;
+	margin-right: 1%;
 }
 
 .DropdownMenu{
 	display: flex;
     flex-direction: column;
     justify-items: center;
-    grid-template-columns: auto auto;
     align-items: stretch;
     justify-content: center;
     width: 100%;
 }
 
 .FormBox {
-	display: grid;
-	justify-items: center;
 	width: 100%;
 	max-width: 100%;
 	padding: 1%;
@@ -324,8 +291,6 @@ footer img {
 
 
 .Formulario {
-	display: grid;
-	grid-template-columns: 100%;
 	justify-content: center;
 
 	background-color: var(--darkGray);
@@ -418,9 +383,17 @@ input[type=submit]:hover {
 
 }
 
-#logo {
+.logo {
 	width: 100px;
 	height: 30px;
+	padding: 2px;
+}
+
+.Button{
+	margin: 1%;
+	padding: 0.8%;
+	border-radius: 5px;
+	text-decoration: none;
 }
 
 .LoginButton {
@@ -428,17 +401,10 @@ input[type=submit]:hover {
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
-	width: 100%;
 	text-align: center;	
-	border-radius: 5px;
-	padding: 0%;
-	margin: 0px;
-	
-	
+	margin: 0;
 	border: 1px solid var(--lightGray);
 	border-radius: 3px;
-
-	font-size: 80%;
 }
 
 .LoginButton img{
@@ -455,16 +421,15 @@ input[type=submit]:hover {
 	
 }
 
+.LoginButton div{
+	padding: 2px;
+}
+
+
 .Main {
 	animation-name: fadeIn;
 	animation-duration: 1s;
-}
-
-.NavigationBox {
-	background-color: var(--darkGray);
-	padding-bottom: 1%;
-	padding-top: 1%;
-
+	
 }
 
 .NavigationButton {
@@ -472,8 +437,6 @@ input[type=submit]:hover {
 	color: rgb(247, 247, 247);
 	font-family: var(--font_Oswald);
 	text-decoration: none;
-	padding: 0.5%;
-	margin: 1%;
 	border: 1px solid var(--lightGray);
 	border-radius: 5px;
 
@@ -484,23 +447,28 @@ input[type=submit]:hover {
 	color: var(--white);
 }
 
-.NewsBox{
+.news-box{
 	background-image: url('../Img/ZombiePC.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	border: 2px solid var(--darkBlue);
-
+	height: 100%;
 }
 
-.NewsBox *{
+.news-box *{
 	text-align: left;
+	text-decoration: none;
 }
 
-.NewsBox div{
+.news-box div{
 	height:100%;
+	width: 100%;
 	background-color: rgba(0, 0, 0, 0.6);
 }
+
+
+
+
 
 #profileImg {
 	height: 40px;
@@ -512,9 +480,7 @@ input[type=submit]:hover {
 
 
 
-.PostBody {
-	display: grid;
-	grid-template-columns: 20% 80%;
+.post-content {
 	background-color: rgb(55, 55, 55);
 	border: 1px solid var(--black);
 	width: 99%;
@@ -536,105 +502,63 @@ input[type=submit]:hover {
 	background-color: var(--darkGray);
 }
 
-.PostsTable {
-	background-color: var(--darkGray);
-	width:100%;
-	font-family: sans-serif;
-	border: 1px solid var(--darkGray);
-	border-collapse: collapse;
-	
-	
+.post-info{
+	background-color: var(--mediumGray);
+	border: 2px solid var(--darkGray);
+	color: var(--white);
+	padding: 1%;
+	font-size: 70%;	
 }
-.PostsTable table{
-	width: 100%;
-	font-size: auto;
-	
-}
-
-.PostsTable *{
-	margin: 0px;
+.post-info img {
+	max-width: 100%;
+	aspect-ratio: 1/1;
+	object-fit: cover;
+	border: 1px solid var(--white);
 }
 
-.PostsTable td, th{
-	text-align: center;
-	padding: 2%;
-}
-
-
-.PostsTable tr{
-	display: flex;
-	align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-
-}
-
-.PostsTable tr:hover{
-	background-color: var(--lightGray);
-	text-decoration: underline
-}
-
-.PostsTable img{
-	width: 30px
-}
-
-.PostItem {
-	display: grid;
-	grid-template-columns: 20% 80%;
-	grid-row: 10%;
+.post-item {
 	font-family: 'Oswald';
 	align-items: center;
 }
 
-.PostItem:hover{
+.post-item:hover{
 	text-decoration: underline;
 }
 
-.PostItem .defaultBox {
+.post-item .defaultBox {
 	height: 100%;
 	justify-content: center;
 }
 
-.PostItem:nth-child(even) {
+.post-item:nth-child(even) {
 	background-color: var(--mediumGray)
 }
 
-.PostItem:nth-child(odd) {
+.post-item:nth-child(odd) {
 	background-color: var(--darkGray)
 }
 
-.PostUser {
-	display: grid;
-	grid-template-columns: 40% 60%;
-	background-color: var(--mediumGray);
-	justify-items: center;
+
+.post-panel{
+	display: flex;
 	align-items: center;
-	border: 2px solid var(--darkBlue);
-	color: var(--white);
-	padding: 2%;
-	font-size: 70%;	
+	background-color: var(--darkGray);
+	border: 1px solid var(--darkGray);
 }
 
-.PostUser img {
-	max-width: 30px;
-	aspect-ratio: 1/1;
-	object-fit: cover;
-	
-}
-
-.PostTitle * {
+.post-title * {
 	text-decoration: none;
 	color: var(--white);
+	text-align: center;
+	height: 100%;	
+}
+
+.post-title {
+	font-family: var(--font_Oswald);
+	background-color: var(--darkGray);
 	
 }
 
-.PostTitle {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-family: var(--font_Oswald);
-}
 
 .PostUserSection {
 	display: flex;
@@ -658,39 +582,45 @@ input[type=submit]:hover {
 	object-fit: cover;
 }
 
+
 .Social {
 	width: 100%;
 }
 
-.TopicDashboard {
+.topic-row{
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
-	width: 100%;
-	color: white;
-	background-color: var(--darkGray);
-	border: 1px solid var(--mediumGray);
-	font-size: 150%;
-
-
-}
-
-.TopicDashboard a {
-	font-family: var(--font_Oswald);
 	color: var(--white);
 	text-decoration: none;
-	font-weight: lighter;
-	font-size: 20px;
-	text-align: left;
+	width: 100%;
 }
 
-.TopicDashboard th,
-td {
-	padding: 1%;
-	text-align: left;
+.topic-row:nth-child(even):hover,
+.topic-row:nth-child(odd):hover{
+	background-color: var(--lightBlue);
 }
 
+.topic-row:nth-child(even){
+	background-color: var(--lightGray);
+}
+.topic-row:nth-child(odd){
+	background-color: var(--darkGray);
+}
 
+.topic-name a{
+	font-family: var(--font_Oswald);
+	text-decoration: none;
+	color: var(--white);
+}
+
+.topic-name{
+	max-width: 90%;
+}
+
+.topic-count{
+	max-width: 10%;
+}
 
 .userIcon {
 	color: var(--lightGray);
@@ -700,7 +630,6 @@ td {
 	display: flex;
 	flex-direction: column;
 	justify-items: center;
-	grid-template-columns: auto auto;
 	align-items: flex-start;
     justify-content: center;
 	

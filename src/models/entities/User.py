@@ -1,7 +1,6 @@
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
 from utils.database import db
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 
@@ -20,9 +19,9 @@ class User(UserMixin,db.Model):
    token = db.Column(db.String(255))
    active = db.Column(db.Boolean, default=False)
    
-   privileges = relationship('Privileges', back_populates='user', uselist=False)
-   posts = relationship('Post', back_populates='user')     
-   comments = relationship('Comment', back_populates='user')    
+   privileges = db.relationship('Privileges', back_populates='user', uselist=False)
+   posts = db.relationship('Post', back_populates='user', passive_deletes = True)     
+   comments = db.relationship('Comment', back_populates='user', passive_deletes = True)    
    
    def __init__(self, username, contrasena="", realname="", mail="", country="", profileimg="", token="", active=False,privileges = None ):
         self.username = username

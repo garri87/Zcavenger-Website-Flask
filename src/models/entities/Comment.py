@@ -1,5 +1,4 @@
 from utils.database import db
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 
@@ -13,8 +12,8 @@ class Comment(db.Model):
     media = db.Column(db.String(255))
     createdate = db.Column(db.DateTime, default=func.now(), nullable=False)
     
-    post = relationship('Post', back_populates='comments')
-    user = relationship('User', back_populates='comments')
+    post = db.relationship('Post', back_populates='comments')
+    user = db.relationship('User', back_populates='comments')
 
     def __init__(self, post_id, user_id, text, media):
         self.post_id = post_id

@@ -10,8 +10,10 @@ class Devlog(db.Model):
     createdate = db.Column(db.DateTime, default=func.now(), nullable=False)
     text = db.Column(db.Text())
     media = db.Column(db.String(255))
-            
-    def __init__(self, title, text, media):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+                
+    def __init__(self, title, text, media, user_id):
         self.title = title
         self.text = text
         self.media = media
+        self.user_id = user_id

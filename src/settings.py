@@ -22,7 +22,7 @@ PORT = os.getenv('PORT')
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
   
-UPLOADS_FOLDER = os.path.join(os.path.dirname(__name__), 'src', 'uploads')
+UPLOADS_FOLDER = os.path.join(os.getcwd(),'uploads')
       
 MAIL_SERVER = os.getenv('MAIL_SERVER')
 MAIL_PORT = os.getenv('MAIL_PORT')

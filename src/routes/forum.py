@@ -30,22 +30,20 @@ def forumIndex():
     try:
         topicList = list()
         for topic in topics:
-            topicPosts = ModelPost.get_posts(_topic = topic)
+            topicPosts = ModelPost.get_posts(topic = topic)
             topicList.append(topicPosts)
 
-        lastPosts = ModelPost.list_posts(limit=latestPostsCount) 
+        lastPosts = ModelPost.get_posts(limit=latestPostsCount) 
         
         return render_template('/forum/forum.html',
                             topics=topics,
                             topicList = topicList,
                             lastPosts = lastPosts,)
-    except:
-        flash("Error Connecting to database, please try again later")
+    except Exception as ex:
+        print(ex)
+        flash("Error Connecting to database, please try again later",category='database_error')
         return redirect(request.referrer)
         
-        
-
-
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])
 @forum.route('/posts/<int:userID>', methods=['GET', 'POST'])
 
@@ -53,20 +51,22 @@ def posts(topic = None, userID = None):
     
     if userID != None:
         print("userID: " + str(userID))
-        postsList = ModelPost.get_posts(_userID = userID)
+        postsList = ModelPost.get_posts(user_id = userID)
 
     if topic != None:
-        print("Topic: topic")
-        postsList = ModelPost.get_posts(_topic = topic)
+        print("Topic:" + str(topic))
+        postsList = ModelPost.get_posts(topic = topic)
 
     return render_template('/forum/posts.html',
-            postsList = postsList,)
+            postsList = postsList,
+            topic = topic,
+            user_id = userID)
    
    
    
-@forum.route('/createPost/<postTopic>', methods = ['GET','POST'])
+@forum.route('/create_post/<postTopic>', methods = ['GET','POST'])
 @login_required
-def createPost(postTopic):
+def create_post(postTopic):
     if request.method == 'POST':
         title = request.form['txtTitle']
         text = request.form.get('ckeditor')
@@ -86,13 +86,9 @@ def createPost(postTopic):
 @forum.route('/showPost/<int:id>')
 def showPost(id):
     
-    post = ModelPost.get_posts(postID = id)
-    if post:    
-        return render_template("/forum/showPost.html",
+    post = ModelPost.get_posts(post_id = id)
+    return render_template("/forum/showPost.html",
                                post = post,)     
-    else:
-        flash("Post not found")
-        return render_template("/forum/posts.html")
              
 @forum.route('/postComment/<int:postID>', methods = ['POST'])
 def postComment(postID):

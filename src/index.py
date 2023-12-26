@@ -27,11 +27,16 @@ try:
   with app.app_context():
     db.create_all()
     print("Connected to database!")
-    print("running on " + settings.env)
+   
 
 except Exception as ex:
     print("Error connecting to database: -->" + str(ex))
 
+if not os.path.exists(settings.UPLOADS_FOLDER):
+        os.makedirs(settings.UPLOADS_FOLDER)
+        print('Uploads folder not found, creating one... ')
+
+print("running on " + settings.env)
     
 def status_401(error):
     
