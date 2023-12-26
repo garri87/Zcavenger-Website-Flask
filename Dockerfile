@@ -5,9 +5,11 @@ WORKDIR /app
 COPY requirements.txt .
 
 RUN python -m venv env
+
 RUN source env/bin/activate
+
 RUN apk update && \
-    apk add --no-cache mariadb-connector-c-dev build-base && \
+    apk add --no-cache mariadb-connector-c-dev build-base postgresql-dev && \
     pip install --upgrade pip && \
     pip install -r requirements.txt && \
     apk del build-base
