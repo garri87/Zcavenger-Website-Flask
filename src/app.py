@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
-import git
 import requests
 
 import settings

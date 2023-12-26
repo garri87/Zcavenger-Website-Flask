@@ -6,7 +6,6 @@ COPY requirements.txt .
 
 RUN python -m venv env
 RUN source env/bin/activate
-
 RUN apk update && \
     apk add --no-cache mariadb-connector-c-dev build-base && \
     pip install --upgrade pip && \
