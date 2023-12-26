@@ -52,9 +52,9 @@ if __name__ == '__main__':
     csrf.init_app(app)
         
     if settings.env == 'dev':
-        app.run()
-   # else:
-       # serve(app, host=config('HOST'),  port= config('PORT'), threads = 4) 
+       app.run()
+    else:
+       serve(app, host=config('HOST'),  port= config('PORT'), threads = 4) 
 
 
 
