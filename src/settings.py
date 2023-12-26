@@ -4,10 +4,11 @@ load_dotenv()
 
 env = os.getenv('ENV')
 
-SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 if env == 'dev':
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     DEBUG = True 
 else:
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_POSTGRESQL_URI')
     DEBUG = False
     
 SECRET_KEY = os.getenv('SECRET_KEY')
