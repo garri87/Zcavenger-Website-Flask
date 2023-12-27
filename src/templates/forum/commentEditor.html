@@ -1,0 +1,23 @@
+{%block content%}
+
+
+    <form class="Formulario" action="/postComment/{{post.id}}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {{ ckeditor.create() }}
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="file" class="form-control" name="commentMedia">
+    
+            </div>
+            <div class="col-md-6">
+                <img src="../static/Img/NoProfile.png" alt="" id="imgPreview"><br>
+                <p>Files must not be larger than 5mb</p>
+            </div>
+        </div>
+    
+        <input type="submit" class="DownloadButton form-control" name="submit" value="Submit comment">
+
+    </form>
+    {{ ckeditor.load() }}
+{% endblock %}

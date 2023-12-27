@@ -15,22 +15,22 @@
     <h1 style="text-align:center">Sign Up</h1>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <label for="txtusername">Username</label>
-    <input type="text" name="txtusername" required>
+    <input type="text" class="form-control" name="txtusername" required>
     <br>
     <label for="txtpass">Password</label>
-    <input type="password" name="txtpass" required>
+    <input type="password" class="form-control" name="txtpass" required>
     <br>
     <label for="txtpass2">Repeat password</label>
-    <input type="password" name="txtpass2" required>
+    <input type="password"  class="form-control" name="txtpass2" required>
     <br>
     <label for="txtrealname">Real name</label>
-    <input type="text" name="txtrealname">
+    <input type="text" class="form-control" name="txtrealname">
     <br>
     <label for="txtmail">E-mail</label>
-    <input type="mail" name="txtmail" required>
+    <input type="mail"  class="form-control" name="txtmail" required>
     <br>
     <label for="txtcountry">Country</label>
-    <select id="country" name="txtcountry">
+    <select id="country"  class="form-control" name="txtcountry">
       <option value="Afghanistan">Afghanistan</option>
       <option value="Åland Islands">Åland Islands</option>
       <option value="Albania">Albania</option>
@@ -279,7 +279,7 @@
     <br>
     <div class="ImgSelectBox">
       <label for="profileimg">
-        <input type="file" name="profileimg" id="fileSelector" accept="image/*"
+        <input type="file" class="form-control" name="profileimg" id="fileSelector" accept="image/*"
           onchange="previewFile()">
       </label>
 

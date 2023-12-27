@@ -111,15 +111,18 @@ def activate(username = None, token = None):
         email = s.loads(token, salt='mail-confirm')
         
         user = ModelUser.get_user(usrname=username,email=email)
-        
-        if user.mail == email:
-            ModelUser.activate_user(db,user.id,True)
-            flash('User successfully activated',category='general')
-            return redirect(url_for('index'))
+        if user:
+            if user.mail == email:
+                ModelUser.activate_user(db,user.id,True)
+                flash('User successfully activated',category='general')
+                return redirect(url_for('index'))
+            else:
+                flash('Wrong activation token',category='general')
+                return redirect(url_for('index'))
         else:
-            flash('Wrong activation token',category='general')
+            flash('Error activating account: Not user found',category='general')
+
             return redirect(url_for('index'))
-        
     except SignatureExpired:
     
         return

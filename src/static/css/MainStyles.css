@@ -294,7 +294,7 @@ footer img {
 	justify-content: center;
 
 	background-color: var(--darkGray);
-	width: 80%;
+	width: 100%;
 	padding: 2%;
 	margin: 1%;
 	color: var(--white);
@@ -305,7 +305,6 @@ footer img {
 	background-color: var(--white);
 	border-radius: 5px;
 	border: 1px solid var(--lightGray);
-	height: 25px;
 	text-align: left;
 	font-family: var(--font_Inter);
 
