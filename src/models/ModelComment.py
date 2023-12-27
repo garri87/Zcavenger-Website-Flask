@@ -8,7 +8,7 @@ from datetime import datetime
 
 class ModelComment():
     @classmethod
-    def create_comment(self,db,post_ID,user_ID,text,media = ""):
+    def create_comment(self,db,post_id,user_id,text,media = ""):
         """Inserts data in the comments table and returns a Comment() object"""
         try:
             
@@ -22,7 +22,7 @@ class ModelComment():
             else:
                 newMedia = ""
             
-            newComment = Comment(post_ID,user_ID,text,newMedia)
+            newComment = Comment(post_id,user_id,text,newMedia)
             
             db.session.add(newComment)
             db.session.commit()
@@ -36,7 +36,7 @@ class ModelComment():
     
     @classmethod
     def get_comments(self, postID = None,userID = None):
-        """returns a list of Comment() objects by post_ID or user_ID"""
+        """returns a list of Comment() objects by post_id or user_id"""
         
         commentList = list()
         

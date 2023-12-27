@@ -3,70 +3,67 @@
 {% block content %}
 
 {% if current_user.is_authenticated%}
-<div class="AlertBox">
+<div class="container">
     <h2 align="left">Welcome, {{ current_user.username }}</h2>
 </div>
-
 <br>
-
-<div class="UserDashboard">
-    <table>
-        <h2>Profile Information:</h2>
-        <tr>
-            <th>Username:</th>
-            <td>{{ current_user.username }}</td>
-
-        </tr>
-        <tr>
-            <th>Password:</th>
-            <td></td>
-
-        </tr>
-        <tr>
-            <th>Full Name:</th>
-            <td>{{ current_user.realname }}</td>
-
-        </tr>
-        <tr>
-            <th>Country: </th>
-            <td>{{ current_user.country}}</td>
-
-        </tr>
-        <tr>
-            <th>Member since: </th>
-            <td>{{ current_user.createdate}}</td>
-
-        </tr>
-        <tr>
-            <th>Profile photo: </th>
-            <td> <img height="150px" src="../uploads/{{current_user.profileimg }}" alt=""
-                    style="border: 1px solid black"> </td>
-        </tr>
-
-    </table>
-    <div>
-        <h3>Options</h3>
-        <a class="defaultButton" href="{{ url_for('auth.logout') }}"
-            style="display :flex; justify-content: center;">Logout</a>
-        <a class="defaultButton" href="{{ url_for('auth.updateUser', id=current_user.id) }}"
-            style="display :flex; justify-content: center;">Change account info</a>
-        <a class="defaultButton" style="display :flex; justify-content: center;" onclick="confirmDelete()">Delete User</a>
+<div class="container">
+    <div class="row">
+       <div class="col UserDashboard">
+        <table>
+            <h2>Profile Information:</h2>
+            <tr>
+                <th>Username:</th>
+                <td>{{ current_user.username }}</td>
     
-        <script>
-            function confirmDelete() {
-                let text = "Are you sure to delete this user? This action is irreversible "
-                if (confirm(text)) {
-                    window.location.replace("{{url_for('auth.deleteUser', id = current_user.id)}}")
-                }
-            }
-        </script>
+            </tr>
+            <tr>
+                <th>Password:</th>
+                <td></td>
     
+            </tr>
+            <tr>
+                <th>Full Name:</th>
+                <td>{{ current_user.realname }}</td>
+    
+            </tr>
+            <tr>
+                <th>Country: </th>
+                <td>{{ current_user.country}}</td>
+    
+            </tr>
+            <tr>
+                <th>Member since: </th>
+                <td>{{ current_user.createdate}}</td>
+    
+            </tr>
+            <tr>
+                <th>Profile photo: </th>
+                <td> <img height="150px" src="../uploads/{{current_user.profileimg }}" alt=""
+                        style="border: 1px solid black"> </td>
+            </tr>
+    
+        </table>
+       </div>
+
+        <div class="col">
+            <h3>Options</h3>
+            <a class="NavigationButton form-control" href="{{ url_for('auth.logout') }}">Logout</a>
+            <a class="NavigationButton form-control" href="{{ url_for('auth.updateUser', id=current_user.id) }}">Change account info</a>
+            <a class="NavigationButton form-control" onclick="confirmDeleteUser()">Delete Account</a>
+        </div>
     </div>
+    
+    
 </div>
-
-<br>
-<br>
-<br>
+<script>
+    function confirmDeleteUser() {
+        let text = "Are you sure to delete this account? This action is irreversible "
+        if (confirm(text)) {
+            window.location.replace("{{url_for('auth.deleteUser', id = current_user.id)}}")
+        }
+    }
+</script>
 {% else %}
 
 {% endif %}

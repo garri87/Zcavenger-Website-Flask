@@ -133,7 +133,7 @@ def deleteUser(id):
     if id == current_user.id:
         ModelUser.delete_user(db,id)
         logout_user()
-        flash('User deleted')
+        flash('Account was deleted',category='general')
         return redirect(url_for('index'))
 
 @auth.route('/updateUser/<string:id>', methods=['GET', 'POST'])

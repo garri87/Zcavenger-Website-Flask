@@ -109,13 +109,14 @@ def deletePost(id):
     
     try:
         post = Post.query.get(id)
-        if post.user_ID == current_user.id:
+        if post.user_id == current_user.id:
             ModelPost.delete_post(db,id)    
             flash("Post deleted successfully")
         else:
             flash("You are not allowed to delete this post")
-    except:
+    except Exception as ex:
         flash("An error ocurred when deleting Post")
+        print(ex)
         
     return redirect(url_for('forum.forumIndex'))
 

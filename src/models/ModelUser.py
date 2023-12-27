@@ -7,7 +7,7 @@ from flask_login import login_user
 from datetime import datetime
 import settings
 import os
-from utils.uploads import upload_profile_img
+from utils.uploads import upload_image
 
 class ModelUser():
     
@@ -73,7 +73,9 @@ class ModelUser():
                            
                 hashed_password = generate_password_hash(password)
                 
-                new_profile_img_name = upload_profile_img(new_profileimg=profile_img)
+                if profile_img.filename != "":
+                
+                    new_profile_img_name = upload_image(image=profile_img)
                 
                 privileges = Privileges(is_admin=False,can_comment=True,can_post=True)
                 new_user = User(username=username,
@@ -148,7 +150,7 @@ class ModelUser():
         user.realname = new_real_name
         user.country = new_country
     
-        upload_profile_img(user,new_profileimg)
+        upload_image(user,new_profileimg)
         
         db.session.commit()
         return user

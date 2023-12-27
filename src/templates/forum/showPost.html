@@ -29,7 +29,7 @@
 
             {% if post.user_id == current_user.id %}
             <div class="defaultBox">
-                <a class="defaultButton" onclick="confirmDelete()">Delete post</a>
+                <a class="btn btn-danger " onclick="confirmDeletePost()">Delete post</a>
             </div>
             {% endif %}
         </div>
@@ -112,6 +112,13 @@
 
 <br>
 
-
+<script>
+    function confirmDeletePost() {
+        let text = "Are you sure to delete this Post? This action is irreversible "
+        if (confirm(text)) {
+            window.location.replace("{{url_for('forum.deletePost', id = post.id)}}")
+        }
+    }
+</script>
 
 {% endblock %}

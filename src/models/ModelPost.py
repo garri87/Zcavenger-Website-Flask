@@ -62,33 +62,30 @@ class ModelPost():
         try:
             post = Post.query.get(id)
                         
-            if post != None and post.media != "":
+            if post != None: 
+                if post.media != "":
                     try:
                         os.remove('src/uploads/' + post.media)
                         
                     except:
+                        print('File: ' + post.media + ' not found in uploads directory')
                         pass
-                       # print('File: ' + post.media + ' not found in uploads directory')
+                db.session.delete(post)
+                db.session.commit()
                        
+                comments = Comment.query.filter_by(post_id = id).all()
+                if comments != None:
+                    for comment in comments:
+                        if comment.media != "":
+                            try:
+                                os.remove('src/uploads/' + comment.media)
+                            except:
+                                print('File: ' + comment.media + ' not found in uploads directory')
+                                pass
                             
-            
-            db.session.delete(post)
-            db.session.commit()
-            
-            comments = Comment.query.filter_by(post_ID = id).all()
-            
-            for comment in comments:
-                if comment.media != "":
-                    try:
-                        os.remove('src/uploads/' + comment.media)
-                    except:
-                        pass
-                      #  print('File: ' + comment.media + ' not found in uploads directory')
-                    
-            db.session.delete(comments)
-            db.session.commit()            
+                    db.session.delete(comments)
+                    db.session.commit()            
             
         except Exception as ex:
-            raise Exception(ex)
-            #print("No post found with ID: " + id)
-            
+            print("No post found with ID: " + id )
+            print(exec)

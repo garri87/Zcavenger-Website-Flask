@@ -1,48 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-</head>
-<body>
-    
-
-
-    <div class="container">
+{%extends 'layouts/base.html'%}
+{% block content %}
+<br>
+<div class="container">
+    <table class="UserDashboard">
         <h2>User list</h2>
-        <table>
-            <tr class="row">
-                <th>User ID</th>
-                <th>Username</th>
-                <th>Actions</th>
-            </tr>
-            {% for user in users%}
-            <tr class="row">
-                <td>user.id</td>
-                <td>user.username</td>
-                <td>
-                    
-                    <form action="{url_for('update_privileges',userid = user.id)}" method="POST">
-                        <label for="is_admin">Admin</label>
-                        <input type="checkbox" name="is_admin" value="is_admin" {% if user.privileges.is_admin % checked {% endif %}}>
-                        
-                        <label for="can_post">Can Post</label>
-                        <input type="checkbox" name="can_post" value="can_post" {% if user.privileges.can_post % checked {% endif %}}>
-                        
-                        <label for="can_comment">Can comment</label> 
-                        <input type="checkbox" name="can_comment" value="can_comment" {% if user.privileges.can_comment % checked {% endif %}}>
 
-                    </form>
+        <tr class="">
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users%}
+        <tr class="">
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td>
+                <form action="{url_for('update_privileges',userid = user.id)}" method="POST">
+                    <label for="is_admin">Admin</label>
+                    <input type="checkbox" name="is_admin" value="is_admin" {% if user.privileges.is_admin %} checked {%
+                        endif %}>
 
-                    
-                </td>
-            </tr>
+                    <label for="can_post">Can Post</label>
+                    <input type="checkbox" name="can_post" value="can_post" {% if user.privileges.can_post %} checked {%
+                        endif %}>
 
-        </table>
-        
-    </div>
+                    <label for="can_comment">Can comment</label>
+                    <input type="checkbox" name="can_comment" value="can_comment" {% if user.privileges.can_comment %}
+                        checked {% endif %}>
+                    <input type="submit" class="DownloadButton" value="Save">
+
+                </form>
 
 
-</body>
-</html>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+<br>
+{% endblock %}

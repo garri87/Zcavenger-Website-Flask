@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
-  `post_ID` int(11) DEFAULT NULL,
-  `user_ID` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `text` text DEFAULT NULL,
   `media` varchar(255) DEFAULT NULL,
   `createdate` datetime DEFAULT NULL

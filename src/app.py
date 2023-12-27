@@ -11,6 +11,7 @@ from models.ModelUser import ModelUser
 
 from routes.auth import auth
 from routes.forum import forum
+from routes.admin import admin
 
 import utils.serializer as serializer 
 from flask_wtf.csrf import generate_csrf
@@ -32,6 +33,7 @@ def load_user(id):
 
 app.register_blueprint(auth)
 app.register_blueprint(forum)
+app.register_blueprint(admin)
 
 @app.context_processor
 def csrf():
@@ -63,17 +65,22 @@ def contacForm():
             _email = request.form['email']
             _text = request.form['text']
             
-            msg = Message('Zcavenger.com | New message', sender = 'noreply@zcavenger.com', recipients= ['garri87games@gmail.com'])
+            if all(char in _email for char in ['@', '.']):
+                msg = Message('Zcavenger.com | New message', sender = 'noreply@zcavenger.com', recipients= ['garri87games@gmail.com'])
 
-            msg.body = ""
-            msg.html = render_template('contactMessage.html', 
-                                       name = _name, 
-                                       email = _email, 
-                                       text = _text)
-            mail.send(msg)
-            
-            flash("Thank you, " + _name + " your message was received correctly")
-            return redirect(url_for('index')) 
+                msg.body = ""
+                msg.html = render_template('contact/contactMessage.html', 
+                                        name = _name, 
+                                        email = _email, 
+                                        text = _text)
+                mail.send(msg)
+                
+                flash("Thank you, " + _name + " your message was received correctly", category='general')
+                return redirect(url_for('index')) 
+            else:
+                flash("Please enter a valid E-mail",category='general')
+                return redirect(url_for('index')) 
+
         else:
             print("Error")
             return redirect(url_for('index'))  
