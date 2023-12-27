@@ -13,7 +13,7 @@ config_file = 'settings.py'
 
 app.config.from_pyfile(config_file)
 
-csrf = CSRFProtect()
+csrf = CSRFProtect(app)
 
 csrf.secret_key = app.secret_key
 

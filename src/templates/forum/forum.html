@@ -45,8 +45,7 @@
     <h3 class="defaultBox-title">Latest Posts</h3>
 
     {% for i in range(lastPosts|count) %}
-
-    <div class="post-panel">
+    <a class="post-panel" href="/showPost/{{lastPosts[i].id}}">
 
         <div class="col post-info">
             <p>By: {{lastPosts[i].user.username}}</p>
@@ -55,14 +54,14 @@
         </div>
 
         <div class="col post-title">
-            <a href="/showPost/{{lastPosts[i].id}}">
-                <h4>{{lastPosts[i].title}}</h4>
 
-            </a>
+            <h4>{{lastPosts[i].title}}</h4>
+
+
         </div>
 
-    </div>
 
+    </a>
     {% endfor %}
 </div>
 

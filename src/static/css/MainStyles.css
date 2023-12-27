@@ -12,15 +12,15 @@ font-family: 'Anton', sans-serif;
 
 	--white: rgb(228, 228, 228);
 	--lightred: rgb(208, 0, 0);
-	--darkRed: rgb(126, 0, 0);
+	--darkRed: rgb(129, 30, 30);
 	--darkGray: rgb(22, 22, 22);
 	--mediumGray: rgb(70, 70, 70);
 	--lightGray: rgb(104, 104, 104);
-	--yellow: rgb(255, 200, 0);
-	--orange: rgb(255, 157, 0);
+	--yellow: rgb(226, 178, 3);
+	--orange: rgb(255, 166, 0);
 	--black: rgb(12, 12, 12);
 	--darkBlue: rgb(0, 53, 114);
-	--lightBlue: rgb(0, 88, 187);
+	--lightBlue: rgb(94, 140, 192);
 
 	--font_Inter: 'Inter', sans-serif;
 	--font_Lato: 'Lato', sans-serif;
@@ -544,6 +544,15 @@ input[type=submit]:hover {
 	align-items: center;
 	background-color: var(--darkGray);
 	border: 1px solid var(--darkGray);
+	text-decoration: none;
+}
+
+.post-panel:nth-child(even){
+	background-color: var(--lightGray);
+}
+
+.post-panel:hover{
+	background-color: var(--lightBlue);
 }
 
 .post-title * {
@@ -554,9 +563,7 @@ input[type=submit]:hover {
 }
 
 .post-title {
-	font-family: var(--font_Oswald);
-	background-color: var(--darkGray);
-	
+	font-family: var(--font_Oswald);	
 }
 
 

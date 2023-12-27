@@ -3,7 +3,7 @@ import requests
 
 import settings
 
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager
 
 from flask_mail import Mail, Message
   
@@ -13,8 +13,7 @@ from routes.auth import auth
 from routes.forum import forum
 
 import utils.serializer as serializer 
-from utils.database import db
-import os
+from flask_wtf.csrf import generate_csrf
 
 app = Flask(__name__)
 
@@ -22,7 +21,6 @@ login_manager_app = LoginManager(app)
 
 mail = Mail(app)
 
-from flask_wtf.csrf import generate_csrf
 
 serializer.secretkey = app.config['SECRET_KEY']
 
@@ -40,8 +38,6 @@ def csrf():
     csrf_token = generate_csrf()
     return {'csrf_token': csrf_token}
     
-
-
 @app.route('/')
 @app.route('/index') 
 def index():

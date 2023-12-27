@@ -41,14 +41,14 @@
         {% if current_user.is_authenticated %}
         <div class="DropdownMenu">
 
-            <a class="NavigationButton" href="{{url_for('auth.user_dashboard', user_id = current_user.id    )}}"> <i
+            <a class="DownloadButton" href="{{url_for('auth.user_dashboard', user_id = current_user.id)}}"> <i
                     class="fa-solid fa-user"></i> Profile</a>
 
-            <a class="NavigationButton" href="{{url_for('forum.posts',userID = current_user.id)}}"><i
+            <a class="DownloadButton" href="{{url_for('forum.posts',userID = current_user.id)}}"><i
                     class="fa-solid fa-newspaper"></i> My Posts</a>
 
 
-            <a class="NavigationButton" href="{{ url_for('auth.logout')}}"><i
+            <a class="DownloadButton" href="{{ url_for('auth.logout')}}"><i
                     class="fa-solid fa-right-from-bracket"></i> Log Out</a>
 
         </div>
@@ -56,7 +56,7 @@
         {% else %}
         <form class="LoginForm" action="/login" method="POST" enctype="multipart/form-data">
 
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
 
             <label for="username"><i class="fa-solid fa-user" style="color: white"></i></label>
             <input type="text" name="username" id="username" placeholder="Username">
