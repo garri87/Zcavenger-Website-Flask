@@ -1,4 +1,4 @@
-
+from flask import current_app, flash
 from .entities.Comment import Comment
 
 import os
@@ -38,7 +38,6 @@ class ModelComment():
     def get_comments(self, postID = None,userID = None):
         """returns a list of Comment() objects by post_id or user_id"""
         
-        commentList = list()
         
         if postID is not None: 
             comments = Comment.query.filter(Comment.post_id == postID).order_by(Comment.createdate.desc())
@@ -52,15 +51,26 @@ class ModelComment():
         return comments
     
     @classmethod
-    def delete_comment(db,id):
+    def delete_comment(self,db,id):
         try:
             comment = Comment.query.get(id)
-        
-            if comment.media != "":
-                os.remove('src/uploads/' + comment.media)
+            if comment:
+                file_path, _ = os.path.split(current_app.config['UPLOADS_FOLDER'])
 
-            db.session.delete(comment)
-            db.session.commit()
+                if comment.media != "":
+                    try:
+                        os.remove(os.path.join(current_app.config['UPLOADS_FOLDER'], comment.media))
+                            
+                    except FileNotFoundError as file_not_found:
+                        print("File not found in " + file_path + ". " + str(file_not_found))
+
+                    except Exception as ex:
+                        print("Exception: " + str(ex))
+
+                db.session.delete(comment)
+                db.session.commit()
+            else:
+                flash('Comment not found', category='general')
             
         except Exception as ex:
             raise Exception(ex)

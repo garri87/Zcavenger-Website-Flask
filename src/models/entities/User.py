@@ -19,7 +19,7 @@ class User(UserMixin,db.Model):
    token = db.Column(db.String(255))
    active = db.Column(db.Boolean, default=False)
    
-   privileges = db.relationship('Privileges', back_populates='user', uselist=False)
+   privileges = db.relationship('Privileges', back_populates='user',cascade ='all,delete',  uselist=False)
    posts = db.relationship('Post', back_populates='user', passive_deletes = True)     
    comments = db.relationship('Comment', back_populates='user', passive_deletes = True)    
    

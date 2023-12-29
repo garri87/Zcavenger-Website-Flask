@@ -111,12 +111,12 @@ def deletePost(id):
         post = Post.query.get(id)
         if post.user_id == current_user.id:
             ModelPost.delete_post(db,id)    
-            flash("Post deleted successfully")
+            flash("Post deleted successfully",category='general')
         else:
-            flash("You are not allowed to delete this post")
+            flash("You are not allowed to delete this post",category='general')
     except Exception as ex:
-        flash("An error ocurred when deleting Post")
-        print(ex)
+        flash("An error ocurred when deleting Post",category='general')
+        raise Exception(ex)
         
     return redirect(url_for('forum.forumIndex'))
 
@@ -124,16 +124,16 @@ def deletePost(id):
 @forum.route('/deleteComment/<int:id>')
 @login_required
 def deleteComment(id):
-    
     try:
         comment = Comment.query.get(id)
-        if comment.user_ID == current_user.id:
+        if comment.user_id == current_user.id:
             ModelComment.delete_comment(db,id)    
-            flash("Comment deleted successfully")
+            flash("Comment deleted successfully",category='general')
         else:
-            flash("You are not allowed to delete this comment")
-    except:
-        flash("An error ocurred when deleting comment")
+            flash("You are not allowed to delete this comment", category='general')
+    except Exception as ex:
+        print(ex)
+        flash("An error ocurred when deleting comment", category='general')
         
     return redirect(request.referrer)
 

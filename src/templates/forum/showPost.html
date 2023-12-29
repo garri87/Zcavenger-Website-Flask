@@ -28,14 +28,14 @@
 
 
             {% if post.user_id == current_user.id %}
-            <div class="defaultBox">
-                <a class="btn btn-danger " onclick="confirmDeletePost()">Delete post</a>
+            <div class="">
+                <button class="btn-danger NavigationButton " onclick="confirmDeletePost()">Delete post</button>
             </div>
             {% endif %}
         </div>
         <div class="col post-content">
             <div>
-                <h2>{{post.title}}</h2> <!-- Title -->
+                <h2 class="defaultBox-title">{{post.title}}</h2> <!-- Title -->
             </div>
             <div>
                 <p> {{post.text|safe}} </p>
@@ -71,12 +71,15 @@
             <div class="col post-info">
                 <img src="../uploads/{{comment.user.profileimg}}">
 
-                <div id="comment_user_{{comment.user.id}}">
+                <div id="comment_user_{{comment.id}}">
                     <p>{{comment.user.username}}</p>
                     <p>Date: {{comment.createdate}}</p>
 
                     {% if comment.user.id == current_user.id %}
-                    <a href="{url_for('delete_comment', comment.id)}" class="button">Delete Comment</a>
+
+                    
+                    <a onclick="confirmDeleteComment(`{{ url_for('forum.deleteComment', id=comment.id) }}`)" class="btn btn-danger form-control">Delete Comment</a>
+                                    
                     {% endif %}
                 </div>
             </div>
@@ -119,6 +122,14 @@
             window.location.replace("{{url_for('forum.deletePost', id = post.id)}}")
         }
     }
+
+    function confirmDeleteComment(url){
+        let text = 'Are you sure to delete this Comment? This action is irreversible.'
+                    if (confirm(text)) {
+                        window.location.href = url
+                    }
+    }
+ 
 </script>
 
 {% endblock %}

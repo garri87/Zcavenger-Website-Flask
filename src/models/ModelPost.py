@@ -1,5 +1,6 @@
 from .entities.Post import Post
 from .entities.Comment import Comment
+from models.ModelComment import ModelComment
 from .entities.User import User
 
 from datetime import datetime
@@ -9,7 +10,7 @@ import os
 class ModelPost():
     
     @classmethod
-    def create_post(self,db,title,user_ID,text,media,topic):
+    def create_post(self,db,title,user_id,text,media,topic):
         try:
 
             createdate = datetime.now()
@@ -22,7 +23,7 @@ class ModelPost():
             else:
                 mediaName = None
                 
-            post = Post(title,user_ID,text,mediaName,topic)
+            post = Post(title,user_id,text,mediaName,topic)
             
             db.session.add(post)
             db.session.commit()
@@ -59,33 +60,24 @@ class ModelPost():
         
     @classmethod
     def delete_post(self,db,id):
-        try:
             post = Post.query.get(id)
                         
-            if post != None: 
-                if post.media != "":
+            if post: 
+                if post.media:
                     try:
                         os.remove('src/uploads/' + post.media)
                         
-                    except:
-                        print('File: ' + post.media + ' not found in uploads directory')
+                    except Exception as ex:
+                        print('File: ' + str(post.media) + ' not found in uploads directory ' + str(ex))
                         pass
-                db.session.delete(post)
-                db.session.commit()
+                
                        
                 comments = Comment.query.filter_by(post_id = id).all()
                 if comments != None:
                     for comment in comments:
-                        if comment.media != "":
-                            try:
-                                os.remove('src/uploads/' + comment.media)
-                            except:
-                                print('File: ' + comment.media + ' not found in uploads directory')
-                                pass
-                            
-                    db.session.delete(comments)
-                    db.session.commit()            
-            
-        except Exception as ex:
-            print("No post found with ID: " + id )
-            print(exec)
+                        ModelComment.delete_comment(db,comment.id)
+                    
+                db.session.delete(post)
+                db.session.commit()    
+            else:
+                print("Post not found with id " + str(id))   

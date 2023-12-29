@@ -1,13 +1,19 @@
 
-from flask import flash, redirect, request
+from flask import flash,current_app
 from .entities.User import User
 from .entities.Privileges import Privileges
 from werkzeug.security import generate_password_hash
 from flask_login import login_user
-from datetime import datetime
-import settings
 import os
 from utils.uploads import upload_image
+from enum import Enum
+
+class Rank(Enum):
+    ZOMBIE="Zombie",
+    SURVIVOR="Survivor",
+    MODERATOR="Moderator"
+    ADMIN="Admin"
+    
 
 class ModelUser():
     
@@ -77,7 +83,7 @@ class ModelUser():
                 
                     new_profile_img_name = upload_image(image=profile_img)
                 
-                privileges = Privileges(is_admin=False,can_comment=True,can_post=True)
+                privileges = Privileges(is_admin=False,can_comment=True,can_post=True,rank = Rank.ZOMBIE.value)
                 new_user = User(username=username,
                                 contrasena=hashed_password,
                                 realname=realname,
@@ -129,30 +135,50 @@ class ModelUser():
         try:
             user = User.query.get(id)
             if user.profileimg != "":
-                os.remove('src/uploads/' + user.profileimg)
-            
-            db.session.delete(user)          
+                if user:
+                    file_path, _ = os.path.split(current_app.config['UPLOADS_FOLDER'])
+                    
+                    try:
+                        os.remove(os.path.join(current_app.config['UPLOADS_FOLDER'], user.profileimg))
+                            
+                    except FileNotFoundError as file_not_found:
+                        print("File not found in " + file_path + ". " + str(file_not_found))
 
-            db.session.commit()
-           
+                    except Exception as ex:
+                        print("Exception: " + str(ex))
+                
+                    db.session.delete(user)          
+
+                    db.session.commit()
+                else:
+                    flash('User not found',category='general')
         except Exception as ex:
+            print(ex)
             raise Exception(ex)
 
     
     
     @classmethod
-    def update_user(self, db, user_id, new_password = "", new_mail = "", new_real_name = "", new_country = "", new_profileimg = ""):
+    def update_user(self, db, user_id, new_password = None, new_mail = None, new_real_name = None, new_country = None, new_profileimg = None):
 
         user = User.query.get(user_id)
-        if new_password != "":
-            user.password = generate_password_hash(new_password)
-        user.mail = new_mail
-        user.realname = new_real_name
-        user.country = new_country
-    
-        upload_image(user,new_profileimg)
+        if user:
+            if new_password:
+                user.password = generate_password_hash(new_password)
+            if new_mail:
+                user.mail = new_mail
+            if new_real_name:
+                user.realname = new_real_name
+            if new_country:
+                user.country = new_country
+            if new_profileimg:
+                upload_image(image= new_profileimg, user = user)
         
-        db.session.commit()
-        return user
+            db.session.commit()
+    
+            return user
+        else:
+            flash('No user found', category='general')
+            return None
     
     

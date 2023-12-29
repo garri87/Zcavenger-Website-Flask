@@ -3,3 +3,6 @@ test.py
 __pycache__
 .env
 .vercel
+src/models/entities/__pycache__/
+
+*.pyc

@@ -9,10 +9,10 @@
     function onSubmit(token) {
       document.getElementById("registerForm").submit();
     }
-  </script>
+  </script> 
 
   <form class="Formulario" id="registerForm" action="/register" method="POST" enctype="multipart/form-data">
-    <h1 style="text-align:center">Sign Up</h1>
+    <h2 class="defaultBox-title">Sign Up</h2>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <label for="txtusername">Username</label>
     <input type="text" class="form-control" name="txtusername" required>
