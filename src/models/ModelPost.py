@@ -42,7 +42,7 @@ class ModelPost():
         if post_id:
             posts = Post.query.get(post_id)  
         elif topic: #search by topic
-            posts = Post.query.filter(Post.topic == topic).all()
+            posts = Post.query.filter(Post.topic == topic)
         elif user_id: #search by user id
             posts = (Post.query.join(User).filter(User.id == user_id)
                 .all())

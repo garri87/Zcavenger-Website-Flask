@@ -16,32 +16,39 @@ forum = Blueprint('forum',__name__, template_folder='templates')
 #forum Config
 latestPostsCount = 4
 
-topics = ["announcements",
-             "bugreports",
-             "generaldiscussion",
-             "media"
-             ]
 
+topicsDict = {
+    "announcements": "fa-solid fa-bullhorn",
+    "bugreports": "fa-solid fa-bug",
+    "generaldiscussion": "fa-solid fa-comment",
+    "media": "fa-solid fa-image"
+}
 
+class Topic: 
+    def __init__(self, name, icon, count):
+        self.name = name
+        self.icon = icon
+        self.count = count
 
 @forum.route('/forumIndex')
 def forumIndex():
     
     try:
         topicList = list()
-        for topic in topics:
+        for topic in topicsDict:
             topicPosts = ModelPost.get_posts(topic = topic)
-            topicList.append(topicPosts)
+            topic = Topic(topic,topicsDict[topic], topicPosts.count())    
+            topicList.append(topic)
 
         lastPosts = ModelPost.get_posts(limit=latestPostsCount) 
         
         return render_template('/forum/forum.html',
-                            topics=topics,
                             topicList = topicList,
                             lastPosts = lastPosts,)
     except Exception as ex:
         print(ex)
-        flash("Error Connecting to database, please try again later",category='database_error')
+        raise Exception(ex)
+        flash("Error Connecting to database, please try again later",category='general')
         return redirect(request.referrer)
         
 @forum.route('/posts/<topic>', methods=['GET', 'POST'])

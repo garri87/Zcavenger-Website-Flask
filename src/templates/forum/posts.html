@@ -3,11 +3,11 @@
 {% block content %}
 <br>
 <div class="container">
-{% if topic %}
+    {% if topic %}
     {% if current_user.is_authenticated %}
     <a class="Button NavigationButton" href="{{url_for('forum.create_post', postTopic=topic)}}">New Post</a>
     {% endif %}
-{% endif %}
+    {% endif %}
     <a class="Button NavigationButton" href="/forumIndex"> Back to Topics</a>
 </div>
 <br>

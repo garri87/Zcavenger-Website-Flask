@@ -271,7 +271,7 @@ footer img {
 .FormBox {
 	width: 100%;
 	max-width: 100%;
-	padding: 1%;
+	padding: 2%;
 	background-color: rgb(15, 15, 15);
 	border-top: 1px solid var(--black);
 	animation-name: fadeIn;
