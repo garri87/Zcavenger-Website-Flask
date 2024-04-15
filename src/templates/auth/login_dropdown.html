@@ -34,14 +34,14 @@
             {% if current_user.is_authenticated %}
             <div class="DropdownMenu">
         
-                <a class="DownloadButton" href="{{url_for('auth.user_dashboard', user_id = current_user.id)}}"> <i
+                <a class="DownloadButton" href="{{url_for('auth.user_dashboard', user_id = current_user.id)}}" title="profile"> <i
                         class="fa-solid fa-user"></i> Profile</a>
         
                 <a class="DownloadButton" href="{{url_for('forum.posts',userID = current_user.id)}}"><i
-                        class="fa-solid fa-newspaper"></i> My Posts</a>
+                        class="fa-solid fa-newspaper" title="my posts" ></i> My Posts</a>
         
         
-                <a class="DownloadButton" href="{{ url_for('auth.logout')}}"><i class="fa-solid fa-right-from-bracket"></i> Log
+                <a class="DownloadButton" href="{{ url_for('auth.logout')}}" title="Logout" ><i class="fa-solid fa-right-from-bracket"></i> Log
                     Out</a>
         
             </div>
@@ -65,7 +65,7 @@
         
             <p> Don't have an account?
                 <button class="DownloadButton">
-                    <a style="color: black;" href="{{url_for('auth.register')}}"> SIGN UP </a>
+                    <a style="color: black;" href="{{url_for('auth.register')}}" title="sign up"> SIGN UP </a>
                 </button>
         
             </p>

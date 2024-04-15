@@ -25,7 +25,7 @@
     <h3 class="defaultBox-title">Main Topics</h3>
 
     {% for i in range(topics|length) %}
-    <a class="topic-row" href="{{url_for('forum.posts',topic=topics[i])}}">
+    <a class="topic-row" href="{{url_for('forum.posts',topic=topics[i])}}" title="topic">
 
         <div class="col topic-name">
             <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
@@ -45,7 +45,7 @@
     <h3 class="defaultBox-title">Latest Posts</h3>
 
     {% for i in range(lastPosts|count) %}
-    <a class="post-panel" href="/showPost/{{lastPosts[i].id}}">
+    <a class="post-panel" href="/showPost/{{lastPosts[i].id}}" title="show post">
 
         <div class="col post-info">
             <p>By: {{lastPosts[i].user.username}}</p>

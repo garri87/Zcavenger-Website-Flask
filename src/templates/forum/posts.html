@@ -5,10 +5,10 @@
 <div class="container">
 {% if topic %}
     {% if current_user.is_authenticated %}
-    <a class="Button NavigationButton" href="{{url_for('forum.create_post', postTopic=topic)}}">New Post</a>
+    <a class="Button NavigationButton" href="{{url_for('forum.create_post', postTopic=topic)}}" title="new post" >New Post</a>
     {% endif %}
 {% endif %}
-    <a class="Button NavigationButton" href="/forumIndex"> Back to Topics</a>
+    <a class="Button NavigationButton" href="/forumIndex" title="back to topics"> Back to Topics</a>
 </div>
 <br>
 <div class="container">
@@ -39,7 +39,7 @@
 
         </div>
         <div class="col post-title">
-            <a href="/showPost/{{post.id}}">
+            <a href="/showPost/{{post.id}}" title="show post">
                 <h2>{{post.title}} </h2>
             </a>
         </div>
