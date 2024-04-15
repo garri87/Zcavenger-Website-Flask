@@ -5,7 +5,7 @@
     <div class="row">
         <div class="defaultBox">
             <div style="width: 100%; padding: 2%;">
-                <a class="NavigationButton Button" href="{{url_for('forum.forumIndex')}}">Back to posts</a>
+                <a class="NavigationButton Button" href="{{url_for('forum.forumIndex')}}" title="back to posts">Back to posts</a>
 
             </div>
         </div>
@@ -78,7 +78,7 @@
                     {% if comment.user.id == current_user.id %}
 
                     
-                    <a onclick="confirmDeleteComment(`{{ url_for('forum.deleteComment', id=comment.id) }}`)" class="btn btn-danger form-control">Delete Comment</a>
+                    <a onclick="confirmDeleteComment(`{{ url_for('forum.deleteComment', id=comment.id) }}`)" class="btn btn-danger form-control" title="delete comment">Delete Comment</a>
                                     
                     {% endif %}
                 </div>

@@ -1,18 +1,18 @@
 <header class="NavigationBox">
 
     <nav>
-        <a href="{{url_for('index')}}"> <img src="../static/Img/TitleTransparent.png" class="logo logo-main" id="logo"></a>
+        <a href="{{url_for('index')}}"> <img src="../static/Img/TitleTransparent.png" class="logo logo-main" alt="Zcavenger logo" title="Zcavenger Logo" id="logo" title="home"></a>
 
-        <a href="{{ url_for('index') }}" class="NavigationButton Button" class="form-control btn">Home</a>
+        <a href="{{ url_for('index') }}" class="NavigationButton Button" class="form-control btn" title="home">Home</a>
 
-        <a href="{{ url_for('development') }}" class="NavigationButton Button" class="form-control btn">Development</a>
+        <a href="{{ url_for('development') }}" class="NavigationButton Button" class="form-control btn" title="development">Development</a>
 
-        <a href="{{ url_for('index') }}#contactForm" class="NavigationButton Button" class="form-control btn">Contact</a>
+        <a href="{{ url_for('index') }}#contactForm" class="NavigationButton Button" class="form-control btn" title="contact">Contact</a>
 
-        <a href="{{ url_for('forum.forumIndex')}}" class="NavigationButton Button" class="form-control btn">Forums</a>
+        <a href="{{ url_for('forum.forumIndex')}}" class="NavigationButton Button" class="form-control btn" title="forums">Forums</a>
 
         <a class="DownloadButton Button"
-            href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d">DOWNLOAD</a>
+            href="https://garri87.itch.io/zcavenger/download/eyJpZCI6MTI5NDQ1MiwiZXhwaXJlcyI6MTY2MjEyODcxMH0%3d.V1gBg9hIQMlWcqx3APjQ8x%2f4RjM%3d" title="download">DOWNLOAD</a>
 
         {% include 'auth/login_dropdown.html' %}
 

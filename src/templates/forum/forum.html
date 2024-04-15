@@ -3,20 +3,19 @@
 {% block content %}
 
 <br>
-<div class="container">
-    <div class="defaultBox">
-        <h1 class=""> Zcavenger Forums</h1>
-    </div>
-    <br>
-    <div class="">
-        <h3>Welcome to the Zcavenger official forum, in this section you can find announcements, bug reports, general discussion and more content created by the community. </h3>
-    </div>
+<div class="defaultBox">
+    <h1 style="text-align:center; margin: 0%"> Zcavenger Forums</h1>
+</div>
+<br>
+<div class="defaultBox">
+    <p>Welcome to the Zcavenger official forum, in this section you can find announcements, bug reports,
+        general discussion and more content created by the community. </p>
 </div>
 
 <br>
 {% if current_user.is_authenticated == false %}
 
-<div class="container defaultBox AlertMessage">
+<div class="defaultBox AlertMessage">
     Sign in your account to participate in the forum and create new posts
 </div>
 <br>
@@ -24,19 +23,18 @@
 
 <div class="container">
     <h3 class="defaultBox-title">Main Topics</h3>
-    
-    {% for topic in topicList %}
-    <a class="topic-row" href="{{url_for('forum.posts',topic=topic.name)}}">
-        <div class="container row">
-            <div class="col topic-name">
-                <i class="{{topic.icon}}"></i> {{topic.name}}
-            </div>
-            <div class="col topic-count">
-                
-                <p> {{topic.count}} posts </p>
-            </div>
+
+    {% for i in range(topics|length) %}
+    <a class="topic-row" href="{{url_for('forum.posts',topic=topics[i])}}" title="topic">
+
+        <div class="col topic-name">
+            <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
         </div>
-        
+        <div class="col topic-count">
+            {% if topicList[i] != None %}
+            <p> {{topicList[i]|count}} posts</p>
+            {% endif %}
+        </div>
     </a>
     {% endfor %}
 </div>
@@ -47,7 +45,7 @@
     <h3 class="defaultBox-title">Latest Posts</h3>
 
     {% for i in range(lastPosts|count) %}
-    <a class=" post-panel" href="/showPost/{{lastPosts[i].id}}">
+    <a class="post-panel" href="/showPost/{{lastPosts[i].id}}" title="show post">
 
         <div class="col post-info">
             <p>By: {{lastPosts[i].user.username}}</p>
@@ -56,8 +54,13 @@
         </div>
 
         <div class="col post-title">
+
             <h4>{{lastPosts[i].title}}</h4>
+
+
         </div>
+
+
     </a>
     {% endfor %}
 </div>
