@@ -24,51 +24,75 @@
 </div>
 <br>
 <div class="row">
-    <div class="col">
-            <div class="news-box">
-                <div>
-                    <h2 class=defaultBox-title>New forum section!</h2>
-                    
-                    <a href="{{ url_for('forum.forumIndex')}}" title="forum">
-                        <p>
-                            Explore our new forum section! Connect, share ideas and discover all the news. Join the discussion now!
-                        </p>
-
-                    </a>
-
-                </div>
-                
-            </div>
-
-    </div>
 
     <div class="col">
         <div class="defaultBox">
             <div class="col">
                 <h2 class=defaultBox-title>About The Game</h2>
                 <div class="row">
-                    <p>Welcome to the official page of Zcavenger, an exciting zombie survival game combining roguelike, shooter, and platform elements. Currently in the alpha stage of development, the game has numerous features to be added, all of which I'll be updating you on through the <a href="{{url_for('development')}}">development</a> section. I sincerely hope you enjoy experiencing the evolution of my first game!</p>
+                    <p>Welcome to the official page of Zcavenger, an exciting zombie survival game combining roguelike,
+                        shooter, and platform elements. Currently in the alpha stage of development, the game has
+                        numerous features to be added, all of which I'll be updating you on through the <a
+                            href="{{url_for('development')}}">development</a> section. I sincerely hope you enjoy
+                        experiencing the evolution of my first game!</p>
 
-                        <p>Best regards,</p>
-                        
-                        <p><b><i>Pablo Flores
-                        </i></b></p>
-                        
-        
-                    
+                    <p>Best regards,</p>
+                    <br>
+                    <p><b><i>Pablo Flores
+                            </i></b></p>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="col">
+        <div class="defaultBox news-box" style="background-image: url('static/Img/ZombiePC.png')">
+            <div>
+                <h2 class=defaultBox-title>New forum section!</h2>
+
+                <a href="{{ url_for('forum.forumIndex')}}" title="forum">
+                    <p>
+                        Explore our new forum section! Connect, share ideas and discover all the news. Join the
+                        discussion now!
+                    </p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col">
+        <div class="defaultBox news-box" style="background-image: url('static/Img/patreon_zombie.jpeg');">
+            <div>
+                <h2 class=defaultBox-title>Support on Patreon! </h2>
+
+                <a href="https://patreon.com/zcavenger?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator"
+                    title="Patreon">
+                    <p>
+                        Your support helps me create new content, improve features, and deliver exclusive updates. Be
+                        part of the adventure and get special rewards!
+                    </p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
 </div>
 <br>
 <div class="row">
     <div class="col">
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/ButFzvM5TiQ?si=TGCcnP0DZ76EYKlv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/ButFzvM5TiQ?si=TGCcnP0DZ76EYKlv"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
     </div>
     <div class="col">
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/J0zgmTU7n0k?si=wwi1EfXv1lWi4mCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/J0zgmTU7n0k?si=wwi1EfXv1lWi4mCQ"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
     </div>
 </div>
 

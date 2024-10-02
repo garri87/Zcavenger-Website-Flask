@@ -237,20 +237,19 @@ footer img {
 	
 }
 
+.defaultBox p{
+	margin: 3%;
+	color: var(--white);
+	font-family: Calibri;
+	text-align: justify;
+	font-family: 'Oswald', sans-serif;
+	width: fit-content;
+}
 
 .defaultBox-title {
 	color: var(--white);
 	background-color: var(--darkRed);
 	padding: 1%;
-}
-
-#defaultBoxText {
-	margin: 1%;
-	color: var(--white);
-	font-family: Calibri;
-	text-align: justify;
-	font-family: 'Oswald', sans-serif;
-
 }
 
 .devLog-box{
@@ -424,7 +423,7 @@ input[type=submit]:hover {
 }
 
 .news-box{
-	background-image: url('../Img/ZombiePC.png');
+	
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
