@@ -34,20 +34,19 @@ class Topic:
 def forumIndex():
     
     try:
-        topicList = list()
+        topicList = {}
         for topic in topicsDict:
             topicPosts = ModelPost.get_posts(topic = topic)
-            topic = Topic(topic,topicsDict[topic], topicPosts.count())    
-            topicList.append(topic)
+            topic = Topic(name=topic,icon=topicsDict[topic],count=len(topicPosts))    
+            topicList[topic] = topic
 
         lastPosts = ModelPost.get_posts(limit=latestPostsCount) 
-        
         return render_template('/forum/forum.html',
                             topicList = topicList,
                             lastPosts = lastPosts,)
     except Exception as ex:
         print(ex)
-        raise Exception(ex)
+        #raise Exception(ex)
         flash("Error Connecting to database, please try again later",category='general')
         return redirect(request.referrer)
         
@@ -63,12 +62,10 @@ def posts(topic = None, userID = None):
     if topic != None:
         print("Topic:" + str(topic))
         postsList = ModelPost.get_posts(topic = topic)
-
     return render_template('/forum/posts.html',
             postsList = postsList,
             topic = topic,
             user_id = userID)
-   
    
    
 @forum.route('/create_post/<postTopic>', methods = ['GET','POST'])
@@ -108,8 +105,6 @@ def postComment(postID):
          
     return redirect(url_for('forum.showPost',id = postID))        
        
-    
-    
 @forum.route('/deletePost/<int:id>')
 @login_required
 def deletePost(id):
@@ -126,7 +121,6 @@ def deletePost(id):
         raise Exception(ex)
         
     return redirect(url_for('forum.forumIndex'))
-
 
 @forum.route('/deleteComment/<int:id>')
 @login_required

@@ -51,7 +51,7 @@ class ModelPost():
         if limit > 0:
             posts = Post.query.order_by(Post.createdate.desc()).limit(limit).all()
                
-        return posts
+        return list(posts)
         
         #except:
            # print('no Post found')

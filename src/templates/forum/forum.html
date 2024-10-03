@@ -24,16 +24,14 @@
 <div class="container">
     <h3 class="defaultBox-title">Main Topics</h3>
 
-    {% for i in range(topics|length) %}
-    <a class="topic-row" href="{{url_for('forum.posts',topic=topics[i])}}" title="topic">
+    {% for topic in topicList %}
+    <a class="topic-row" href="{{url_for('forum.posts',topic=topic.name)}}" title="topic">
 
         <div class="col topic-name">
-            <i class="fa-solid fa-bullhorn"></i> {{topics[i]}}
+            <i class="{{topic.icon}}"></i> {{topic.name}}
         </div>
         <div class="col topic-count">
-            {% if topicList[i] != None %}
-            <p> {{topicList[i]|count}} posts</p>
-            {% endif %}
+            <p> {{topic.count}} posts</p>
         </div>
     </a>
     {% endfor %}

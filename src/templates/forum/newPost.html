@@ -9,10 +9,15 @@
 
         <p>Creating new post for: {{topic}}</p>
         <br>
-        <label for="txtTitle">Title</label>
-        <input type="text" name="txtTitle" required>
+        <div>
+          <label for="txtTitle">Title</label>
+          <input type="text" name="txtTitle" required>
+        </div>
+  
         <br>
-        {{ ckeditor.create() }}
+        <div class="defaultBox">
+          {{ ckeditor.create() }}
+        </div>
         <br>
         <label for="media">Media:</label>
         <input type="file" name="media" id="fileSelector" onchange="previewFile()">
